@@ -27,6 +27,10 @@
 
 		//selected comment
 		private var _comments:Array = new Array();
+		
+		//set number,1,2,3,4
+		private var _setNumber:int = Math.round(Math.random()*4);
+		//private var _setNumber:int =2;
 
 		public function MicroBlogMain()
 		{
@@ -35,6 +39,19 @@
 			page1.btnLogin.addEventListener(MouseEvent.CLICK,blogClickHandler);
 		}
 
+		public function get setNumber():int
+		{
+			return _setNumber;
+			
+			
+			
+		}
+		
+		public function set setNumber(value:int):void
+		{
+			
+			this._setNumber = value;
+		}
 		public function set friends(value:Array):void
 		{
 			

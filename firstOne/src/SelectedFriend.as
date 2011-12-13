@@ -11,8 +11,8 @@
 
 		private var _friendObj:Object;
 
-		private var _txtFrom:TextField = new TextField();
-		private var _txtTo:TextField = new TextField();
+		private var _imageTxt:Image;
+		private var _imagePic:Image;
 
 		var friendResultImage:FriendResultImage;
 
@@ -21,6 +21,7 @@
 			// constructor code
 
 			this._friendObj = obj;
+			
 
 			showInfo();
 
@@ -34,28 +35,22 @@
 			friendResultImage.friendData = _friendObj;
 			friendResultImage.loadImage();
 			//show comment;
-			_txtFrom.x = 100;
-			_txtFrom.y = 15;
-			_txtFrom.width = 400;
-			_txtFrom.height = 30;
-			_txtFrom.wordWrap = true;
-			_txtFrom.text = Comments.getCommentByID(_friendObj.commentID);
-			var txtFormat:TextFormat = new TextFormat();
-			txtFormat.color = 0xFF9100;
-			txtFormat.size = 28;
-			_txtFrom.setTextFormat(txtFormat);
-			//this.addChild(_txtFrom);
-			//show comment;
-			_txtTo.x = 100;
-			_txtTo.y = 50;
-			_txtTo.width = 400;
-			_txtTo.height = 40;
-			_txtTo.wordWrap = true;
-			_txtTo.text = Comments.getCommentByID(_friendObj.commentID);
-			
-			_txtTo.setTextFormat(txtFormat);
+			_imageTxt = new Image(_friendObj.setNumber,2,_friendObj.picSeq)
 
-			this.addChild(_txtTo);
+			this.addChild(_imageTxt);
+			_imageTxt.x = 100;
+			_imageTxt.y = 45;
+			_imageTxt.loadImage();
+			//show comment;
+			_imagePic = new Image(_friendObj.setNumber,0,_friendObj.picSeq)
+
+			this.addChild(_imagePic);
+			_imagePic.x = 450;
+			_imagePic.y = -25;
+			_imagePic.loadImage();
+
+
+			
 
 
 		}

@@ -53,6 +53,20 @@
 			}
 			return commentArray;
 		}
+		//get comment by Array
+		static public function getCommentBySet(setNumber:int):Array
+		{
+
+			var commentArray:Array = new Array();
+			var count:int =0;
+			for (var i:int =setNumber*3; i<(setNumber+1) *3; i++)
+			{
+
+				commentArray[count] = _comments[i];
+				count++;
+			}
+			return commentArray;
+		}
 
 
 	}

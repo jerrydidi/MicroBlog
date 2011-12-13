@@ -16,6 +16,8 @@
 		public var selectedImage:FriendImage;
 
 		private var _friendNum:int;
+		
+		private var _currentSelectedFriend:FriendImage;
 		var showFriends:Array = new Array();
 
 		public function FriendsPanel(microBlogMain:MicroBlogMain,seq:int)
@@ -64,15 +66,19 @@
 			}
 			//default select one is the first one
 			_microBlogMain._selectedFriends[_seq] = (showFriends[0] as FriendImage)._friendData;
-
+			_currentSelectedFriend =  showFriends[0] as FriendImage;
+			_currentSelectedFriend.selected = true;
 		}
 
 		private function friendSelected(e:MouseEvent):void
 		{
 
 			selectedImage = e.currentTarget as FriendImage;
+			_currentSelectedFriend.selected = false;
+			_currentSelectedFriend = selectedImage;
+			_currentSelectedFriend.selected = true;
 			//selectedImage.y=20;
-			_microBlogMain._selectedFriends[_seq] = selectedImage._friendData;
+			_microBlogMain._selectedFriends[_seq] = _currentSelectedFriend._friendData;
 		}
 
 

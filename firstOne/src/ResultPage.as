@@ -55,14 +55,16 @@
 			//removeEventListener(Event.ENTER_FRAME,showResult);
 			//get the random comment;
 			//get 3 random number from 12
-			_mainPage.comments = Util.getRamdonListIndex(3,12);
+			//mainPage.comments = Util.getRamdonListIndex(3,12);
 
 			//show selected friend
 			for(var i:int =0;i<3;i++)
 			{
 				//add comment id to friend object to pass to selected friend
 				var obj:Object = _mainPage._selectedFriends[i];
-				obj.commentID = _mainPage.comments[i];
+				//add set number and pic sequece information
+				obj.setNumber = _mainPage.setNumber;
+				obj.picSeq = i;
 				var selectedFriend:SelectedFriend = new SelectedFriend(obj);
 
 				selectedFriend.y = -220 + i * 147;

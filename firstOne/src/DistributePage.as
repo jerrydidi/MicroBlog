@@ -12,6 +12,9 @@ package
 		//
 		//
 		private var _text:TextField = new TextField(); 
+		
+		private var _imageResult:Image;
+
 		//
 		public function DistributePage(mainPage:MicroBlogMain)
 		{
@@ -58,6 +61,15 @@ package
 			_text.wordWrap = true;
 			_text.htmlText = concatcComments();
 			//_text.text = _mainPage.comments.length.toString();
+			
+						//show comment;
+			_imageResult = new Image(_mainPage.setNumber,1);
+
+			_mainPage.page4.addChild(_imageResult);
+			_imageResult.x = -268;
+			_imageResult.y = -123;
+			_imageResult.loadImage();
+
 
 		}
 		
@@ -68,7 +80,7 @@ package
 			var comments:Array ;
 			var strComments = "我放了100￥贷款";
 			
-			comments = Comments.getCommentByArray(_mainPage.comments);
+			comments = Comments.getCommentBySet(_mainPage.setNumber);
 			for(var i:int = 0;i<comments.length;i++)
 			{
 				

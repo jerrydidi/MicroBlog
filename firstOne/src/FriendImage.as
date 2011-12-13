@@ -16,10 +16,32 @@
 		var _friendData:Object;
 
 		var _nickName:TextField = new TextField();
+		
+		var _selectIcon:MovieClip;
+		
+		private var _selected:Boolean = false;
 
 		public function FriendImage()
 		{
 			// constructor code
+			_selectIcon = new selectIcon();
+			_selectIcon.visible = false;
+			_selectIcon.x = 45;
+			_selectIcon.y = 45;
+			
+			this.addChild(_selectIcon);
+		}
+		
+		public function set selected(value:Boolean):void
+		{
+			this._selected = value;
+			_selectIcon.visible = value;
+
+		}
+		
+		public function get selected():Boolean
+		{
+			return _selected;
 		}
 
 
@@ -41,6 +63,7 @@
 			_loader.x = 6;
 			_loader.y = 6;
 			this.addChild(_loader);
+			this.swapChildren(_loader,_selectIcon);
 			_loader.load(new URLRequest(_imageURL));
 
 		}
@@ -57,6 +80,9 @@
 			txtFormat.color = 0x0084D6;
 			_nickName.setTextFormat(txtFormat);
 			this.addChild(_nickName);
+			
+			//
+
 
 		}
 
