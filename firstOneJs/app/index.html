@@ -25,12 +25,17 @@
     }
 </script>
 <script type="text/javascript">
+//    $.WB2
+</script>
+<script type="text/javascript">
     //- 4027475663
     //- 2658053936
     var hash = document.location.hash.substring(1);
     var token = getParamByName(hash, "access_token");
     var uid = getParamByName(hash, "uid");
 	alert("token:" + token + ", uid:" + uid);
+
+	//$.WB2.api("/friendships/friends.json?callback", function(){});
 	
     (function($){
         $(function(){
@@ -41,6 +46,7 @@
 	            method: "GET",
 	            dataType: "jsonp",
 //	            crossDomain: "true",
+//	            jsonp: "jQueryJSONPResultFun",
 	            success: function(result){alert(result.data);}
 	        });
 
