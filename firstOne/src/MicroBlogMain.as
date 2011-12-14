@@ -29,8 +29,8 @@
 		private var _comments:Array = new Array();
 		
 		//set number,1,2,3,4
-		//private var _setNumber:int = Math.round(Math.random()*4);
-		private var _setNumber:int =0;
+		private var _setNumber:int = Math.round(Math.random()*4);
+		//private var _setNumber:int =0;
 
 		public function MicroBlogMain()
 		{
