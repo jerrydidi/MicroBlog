@@ -46,7 +46,7 @@
 	            method: "GET",
 	            dataType: "jsonp",
 //	            crossDomain: "true",
-//	            jsonp: "jQueryJSONPResultFun",
+                jsonpCallback: "jQueryJSONPResultFun",
 	            success: function(result){alert(result.data);}
 	        });
 
