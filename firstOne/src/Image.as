@@ -4,6 +4,8 @@
 	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.net.URLRequest;
+	import flash.display.Bitmap;
+	import flash.display.BlendMode;
 
 
 	public class Image extends MovieClip
@@ -83,7 +85,10 @@
 
 			
 			//
-
+			var bitmap:Bitmap = _loader.content as Bitmap;
+			bitmap.smoothing = true;
+			
+			//bitmap.blendMode =  BlendMode.OVERLAY;
 
 		}
 
