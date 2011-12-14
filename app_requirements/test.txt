@@ -1,0 +1,11 @@
+
+test account
+
+smm@creditease.cn
+yinongdai567890
+
+
+
+
+      _mb.consumerKey = "4027475663";
+      _mb.consumerSecret = "8e57a27c1f33dad08ef5d3635d6f7d4c";

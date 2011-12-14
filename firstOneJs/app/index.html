@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>宜农贷</title>
+<meta charset="utf-8" />
+<meta name="generator" content="editplus" />
+<meta name="author" content="" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<link rel="stylesheet" type="text/css" href="style.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2658053936" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="js/jquery-1.7.1.js" charset="utf-8"></script>
+<script type="text/javascript">
+    function getParamByName(str, name){
+        name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+        var regex = new RegExp("[^=]?" + name + "=([^&#]*)");
+        var results = regex.exec(str);
+        if(!results){
+            return "";
+        }else{
+            return decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+    }
+</script>
+<script type="text/javascript">
+    //- 4027475663
+    //- 2658053936
+    var hash = document.location.hash.substring(1);
+    var token = getParamByName(hash, "access_token");
+    var uid = getParamByName(hash, "uid");
+    
+//    alert("token:" + token + ", uid:" + uid);
+    (function($){
+        $(function(){
+/*            $.getJSON("https://api.weibo.com/2/account/profile/basic.json",
+                {},
+                function(data){
+                    alert(data);
+                });
+*/
+
+/*
+              WB2.anyWhere(function(W){
+                  W.parseCMD("2/statuses/public_timeline.json", function(sResult, bStatus){
+                      alert(bStatus);
+                      alert(sResult);
+                  }, {access_token:token, uid:uid});
+
+              });
+*/
+
+
+              var request = $.ajax({
+                  url: 'https://api.weibo.com/2/statuses/public_timeline.json',
+                  success: function(data){
+                      alert(data);
+                  },
+                  data: {access_token: token, count: 10},
+                  dataType: "json",
+                  type: "GET"
+              });
+
+              request.done(function(msg){alert(msg);});
+              request.fail(function(j, t){
+                  alert("failed: " + t + ", :" + j);
+              });
+             
+        });
+    })(jQuery);
+
+</script>
+</head>
+<body>
+<!-- 头部 -->
+<div class="header2">
+	<div class="logo">
+		<a href="" id="logo"><img src="images/logo.png" alt="" /></a>
+  </div>
+
+	<div class="barindex"></div>
+	<div class="minipic">
+		<span class="mimg">
+			<img src="images/index_07.jpg" alt="头像" />
+			<p>小雅心儿</p>
+			<input type="checkbox" id="input" />
+		</span>
+		<span class="mimg2">
+			<img src="images/index_07.jpg" alt="头像" />
+			<p>小雅心儿</p>
+			<input type="checkbox" id="input" />
+		</span>
+		<span class="mimg3">
+			<img src="images/index_07.jpg" alt="头像" />
+			<p>小雅心儿</p>
+			<input type="checkbox" id="input" />
+		</span>
+		<span class="btn">
+			<a href=""><img src="images/btn1.png" alt="" /></a>
+		</span>
+	</div>
+
+	<div class="minipic2">
+		<span class="m2img">
+			<img src="images/index_07.jpg" alt="头像" />
+			<p>小雅心儿</p>
+			<input type="checkbox" id="input" />
+		</span>
+		<span class="m2img2">
+			<img src="images/index_07.jpg" alt="头像" />
+			<p>小雅心儿</p>
+			<input type="checkbox" id="input" />
+		</span>
+		<span class="m2img3">
+			<img src="images/index_07.jpg" alt="头像" />
+			<p>小雅心儿</p>
+			<input type="checkbox" id="input" />
+		</span>
+		<span class="btn2">
+			<a href=""><img src="images/btn1.png" alt="" /></a>
+		</span>
+	</div>
+
+	<div class="minipic3">
+		<span class="m3img">
+			<img src="images/index_07.jpg" alt="头像" />
+			<p>小雅心儿</p>
+			<input type="checkbox" id="input" />
+		</span>
+		<span class="m3img2">
+			<img src="images/index_07.jpg" alt="头像" />
+			<p>小雅心儿</p>
+			<input type="checkbox" id="input" />
+		</span>
+		<span class="m3img3">
+			<img src="images/index_07.jpg" alt="头像" />
+			<p>小雅心儿</p>
+			<input type="checkbox" id="input" />
+		</span>
+		<span class="btn3">
+			<a href=""><img src="images/btn1.png" alt="" /></a>
+		</span>
+	</div>
+
+	<div class="button2">
+		<a href=""><img src="images/index_15.jpg" alt="" /></a></div>
+	</div>
+</div>
+</body>
+</html>
