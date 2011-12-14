@@ -30,43 +30,19 @@
     var hash = document.location.hash.substring(1);
     var token = getParamByName(hash, "access_token");
     var uid = getParamByName(hash, "uid");
-    
-//    alert("token:" + token + ", uid:" + uid);
+
     (function($){
         $(function(){
-/*            $.getJSON("https://api.weibo.com/2/account/profile/basic.json",
-                {},
-                function(data){
-                    alert(data);
-                });
-*/
 
-/*
               WB2.anyWhere(function(W){
-                  W.parseCMD("2/statuses/public_timeline.json", function(sResult, bStatus){
+                  W.parseCMD("/statuses/public_timeline.json", function(sResult, bStatus){
                       alert(bStatus);
+                      
                       alert(sResult);
                   }, {access_token:token, uid:uid});
 
               });
-*/
 
-
-              var request = $.ajax({
-                  url: 'https://api.weibo.com/2/statuses/public_timeline.json',
-                  success: function(data){
-                      alert(data);
-                  },
-                  data: {access_token: token, count: 10},
-                  dataType: "json",
-                  type: "GET"
-              });
-
-              request.done(function(msg){alert(msg);});
-              request.fail(function(j, t){
-                  alert("failed: " + t + ", :" + j);
-              });
-             
         });
     })(jQuery);
 
