@@ -8,6 +8,7 @@
 	import flash.text.TextFormat;
 	import com.greensock.TweenLite;
 	import flash.display.Bitmap;	
+	import com.greensock.easing.*;
 	public class FriendImage extends MovieClip
 	{
 		var _loader:Loader = new Loader();
@@ -72,11 +73,13 @@
 
 		private function loadImageComplete(e:Event):void
 		{
+			_loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, loadImageComplete);
+
 			//
 			var bitmap:Bitmap = _loader.content as Bitmap;
 			bitmap.alpha = 0;
 			bitmap.smoothing = true;
-			TweenLite.to(bitmap, 0.5, {alpha:1});
+			TweenLite.to(bitmap, 0.5, {alpha:1, ease:Back.easeIn});
 
 			_nickName.htmlText = Util.getBlogLinkString(_friendData.screen_name,_friendData.url);
 			_nickName.y = 65;

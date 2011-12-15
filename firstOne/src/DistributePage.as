@@ -57,6 +57,7 @@ package
 		private function focusClick(e:MouseEvent):void
 		{
 			
+			trace("focus click");
 			_checked = !_checked;
 			if(_checked)
 			{
