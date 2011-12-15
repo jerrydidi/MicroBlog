@@ -6,6 +6,8 @@
 	import flash.net.URLRequest;
 	import flash.display.Bitmap;
 	import flash.display.BlendMode;
+	import com.greensock.TweenLite;
+
 
 
 	public class Image extends MovieClip
@@ -86,7 +88,9 @@
 			
 			//
 			var bitmap:Bitmap = _loader.content as Bitmap;
+			bitmap.alpha = 0;
 			bitmap.smoothing = true;
+			TweenLite.to(bitmap, 0.5, {alpha:1});
 			
 			//bitmap.blendMode =  BlendMode.OVERLAY;
 

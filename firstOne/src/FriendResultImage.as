@@ -6,7 +6,8 @@
 	import flash.net.URLRequest;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
-
+	import com.greensock.TweenLite;
+	import flash.display.Bitmap;	
 	public class FriendResultImage extends MovieClip
 	{
 		var _loader:Loader = new Loader();
@@ -52,6 +53,11 @@
 		{
 			_loader.width = 98;
 			_loader.height = 98;
+			//
+			var bitmap:Bitmap = _loader.content as Bitmap;
+			bitmap.alpha = 0;
+			bitmap.smoothing = true;
+			TweenLite.to(bitmap, 0.5, {alpha:1});
 
 			
 			_nickName.htmlText = Util.getBlogLinkString(_friendData.screen_name,_friendData.url);

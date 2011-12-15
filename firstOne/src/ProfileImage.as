@@ -6,7 +6,8 @@
 	import flash.net.URLRequest;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
-
+	import com.greensock.TweenLite;
+	import flash.display.Bitmap;
 	public class ProfileImage extends MovieClip
 	{
 		var _loader:Loader = new Loader();
@@ -53,6 +54,11 @@
 			_loader.width = 90;
 			_loader.height = 90;
 
+			//
+			var bitmap:Bitmap = _loader.content as Bitmap;
+			bitmap.alpha = 0;
+			bitmap.smoothing = true;
+			TweenLite.to(bitmap, 0.5, {alpha:1});
 
 
 		}
