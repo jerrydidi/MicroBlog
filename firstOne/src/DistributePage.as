@@ -4,6 +4,8 @@ package
 	import flash.display.MovieClip;
 	import flash.text.TextField;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
+	import flash.net.URLRequest;
 
 	public class DistributePage 
 	{
@@ -14,6 +16,8 @@ package
 		private var _text:TextField = new TextField(); 
 		
 		private var _imageResult:Image;
+		
+		private var _checked:Boolean = true;
 
 		//
 		public function DistributePage(mainPage:MicroBlogMain)
@@ -25,6 +29,9 @@ package
 			
 			
 		}
+		
+
+
 		//
 		private function enterPage(e:Event):void
 		{
@@ -36,11 +43,42 @@ package
 			else
 			{
 				_mainPage.removeEventListener(Event.ENTER_FRAME,init);
+				
+				_mainPage.page4.logo.addEventListener(MouseEvent.CLICK,logoClick);
+				//checked = true;
+				_mainPage.page4.mcFocus.addEventListener(MouseEvent.CLICK,focusClick);
+				_mainPage.page4.mcFocus.buttonMode = true;
 				showComments();
 			}
 			
 
 		}
+		//
+		private function focusClick(e:MouseEvent):void
+		{
+			
+			trace("focus click");
+			_checked = !_checked;
+			if(_checked)
+			{
+				_mainPage.page4.mcFocus.txtCheck.text="√";
+				
+			}
+			else
+			{
+				_mainPage.page4.mcFocus.txtCheck.text="";
+				
+				
+			}
+			
+		}
+		
+		//
+		private function logoClick(e:MouseEvent):void
+		{
+			var url:URLRequest = new URLRequest("http://www.yinongdai.com");  
+			flash.net.navigateToURL(url, "_blank");
+			}
 
 		//show comments
 		private function showComments():void

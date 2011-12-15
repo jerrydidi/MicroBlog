@@ -91,6 +91,7 @@
 			
 
 		}
+		//new MicroBlogEvent
 		private function onGetProfileError(e:MicroBlogErrorEvent):void
 		{
 

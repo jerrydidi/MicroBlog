@@ -4,6 +4,10 @@
 	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.net.URLRequest;
+	import flash.display.Bitmap;
+	import flash.display.BlendMode;
+	import com.greensock.TweenLite;
+	import com.greensock.easing.*;
 
 
 	public class Image extends MovieClip
@@ -81,9 +85,15 @@
 		private function loadImageComplete(e:Event):void
 		{
 
+			_loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, loadImageComplete);
 			
 			//
-
+			var bitmap:Bitmap = _loader.content as Bitmap;
+			bitmap.alpha = 0;
+			bitmap.smoothing = true;
+			TweenLite.to(bitmap, 0.5, {alpha:1, ease:Back.easeIn});
+			
+			//bitmap.blendMode =  BlendMode.OVERLAY;
 
 		}
 
