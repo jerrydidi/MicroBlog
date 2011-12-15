@@ -30,30 +30,27 @@
             $.getJSON("https://api.weibo.com/2/friendships/friends.json?callback=?",
                    {access_token: token, uid: uid},
                    function(result){
-                       var friends = result.data.users;
-                       if(friends == null){
+                       var users = result.data.users;
+                       if(users == null){
                            return;
                        }
-                       var rndFriendIndexs = getRandomIndex(friends.length, 3);
-                       $.each(rndFriendIndexs, function(i, n){
-                           var friend = friends[n];
-                           $("div.minipic span:eq(" + i +")").replaceWith($('<span class="mimg"><img src="'+friend.profile_image_url+'" alt="头像"/><p>' + friend.screen_name + '</p></span>'));
-                       });
+                       //alert(result.data.users);
                    });
 
 //            $('<span class="mimg"><img alt="头像"/><p></p></span>').wrap();
 
             $("#okButton").click(function(){
-                  $.get("end-embed.html", function(data){$("body").html(data);});
-//                var buffer = $("<div/>");
-//                buffer.load("end-embed.html");
-//                $("body").empty();
-//                $("body").append(buffer.empty());
+                var buffer = $("<div/>");
+                buffer.load("end-embed.html");
+                $("body > div").empty();
+                $("body").append(buffer.empty());
             });
 
         });
 
     })(jQuery);
+
+    
 
 </script>
 </head>
@@ -69,14 +66,17 @@
 	<div class="minipic">
 		<span class="mimg">
 			<img src="images/index_07.jpg" alt="头像" />
+			<p>小雅心儿</p>
 			<input type="checkbox" id="input" />
 		</span>
 		<span class="mimg2">
 			<img src="images/index_07.jpg" alt="头像" />
+			<p>小雅心儿</p>
 			<input type="checkbox" id="input" />
 		</span>
 		<span class="mimg3">
 			<img src="images/index_07.jpg" alt="头像" />
+			<p>小雅心儿</p>
 			<input type="checkbox" id="input" />
 		</span>
 		<span class="btn">
@@ -85,17 +85,17 @@
 	</div>
 
 	<div class="minipic2">
-		<span class="mimg">
+		<span class="m2img">
 			<img src="images/index_07.jpg" alt="头像" />
 			<p>小雅心儿</p>
 			<input type="checkbox" id="input" />
 		</span>
-		<span class="mimg2">
+		<span class="m2img2">
 			<img src="images/index_07.jpg" alt="头像" />
 			<p>小雅心儿</p>
 			<input type="checkbox" id="input" />
 		</span>
-		<span class="mimg3">
+		<span class="m2img3">
 			<img src="images/index_07.jpg" alt="头像" />
 			<p>小雅心儿</p>
 			<input type="checkbox" id="input" />
@@ -106,17 +106,17 @@
 	</div>
 
 	<div class="minipic3">
-		<span class="mimg">
+		<span class="m3img">
 			<img src="images/index_07.jpg" alt="头像" />
 			<p>小雅心儿</p>
 			<input type="checkbox" id="input" />
 		</span>
-		<span class="mimg2">
+		<span class="m3img2">
 			<img src="images/index_07.jpg" alt="头像" />
 			<p>小雅心儿</p>
 			<input type="checkbox" id="input" />
 		</span>
-		<span class="mimg3">
+		<span class="m3img3">
 			<img src="images/index_07.jpg" alt="头像" />
 			<p>小雅心儿</p>
 			<input type="checkbox" id="input" />
@@ -127,7 +127,7 @@
 	</div>
 
 	<div class="button2">
-		<img id="okButton" src="images/index_15.jpg" alt="" /></div>
+		<a id="okButton" href="javascript:void(0);"><img src="images/index_15.jpg" alt="" /></a></div>
     </div>
 </div>
 </body>
