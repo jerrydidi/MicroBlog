@@ -36,7 +36,7 @@ a:hover{text-decoration:none}
 .btxt3 {padding:2px;margin:20px 0 0 16px;}
 .endtxt3 {padding:2px;width:337px;height:102px;margin:18px 0 0 20px;}
 
-.button {float:left;width:129px;height:51px;margin:35px 0 0 306px;display:inline;}
+.button {float:left;width:129px;height:51px;margin:35px 0 0 306px;display:inline;cursor:pointer}
 
 
 

@@ -2,8 +2,12 @@ var token    /*String*/,
     uid      /*String*/,
     friends  /*Array*/,
     selectedUsers /*Array<JSON>*/,
-    location = window.location,
+    url = window.location,
     $loadingImg = $("<img/>").attr("src", "images/loading.jpg");
+
+var actions = {
+	
+};
 
 function /*Array<Number>*/ getRandomIndex(total/*Number*/, limits/*Number*/){
 	var result = new Array();
