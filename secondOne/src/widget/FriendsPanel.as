@@ -5,6 +5,7 @@
 	import com.greensock.TweenLite;
 	import com.greensock.easing.*;
 	import event.DragCompleteEvent;
+	import flash.text.TextField;
 
 	public class FriendsPanel extends MovieClip
 	{
@@ -12,8 +13,15 @@
 		private var _friends:Array;
 		private var _friendNum:int;
 		
+		private var _left:TextField = new TextField(); 
+		private var _right:TextField = new TextField();
+		
+		private var _drageItem:FriendItem;
+		private var panel:MovieClip= new MovieClip();
+	
 		//pic number per row
 		private var _rowNum:int = 6;
+		//
 		
 		public var _seq:int = 0;
 		
@@ -25,58 +33,123 @@
 			this._friends = friends;
 			this._friendNum = _friends.length;
 			
+			_left.x = 0;
+			_left.text ="<"
+			_right.text =">"
+			_right.x = 200;
+			addChild(_left);
+			addChild(_right);
+			_left.addEventListener(MouseEvent.CLICK,prevPage);
+			_right.addEventListener(MouseEvent.CLICK,nextPage);
 			listAllFriends();
+		}
+		
+		private function prevPage(e:MouseEvent):void
+		{
+			var targetX:Number = panel.x - 150;
+			TweenLite.to(panel, 0.5, {x:targetX});
+
+		}
+		private function nextPage(e:MouseEvent):void
+		{
+			var targetX:Number = panel.x + 150;
+			TweenLite.to(panel, 0.5, {x:targetX});
+
 		}
 
 		public function listAllFriends():void
 		{
 			var row:int = 0;
 			var j:int = 0;
+			panel.x = 30;
+			this.addChild(panel);
+			
+			var mcMask:MovieClip = new MovieClip();
+			mcMask.graphics.beginFill(0xFF9800,1);
+			mcMask.graphics.drawRect(0,0,150,50);
+			mcMask.graphics.endFill()
+			mcMask.x = 30;
+			this.addChild(mcMask);
+			
+			panel.mask = mcMask;
 			for  (var i:int =0;i<_friends.length;i++)
 			{
 
 				//trace(":" +_friends[i].profile_image_url +"::" + i.toString());
 				var friendItem:FriendItem = new FriendItem(_friends[i]);
-				friendItem.x = j * 50;
-				friendItem.y = row * 50;
+				friendItem.x = i * 50 ;
+				//friendItem.y = row * 50;
 				
 				friendItem.oringinX = friendItem.x;
 				friendItem.oringinY = friendItem.y;
-				friendItem.addEventListener(MouseEvent.MOUSE_DOWN,pickup); 
-				friendItem.addEventListener(MouseEvent.MOUSE_UP,place); 
-				addChild(friendItem);
 				
-				if(j<_rowNum)
-				{
-					j++;
-				}
-				else
-				{
-					j = 0;
-					row ++;
-				}
+				friendItem.addEventListener(MouseEvent.CLICK,place); 
+				panel.addChild(friendItem);
 				
+
 			}
 		}
 		
-		//
-		private function pickup(e:MouseEvent):void
-		{
-			(e.currentTarget as FriendItem).startDrag();
-		}
-		
+//		//
+//		private function pickup(e:MouseEvent):void
+//		{
+//			
+//
+//			var dragedItem:FriendItem;
+//			var newItem:FriendItem;
+//			dragedItem = e.currentTarget as FriendItem
+//			dragedItem.removeEventListener(MouseEvent.MOUSE_DOWN,pickup); 
+//			
+//			newItem = new FriendItem(dragedItem.friendData);
+//			newItem.x = dragedItem.x;
+//			newItem.y = dragedItem.y;
+//			newItem.addEventListener(MouseEvent.MOUSE_DOWN,pickup); 
+//			
+//			//dragedItem.x= 25;
+//			//dragedItem.y= 25;
+//			
+//			//_drageItem.scaleX = 0.5;
+//			//_drageItem.scaleY = 0.5;
+//			
+//			
+//			addChild(newItem);
+//			this.swapChildren(newItem,dragedItem);
+//				
+//			
+//			_drageItem = dragedItem;
+//			
+//			_drageItem.addEventListener(MouseEvent.MOUSE_UP,place); 
+//			_drageItem.alpha = 0.5;
+//
+//			_drageItem.startDrag();
+//			
+//		}
+//		
 		//
 		private function place(e:MouseEvent):void
 		{
-			var dragImage:FriendItem;
-			dragImage = e.currentTarget as FriendItem;
-			dragImage.stopDrag();
+			trace("place");
+
+			_drageItem = e.currentTarget as FriendItem;
+
+
+			//_drageItem.removeEventListener(MouseEvent.MOUSE_UP,place); 
+
+			//_drageItem.stopDrag();
+
 			var dragCompleteEvent :DragCompleteEvent= new  DragCompleteEvent(DragCompleteEvent.DRAG_COMPLETE_EVENT);
-			dragCompleteEvent.dragX = e.stageX;
-			dragCompleteEvent.dragY = e.stageY;
+			//dragCompleteEvent.dragX = e.stageX;
+			//dragCompleteEvent.dragY = e.stageY;
+			dragCompleteEvent.dragItem = _drageItem;
 			this.dispatchEvent(dragCompleteEvent);
 			
-			TweenLite.to(dragImage, 0.5, {x:dragImage.oringinX ,y:dragImage.oringinY });
+			//TweenLite.to(_drageItem, 0.5, {alpha:0,onComplete:fadeOutComplete});
+		}
+		
+		private function fadeOutComplete():void
+		{
+			
+			this.removeChild(_drageItem);
 		}
 		
 		//

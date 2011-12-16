@@ -20,6 +20,11 @@
 			this.addChild(_friendImage);
 			_friendImage.loadImage();
 		}
+		
+		public function get friendData():Object
+		{
+			return _friendData;
+		}
 	}
 	
 }

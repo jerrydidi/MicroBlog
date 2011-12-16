@@ -12,6 +12,8 @@
 		private var _mb:MicroBlog = new MicroBlog();
 		//friends array
 		private var _friends:Array = new Array();
+		//selected friends array
+		private var _selectedFriends:Array = new Array();
 		//profile
 		private var _profile:Object;
 		//
@@ -28,6 +30,19 @@
 			page0.btnLogin.addEventListener(MouseEvent.CLICK,loginClickHandler);
 			
 		}
+		
+		public function set selectedFriends(value:Array):void
+		{
+			
+			this._selectedFriends = value;
+		}
+		
+		public function get selectedFriends():Array
+		{
+			
+			return _selectedFriends;
+		}
+		
 		public function set childPage(childPage:MovieClip):void
 		{
 			this._childPage = childPage;
@@ -75,11 +90,11 @@
 					break;
 				case 2 :
 					this.gotoAndStop(3);
-					//_currentPage = new SelectPageTwo(this);
+					_currentPage = new SelectedPageTwo(this);
 					break;
 				case 3 :
 					this.gotoAndStop(4);
-					//_currentPage = new SelectPageThree(this);
+					//_currentPage = new SelectedPageThree(this);
 					break;
 			}
 		}

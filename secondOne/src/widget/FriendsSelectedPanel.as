@@ -11,7 +11,7 @@ package widget
 		
 		//
 		private var _friendsSelected:Array = new Array();
-		private var _selectedNum:int = 3;
+		private var _selectedNum:int = 1;
 		
 		
 
@@ -23,6 +23,12 @@ package widget
 			
 			listSelectedFriends();
 		}
+		
+		public function get friendsSelected():Array
+		{
+			
+			return _friendsSelected;
+		}
 
 		public function listSelectedFriends():void
 		{
@@ -32,7 +38,7 @@ package widget
 
 				//trace(":" +_friends[i].profile_image_url +"::" + i.toString());
 				var friendItem:FriendItem = new FriendItem(_friends[i]);
-				friendItem.x = i * 50;
+				friendItem.x = i * 100;
 				addChild(friendItem);
 				_friendsSelected.push(friendItem);
 				
@@ -40,23 +46,35 @@ package widget
 			}
 		}
 		
-		public function dragHandler(dragX:Number,dragY:Number):void
+		public function dragHandler(dragItem:FriendItem):void
 		{
 			
 			for each(var friend:FriendItem in _friendsSelected )
 			{
 
-				var localPoint:Point;
-				var globalPoint:Point = new Point();
-				globalPoint.x = dragX;
-				globalPoint.y = dragY;
-				localPoint = friend.globalToLocal(globalPoint);
-				trace("localPoint.x:"+localPoint.x);
-				if(friend.hitTestPoint(localPoint.x,localPoint.y))
-				{
-					trace("I am hit!")
-					}
+
+				replaceFriendItem(friend,dragItem);
+					
+					
+
 			}
 		}
+		
+		private function replaceFriendItem(oringin:FriendItem,place:FriendItem):void
+		{
+			var newItem:FriendItem = new FriendItem(place.friendData);
+			newItem.x = oringin.x;
+			newItem.y = oringin.y;
+			var idx:int;
+			idx =_friendsSelected.indexOf(oringin);
+			_friendsSelected[idx]=newItem;
+			
+			//updateChildren();
+			this.removeChild(oringin);
+			this.addChild(newItem);
+			
+		}
+		
+		
 	}
 }

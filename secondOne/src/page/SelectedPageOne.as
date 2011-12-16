@@ -3,6 +3,7 @@
 	import widget.*;
 	import flash.display.MovieClip;
 	import event.DragCompleteEvent;
+	import flash.events.MouseEvent;
 	
 	public class SelectedPageOne extends BaseSelectedPage {
 
@@ -28,6 +29,15 @@
 			_friendsPanel.addEventListener(DragCompleteEvent.DRAG_COMPLETE_EVENT,dragComplete)
 			_mainPage.childPage.addChild(_friendsPanel);
 			//
+			_mainPage.childPage.mcToPageThree.addEventListener(MouseEvent.CLICK,nextPage);
+			//
+			
+		}
+		
+		private function nextPage(e:MouseEvent):void
+		{
+			_mainPage.selectedFriends = _friendsSelectedPanel.friendsSelected;
+			_mainPage.changePage(2);
 			
 		}
 		
@@ -35,10 +45,10 @@
 		{
 
 
-				_friendsSelectedPanel.dragHandler(e.dragX,e.dragY);
+			_friendsSelectedPanel.dragHandler(e.dragItem);
 				
 			
-		}
+		}	
 		
 
 	}
