@@ -41,6 +41,7 @@ a:hover{text-decoration:none}
 
 
 .bimg input,.bimg2 input,.bimg3 input{position:absolute;width:18px;height:18px;overflow:hidden;right:2px;bottom:2px;}
+.bimg .checked,.bimg2 input,.bimg3 input{position:absolute;width:18px;height:18px;overflow:hidden;right:2px;bottom:2px;}
 
 .header2 {width:750px;height:750px;margin:0 auto;background:url(./images/index.jpg) 0 0 no-repeat;}
 .barindex {width:667px;height:126px;margin:22px 0 0 43px;background:url(./images/index_03.jpg) 0 0 no-repeat;}
@@ -48,25 +49,25 @@ a:hover{text-decoration:none}
 .minipic {float:right;width:400px;height:80px;margin:32px 0 0 3px;clear:both;}
 .minipic span {float:left;position:relative;}
 .minipic span p {width:51px;margin-top:12px;text-align:center;word-wrap:break-word;word-break:break-all;}
-.mimg {margin:0px 0 0 12px;}
-.mimg2 {margin:0px 0 0 26px;}
-.mimg3 {margin:0px 0 0 25px;}
+.mimg {margin:0px 0 0 12px;cursor:pointer;}
+.mimg2 {margin:0px 0 0 26px;cursor:pointer;}
+.mimg3 {margin:0px 0 0 25px;cursor:pointer;}
 .btn{margin:20px 0 0 38px;cursor:pointer;}
 
 .minipic2 {float:right;width:400px;height:80px;margin:28px 0 0 3px;clear:both;}
 .minipic2 span {float:left;position:relative;}
-.minipic2 span p {margin-top:12px;text-align:center;word-wrap:break-word;word-break:break-all;}
-.m2img {margin:0px 0 0 12px;}
-.m2img2 {margin:0px 0 0 26px;}
-.m2img3 {margin:0px 0 0 25px;}
+.minipic2 span p {width:51px;margin-top:12px;text-align:center;word-wrap:break-word;word-break:break-all;}
+.m2img {margin:0px 0 0 12px;cursor:pointer;}
+.m2img2 {margin:0px 0 0 26px;cursor:pointer;}
+.m2img3 {margin:0px 0 0 25px;cursor:pointer;}
 .btn2{margin:18px 0 0 38px;cursor:pointer;}
 
 .minipic3 {float:right;width:400px;height:80px;margin:17px 0 0 3px;clear:both;}
 .minipic3 span {float:left;position:relative;}
-.minipic3 span p {margin-top:12px;text-align:center;}
-.m3img {margin:0px 0 0 12px;}
-.m3img2 {margin:0px 0 0 26px;}
-.m3img3 {margin:0px 0 0 25px;}
+.minipic3 span p {width:51px;margin-top:12px;text-align:center;word-wrap:break-word;word-break:break-all;}
+.m3img {margin:0px 0 0 12px;cursor:pointer;}
+.m3img2 {margin:0px 0 0 26px;cursor:pointer;}
+.m3img3 {margin:0px 0 0 25px;cursor:pointer;}
 .btn3{margin:23px 0 0 38px;cursor:pointer;}
 .button2 {float:left;width:129px;height:80px;margin:21px 0 0 324px;display:inline;cursor:pointer;}
 

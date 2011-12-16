@@ -3,80 +3,15 @@
 <head>
 <title>宜农贷</title>
 <meta charset="utf-8" />
-<meta name="generator" content="editplus" />
 <meta name="author" content="" />
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-
 <link rel="stylesheet" type="text/css" href="style.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!--
-<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=4027475663" type="text/javascript" charset="utf-8"></script>
--->
 <script type="text/javascript" src="js/jquery-1.7.1.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/jquery.wb2.js" charset="utf-8"></script>
 <script type="text/javascript" src="js/app.js" charset="utf-8"></script>
-<script type="text/javascript">
-    //- 4027475663
-    //- 2658053936
-    var hash = document.location.hash.substring(1);
-    var token = getParamByName(hash, "access_token");
-    var uid = getParamByName(hash, "uid");
-//	alert("token:" + token + ", uid:" + uid);
-    (function($){
-        $(function(){
-/*        
-            $.WB2.api("/friendships/friends.json", null);
-*/
-
-            var friends/*Array*/;
-
-            $.getJSON("https://api.weibo.com/2/friendships/friends.json?callback=?",
-                   {access_token: token, uid: uid},
-                   function(result){
-                       friends = result.data.users;
-                       if(friends == null){
-                           //Error
-                           return;
-                       }
-                   });
-
-//            $('<span class="mimg"><img alt="头像"/><p></p></span>').wrap();
-//            $("div.minipic span:eq(" + i +")").replaceWith($('<span class="mimg"><img src="'+friend.profile_image_url+'" alt="头像"/><p>' + friend.screen_name + '</p></span>'));
-
-
-            function shuffle($img, $name){
-/*
-                var rndFriendIndexs = getRandomIndex(friends.length, 3);
-                $.each(rndFriendIndexs, function(i, n){
-                var friend = friends[n];
-                $img.attr("src", friend["profile_image_url"]);
-                $("<p>" + friend["screen_name"] + "</p>").replaceAll($name);});
-*/
-            }
-    
-            $("#grpButton1").click(function(){
-                
-	            //shuffle($("div.minipic span:eq(" + i + ") > img"), $("div.minipic span:eq(" + i + ") > p");
-	        });
-
-            $("#grpButton2").click(function(){});
-
-            $("#grpButton3").click(function(){});
-
-
-            $("#okButton").click(function(){
-                  $.get("end-embed.html", function(data){$("body").html(data);});
-//                var buffer = $("<div/>");
-//                buffer.load("end-embed.html");
-//                $("body").empty();
-//                $("body").append(buffer.empty());
-            });
-
-        });
-
-    })(jQuery);
-
-</script>
+<script type="text/javascript" src="js/app-index.js" charset="utf-8"></script>
 </head>
 <body>
 <!-- 头部 -->
@@ -84,13 +19,13 @@
 	<div class="logo">
 		<a href=""><img src="images/logo.png" alt="" /></a></div>
 
-    <div>
 	<div class="barindex"></div>
 
 	<div class="minipic">
 		<span class="mimg">
 			<img src="images/index_07.jpg" alt="头像" />
 			<p></p>
+            <input type="checkbox" readonly="true" checked="true" />
 		</span>
 		<span class="mimg2">
 			<img src="images/index_07.jpg" alt="头像" />
@@ -108,39 +43,35 @@
 	<div class="minipic2">
 		<span class="mimg">
 			<img src="images/index_07.jpg" alt="头像" />
-			<p>小雅心儿</p>
-			<input type="checkbox" id="input" />
+			<p></p>
+            <input type="checkbox" readonly="true" checked="true" />
 		</span>
 		<span class="mimg2">
 			<img src="images/index_07.jpg" alt="头像" />
-			<p>小雅心儿</p>
-			<input type="checkbox" id="input" />
+			<p></p>
 		</span>
 		<span class="mimg3">
 			<img src="images/index_07.jpg" alt="头像" />
-			<p>小雅心儿</p>
-			<input type="checkbox" id="input" />
+			<p></p>
 		</span>
 		<span class="btn2" id="grpButton2">
-			<a href=""><img src="images/btn1.png" alt="" /></a>
+			<img src="images/btn1.png" alt="" />
 		</span>
 	</div>
 
 	<div class="minipic3">
 		<span class="mimg">
 			<img src="images/index_07.jpg" alt="头像" />
-			<p>小雅心儿</p>
-			<input type="checkbox" id="input" />
+			<p></p>
+            <input type="checkbox" readonly="true" checked="true" />
 		</span>
 		<span class="mimg2">
 			<img src="images/index_07.jpg" alt="头像" />
-			<p>小雅心儿</p>
-			<input type="checkbox" id="input" />
+			<p></p>
 		</span>
 		<span class="mimg3">
 			<img src="images/index_07.jpg" alt="头像" />
-			<p>小雅心儿</p>
-			<input type="checkbox" id="input" />
+			<p></p>
 		</span>
 		<span class="btn3" id="grpButton3">
 			<img src="images/btn1.png" alt="" />
@@ -149,7 +80,7 @@
 
 	<div class="button2" id="okButton">
 		<img src="images/index_15.jpg" alt="" /></div>
-    </div>
+
 </div>
 </body>
 </html>
