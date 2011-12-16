@@ -1,6 +1,11 @@
 ﻿package widget 
 {
 	import flash.display.MovieClip;
+	import flash.events.MouseEvent;
+	import com.greensock.TweenLite;
+	import com.greensock.easing.*;
+	import event.DragCompleteEvent;
+
 	public class FriendsPanel extends MovieClip
 	{
 		var showFriends:Array = new Array();
@@ -34,6 +39,11 @@
 				var friendItem:FriendItem = new FriendItem(_friends[i]);
 				friendItem.x = j * 50;
 				friendItem.y = row * 50;
+				
+				friendItem.oringinX = friendItem.x;
+				friendItem.oringinY = friendItem.y;
+				friendItem.addEventListener(MouseEvent.MOUSE_DOWN,pickup); 
+				friendItem.addEventListener(MouseEvent.MOUSE_UP,place); 
 				addChild(friendItem);
 				
 				if(j<_rowNum)
@@ -48,5 +58,28 @@
 				
 			}
 		}
+		
+		//
+		private function pickup(e:MouseEvent):void
+		{
+			(e.currentTarget as FriendItem).startDrag();
+		}
+		
+		//
+		private function place(e:MouseEvent):void
+		{
+			var dragImage:FriendItem;
+			dragImage = e.currentTarget as FriendItem;
+			dragImage.stopDrag();
+			var dragCompleteEvent :DragCompleteEvent= new  DragCompleteEvent(DragCompleteEvent.DRAG_COMPLETE_EVENT);
+			dragCompleteEvent.dragX = e.stageX;
+			dragCompleteEvent.dragY = e.stageY;
+			this.dispatchEvent(dragCompleteEvent);
+			
+			TweenLite.to(dragImage, 0.5, {x:dragImage.oringinX ,y:dragImage.oringinY });
+		}
+		
+		//
+		
 	}
 }

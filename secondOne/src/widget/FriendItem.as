@@ -9,6 +9,9 @@
 		
 		private var _friendImage:Image;
 		
+		public var oringinX:Number;
+		public var oringinY:Number;
+		
 		public function FriendItem(_data:Object) {
 			// constructor code
 			this._friendData = _data;
