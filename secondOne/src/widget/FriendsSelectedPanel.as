@@ -37,10 +37,10 @@ package widget
 			{
 
 				//trace(":" +_friends[i].profile_image_url +"::" + i.toString());
-				var friendItem:FriendItem = new FriendItem(_friends[i]);
-				friendItem.x = i * 100;
-				addChild(friendItem);
-				_friendsSelected.push(friendItem);
+				var friendSelectedItem:FriendSelectedItem = new FriendSelectedItem(_friends[i]);
+				friendSelectedItem.x = i * 200;
+				addChild(friendSelectedItem);
+				_friendsSelected.push(friendSelectedItem);
 				
 				
 			}
@@ -49,7 +49,7 @@ package widget
 		public function dragHandler(dragItem:FriendItem):void
 		{
 			
-			for each(var friend:FriendItem in _friendsSelected )
+			for each(var friend:FriendSelectedItem in _friendsSelected )
 			{
 
 
@@ -60,9 +60,9 @@ package widget
 			}
 		}
 		
-		private function replaceFriendItem(oringin:FriendItem,place:FriendItem):void
+		private function replaceFriendItem(oringin:FriendSelectedItem,place:FriendItem):void
 		{
-			var newItem:FriendItem = new FriendItem(place.friendData);
+			var newItem:FriendSelectedItem = new FriendSelectedItem(place.friendData);
 			newItem.x = oringin.x;
 			newItem.y = oringin.y;
 			var idx:int;

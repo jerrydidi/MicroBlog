@@ -8,15 +8,19 @@
 		private var _friendData:Object;
 		
 		private var _friendImage:Image;
-		
-		public var oringinX:Number;
-		public var oringinY:Number;
-		
+		//
+		private var _bg:MovieClip = new MovieClip();		
 		public function FriendItem(_data:Object) {
 			// constructor code
 			this._friendData = _data;
-			
-			_friendImage = new Image(_data.profile_image_url);
+			//
+			_bg.graphics.lineStyle(1,0x333333);
+			_bg.graphics.beginFill(0xFF9800,0);
+			_bg.graphics.drawRect(-3,-3,105,105);
+			_bg.graphics.endFill();
+			this.addChild(_bg);
+			//
+			_friendImage = new Image(_data.avatar_large,0.5556);
 			this.addChild(_friendImage);
 			_friendImage.loadImage();
 		}

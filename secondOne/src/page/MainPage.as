@@ -1,7 +1,6 @@
 ﻿package page {
 	
 	import flash.display.MovieClip;
-	import flashx.textLayout.formats.BaselineOffset;
 	import com.sina.microblog.MicroBlog;
 	import com.sina.microblog.events.*;
 	import flash.events.MouseEvent;
@@ -19,7 +18,10 @@
 		//
 		private var _uid:String;
 		//
-		private var _childPage:MovieClip;
+		private var _childPage:MovieClip;	
+		public var resultNumber:int = Math.round(Math.random()*6)+1;
+		
+		//public var resultNumber:int =6;
 		
 		//
 		private var _currentPage:BaseSelectedPage;
@@ -86,11 +88,12 @@
 					break;
 				case 1 :
 					this.gotoAndStop(2);
-					_currentPage = new SelectedPageOne(this);
+					
+					_currentPage = new SelectedPageOne(this,1);
 					break;
 				case 2 :
 					this.gotoAndStop(3);
-					_currentPage = new SelectedPageTwo(this);
+					_currentPage = new SelectedPageTwo(this,2);
 					break;
 				case 3 :
 					this.gotoAndStop(4);

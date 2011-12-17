@@ -8,9 +8,10 @@
 		//page number
 		private var _pageNo:int;
 		
-		public function BaseSelectedPage(mainPage:MainPage) {
+		public function BaseSelectedPage(mainPage:MainPage,pageNo:int) {
 			// constructor code
 			this._mainPage = mainPage;
+			this._pageNo = pageNo;
 			_mainPage.addEventListener(Event.ENTER_FRAME,enterPage);
 			//initComponents();
 			
@@ -20,16 +21,29 @@
 		private function enterPage(e:Event):void
 		{
 
-			if (_mainPage.childPage == undefined)
+			//trace("enterPage" + _mainPage.childPage)
+			switch(_pageNo)
 			{
-				return;
+				case 1:
+					if (_mainPage.page1 == null ||_mainPage.page1 == undefined)
+					{
+						return;
+					}
+					break;
+				case 2:
+					if (_mainPage.page2 == null ||_mainPage.page2 == undefined)
+					{
+						return;
+					}
+					break;
+				
 			}
-			else
-			{
+
+
 				_mainPage.removeEventListener(Event.ENTER_FRAME,enterPage);
 				//showFriendsPanel();
 				initComponents();
-			}
+
 		}
 		
 		

@@ -13,8 +13,8 @@
 		private var _friends:Array;
 		private var _friendNum:int;
 		
-		private var _left:TextField = new TextField(); 
-		private var _right:TextField = new TextField();
+		private var _left:MovieClip = new mcPrevPage(); 
+		private var _right:MovieClip = new mcNextPage();
 		
 		private var _drageItem:FriendItem;
 		private var panel:MovieClip= new MovieClip();
@@ -33,10 +33,12 @@
 			this._friends = friends;
 			this._friendNum = _friends.length;
 			
-			_left.x = 0;
-			_left.text ="<"
-			_right.text =">"
-			_right.x = 200;
+			_left.x = -50;
+			_left.y = 29;
+	
+
+			_right.x = 350;
+			_right.y = 29;
 			addChild(_left);
 			addChild(_right);
 			_left.addEventListener(MouseEvent.CLICK,prevPage);
@@ -46,14 +48,14 @@
 		
 		private function prevPage(e:MouseEvent):void
 		{
-			var targetX:Number = panel.x - 150;
-			TweenLite.to(panel, 0.5, {x:targetX});
+			var targetX:Number = panel.x + 330;
+			TweenLite.to(panel, 0.2, {x:targetX});
 
 		}
 		private function nextPage(e:MouseEvent):void
 		{
-			var targetX:Number = panel.x + 150;
-			TweenLite.to(panel, 0.5, {x:targetX});
+			var targetX:Number = panel.x - 330;
+			TweenLite.to(panel, 0.2, {x:targetX});
 
 		}
 
@@ -61,14 +63,15 @@
 		{
 			var row:int = 0;
 			var j:int = 0;
-			panel.x = 30;
+			panel.x = 0;
 			this.addChild(panel);
 			
 			var mcMask:MovieClip = new MovieClip();
-			mcMask.graphics.beginFill(0xFF9800,1);
-			mcMask.graphics.drawRect(0,0,150,50);
+			mcMask.graphics.beginFill(0xFF9800,0);
+			mcMask.graphics.drawRect(0,0,330,108);
 			mcMask.graphics.endFill()
-			mcMask.x = 30;
+			mcMask.x = -3;
+			mcMask.y = -5;
 			this.addChild(mcMask);
 			
 			panel.mask = mcMask;
@@ -77,11 +80,11 @@
 
 				//trace(":" +_friends[i].profile_image_url +"::" + i.toString());
 				var friendItem:FriendItem = new FriendItem(_friends[i]);
-				friendItem.x = i * 50 ;
+				//friendItem.width = 100;
+				//friendItem.height = 100;
+				friendItem.x = i * 110 ;
 				//friendItem.y = row * 50;
 				
-				friendItem.oringinX = friendItem.x;
-				friendItem.oringinY = friendItem.y;
 				
 				friendItem.addEventListener(MouseEvent.CLICK,place); 
 				panel.addChild(friendItem);

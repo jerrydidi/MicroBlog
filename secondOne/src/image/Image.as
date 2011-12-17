@@ -18,13 +18,16 @@
 		
 		var _picSeq:int;
 		
+		var _scale:Number;
+		
 	
 		private var _selected:Boolean = false;
 
-		public function Image(imageURL:String)
+		public function Image(imageURL:String,scale:Number =1)
 		{
 			// constructor code
 			this._imageURL = imageURL;
+			this._scale = scale;
 		}
 
 		public function set imageURL(value:String):void
@@ -49,7 +52,15 @@
 			_loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, loadImageComplete);
 			
 			//
+			
 			var bitmap:Bitmap = _loader.content as Bitmap;
+			if(_scale!= 1)
+			{
+				bitmap.width = 100;
+				bitmap.height = 100;
+
+			}
+
 			bitmap.alpha = 0;
 			bitmap.smoothing = true;
 			TweenLite.to(bitmap, 0.5, {alpha:1, ease:Back.easeIn});

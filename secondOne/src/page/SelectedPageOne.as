@@ -20,23 +20,31 @@
 		
 		
 		
-		public function SelectedPageOne(mainPage:MainPage) {
+		public function SelectedPageOne(mainPage:MainPage,pageNo:int) {
 			// constructor code
-			super(mainPage);
+			super(mainPage,pageNo);
 			_mb = mainPage.mb;
-			_mainPage.childPage = _mainPage.page1;
 		}
 		
 		override public function initComponents():void
 		{
+			_mainPage.childPage = _mainPage.page1;
+		
+			//
 			_friendsSelectedPanel = new FriendsSelectedPanel(_mainPage.friends);
-			_friendsSelectedPanel.y = 20;
+			_friendsSelectedPanel.x = 145;
+			_friendsSelectedPanel.y = 100;
 			_mainPage.childPage.addChild(_friendsSelectedPanel);
 			//
+
+
 			_friendsPanel = new FriendsPanel(_mainPage.friends);
-			_friendsPanel.y = 100;
+			_friendsPanel.x = 75;
+			_friendsPanel.y = 360;
 			_friendsPanel.addEventListener(DragCompleteEvent.DRAG_COMPLETE_EVENT,dragComplete)
 			_mainPage.childPage.addChild(_friendsPanel);
+					//
+
 			//
 			_mainPage.childPage.mcToPageThree.addEventListener(MouseEvent.CLICK,nextPage);
 			//
@@ -46,8 +54,8 @@
 		private function nextPage(e:MouseEvent):void
 		{
 			_mainPage.selectedFriends = _friendsSelectedPanel.friendsSelected;
-			updateBlogWithImage();
-			//_mainPage.changePage(2);
+			//updateBlogWithImage();
+			_mainPage.changePage(2);
 			
 		}
 		

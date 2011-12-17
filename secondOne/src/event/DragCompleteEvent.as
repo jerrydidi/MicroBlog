@@ -1,6 +1,6 @@
 ﻿package  event{
 	import flash.events.Event;
-	import widget.FriendItem;
+	import widget.*;
 	
 	public class DragCompleteEvent extends Event{
 
