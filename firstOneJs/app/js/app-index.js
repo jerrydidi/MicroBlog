@@ -61,22 +61,21 @@
 		   
            $("#grpButton3").click(function(){shuffle($("div.minipic3"));});
 
-           $("#okButton").click(function(){
-									selectedUsers = new Array(3);
-									$("div.minipic, div.minipic2, div.minipic3").each(
-										function(index){
-											if(!$(this).data("selected")){
-												selectedUsers[index] = $(this).find("span.mimg > img").data("user");
-											}else{
-												selectedUsers[index] = $(this).data("selected");												
-											}
-										}
-									);
-									$.get("end-embed.html", function(data){
-											  $("body").html(data);
-										  });
-								});
-
+           $("#okButton").click(
+			   function(){
+				   selectedUsers = new Array(3);
+				   $("div.minipic, div.minipic2, div.minipic3").each(
+					   function(index){
+						   if(!$(this).data("selected")){
+							   selectedUsers[index] = $(this).find("span.mimg > img").data("user");
+						   }else{
+							   selectedUsers[index] = $(this).data("selected");												
+						   }
+					   }
+				   );
+				   $.get("end-embed.html", function(data){$("body").html(data);});
+			   });
+		   
        });
 	 
  })(jQuery);

@@ -1,13 +1,28 @@
+function cachedImage(src){
+	return $("<img/>").attr("src", src);
+}
+
 var token    /*String*/,
     uid      /*String*/,
     friends  /*Array*/,
     selectedUsers /*Array<JSON>*/,
-    url = window.location,
-    $loadingImg = $("<img/>").attr("src", "images/loading.jpg");
-
-var actions = {
-	
-};
+    index_url = window.location,
+    $loadingImg = cachedImage("images/loading.jpg"),
+//		<p>我放了100￥贷款，@XX用60￥饲养了草泥马，@XX用38元买了《尔康写真集》，@XX用2￥送给芙蓉姐姐一面镜子……请叫我债主吧！http://</p>
+    wb_post = {text:"", html:""},
+    typeImages = [cachedImage("images/endtxt1.png"), cachedImage("images/endtxt1.png"), cachedImage("images/endtxt1.png")],
+    actions = [{label:"饲养了一匹草泥马", image:cachedImage("images/pic1.png"), image_text:cachedImage("images/txt1.png")},
+			   {label:"买了一本《尔康写真集》", image:cachedImage("images/pic2.png"), image_text:cachedImage("images/txt2.png")},
+			   {label:"送了一面镜子给芙蓉姐姐", image:cachedImage("images/pic3.png"), image_text:cachedImage("images/txt3.png")},
+			   {label:"送了一部照相机给陈老师", image:cachedImage("images/pic4.png"), image_text:cachedImage("images/txt4.png")},
+			   {label:"饲养了一只灰太狼", image:cachedImage("images/pic5.png"), image_text:cachedImage("images/txt5.png")},
+			   {label:"买机票去美国找凤姐相亲", image:cachedImage("images/pic6.png"), image_text:cachedImage("images/txt6.png")},
+			   {label:"去整容变成了容嬷嬷", image:cachedImage("images/pic7.png"), image_text:cachedImage("images/txt7.png")},
+			   {label:"买蜘蛛侠套装去拯救地球", image:cachedImage("images/pic8.png"), image_text:cachedImage("images/txt8.png")},
+			   {label:"养了一池塘的河蟹", image:cachedImage("images/pic9.png"), image_text:cachedImage("images/txt9.png")},
+			   {label:"种下一个妹子等来年收获", image:cachedImage("images/pic10.png"), image_text:cachedImage("images/txt10.png")},
+			   {label:"买了生发剂送给葛大爷", image:cachedImage("images/pic11.png"), image_text:cachedImage("images/txt11.png")},
+			   {label:"买了增高鞋送给郭小明", image:cachedImage("images/pic12.png"), image_text:cachedImage("images/txt12.png")}];
 
 function /*Array<Number>*/ getRandomIndex(total/*Number*/, limits/*Number*/){
 	var result = new Array();

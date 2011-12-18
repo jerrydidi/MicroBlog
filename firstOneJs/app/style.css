@@ -22,17 +22,20 @@ a:hover{text-decoration:none}
 .bar1 span {float:left;}
 
 .bimg {padding:2px;margin:11px 0 0 21px;width:102px;height:102px;position:relative;}
+.bimg img{width:102px; height:101px;}
 .btxt {padding:2px;margin:20px 0 0 16px;}
 .endtxt {padding:2px;width:337px;height:102px;margin:18px 0 0 20px;}
 .pimg {padding:2px;margin:350px 0 0 21px;position:relative;}
 
 .bar2 span {float:left;}
 .bimg2 {width:102px;height:102px;padding:2px;margin:12px 0 0 21px;position:relative;}
+.bimg2 img{width:102px; height:101px;}
 .btxt2 {padding:2px;margin:20px 0 0 16px;}
 .endtxt2 {padding:2px;width:337px;height:102px;margin:18px 0 0 20px;}
 
 .bar3 span {float:left;}
 .bimg3 {width:102px;height:102px;padding:2px;margin:12px 0 0 21px;position:relative;}
+.bimg3 img{width:102px; height:101px;}
 .btxt3 {padding:2px;margin:20px 0 0 16px;}
 .endtxt3 {padding:2px;width:337px;height:102px;margin:18px 0 0 20px;}
 
@@ -49,25 +52,30 @@ a:hover{text-decoration:none}
 .minipic {float:right;width:400px;height:80px;margin:32px 0 0 3px;clear:both;}
 .minipic span {float:left;position:relative;}
 .minipic span p {width:51px;margin-top:12px;text-align:center;word-wrap:break-word;word-break:break-all;}
-.mimg {margin:0px 0 0 12px;cursor:pointer;}
-.mimg2 {margin:0px 0 0 26px;cursor:pointer;}
-.mimg3 {margin:0px 0 0 25px;cursor:pointer;}
+.mimg {margin:0px 0 0 12px;}
+.mimg2 {margin:0px 0 0 26px;}
+.mimg3 {margin:0px 0 0 25px;}
+.mimg > img, .mimg2 > img, .mimg3 > img{cursor:pointer;}
 .btn{margin:20px 0 0 38px;cursor:pointer;}
+
 
 .minipic2 {float:right;width:400px;height:80px;margin:28px 0 0 3px;clear:both;}
 .minipic2 span {float:left;position:relative;}
 .minipic2 span p {width:51px;margin-top:12px;text-align:center;word-wrap:break-word;word-break:break-all;}
-.m2img {margin:0px 0 0 12px;cursor:pointer;}
-.m2img2 {margin:0px 0 0 26px;cursor:pointer;}
-.m2img3 {margin:0px 0 0 25px;cursor:pointer;}
+.m2img {margin:0px 0 0 12px;}
+.m2img2 {margin:0px 0 0 26px;}
+.m2img3 {margin:0px 0 0 25px;}
+.m2img > img, .m2img2 > img, .m2img3 > img{cursor:pointer;}
 .btn2{margin:18px 0 0 38px;cursor:pointer;}
+
 
 .minipic3 {float:right;width:400px;height:80px;margin:17px 0 0 3px;clear:both;}
 .minipic3 span {float:left;position:relative;}
 .minipic3 span p {width:51px;margin-top:12px;text-align:center;word-wrap:break-word;word-break:break-all;}
-.m3img {margin:0px 0 0 12px;cursor:pointer;}
-.m3img2 {margin:0px 0 0 26px;cursor:pointer;}
-.m3img3 {margin:0px 0 0 25px;cursor:pointer;}
+.m3img {margin:0px 0 0 12px;}
+.m3img2 {margin:0px 0 0 26px;}
+.m3img3 {margin:0px 0 0 25px;}
+.m3img > img, .m3img2 > img, .m3img3 > img{cursor:pointer;}
 .btn3{margin:23px 0 0 38px;cursor:pointer;}
 .button2 {float:left;width:129px;height:80px;margin:21px 0 0 324px;display:inline;cursor:pointer;}
 
@@ -91,4 +99,4 @@ a:hover{text-decoration:none}
 .niimg {margin:0px 0 0 12px;}
 .niimg2 {margin:0px 0 0 0px;}
 .niimg3 {margin:0px 0 0 0px;}
-.tbutton {float:left;width:129px;height:51px;margin:54px 0 0 506px;display:inline;}
+.tbutton {float:left;width:129px;height:51px;margin:54px 0 0 506px;display:inline;cursor:pointer;}
