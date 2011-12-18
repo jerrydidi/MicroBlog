@@ -20,7 +20,12 @@
 		private var panel:MovieClip= new MovieClip();
 	
 		//pic number per row
-		private var _rowNum:int = 6;
+		private var _rowNum:int = 3;
+		//
+		private var _pageNum:int = 0 ;
+		
+		//
+		private var _pageSeq:int =0;
 		//
 		
 		public var _seq:int = 0;
@@ -48,14 +53,23 @@
 		
 		private function prevPage(e:MouseEvent):void
 		{
-			var targetX:Number = panel.x + 330;
-			TweenLite.to(panel, 0.2, {x:targetX});
+			if(_pageSeq >0)
+			{
+				var targetX:Number = panel.x + 330;
+				TweenLite.to(panel, 0.2, {x:targetX});
+				_pageSeq--;
+			}
 
 		}
 		private function nextPage(e:MouseEvent):void
 		{
-			var targetX:Number = panel.x - 330;
-			TweenLite.to(panel, 0.2, {x:targetX});
+			if(_pageSeq <(_pageNum -1 ))
+			{
+
+				var targetX:Number = panel.x - 330;
+				TweenLite.to(panel, 0.2, {x:targetX});
+				_pageSeq++;
+			}
 
 		}
 
@@ -75,7 +89,10 @@
 			this.addChild(mcMask);
 			
 			panel.mask = mcMask;
-			for  (var i:int =0;i<_friends.length;i++)
+			
+			_friendNum = _friends.length;
+			_pageNum = Math.ceil(_friendNum/_rowNum);
+			for  (var i:int =0;i<_friendNum;i++)
 			{
 
 				//trace(":" +_friends[i].profile_image_url +"::" + i.toString());
