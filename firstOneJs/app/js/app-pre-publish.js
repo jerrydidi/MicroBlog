@@ -53,6 +53,7 @@
 		 wb_post_tmpl.$2_user_action = {user: selectedUsers[2], action: result[2]};
 		 wb_post.html = wb_post_tmpl.html();
 		 wb_post.text = wb_post_tmpl.text();
+		 wb_post.images = [result[0].image_large, result[1].image_large, result[2].image_large];
 		 return result;
 	 }
 

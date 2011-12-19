@@ -3,6 +3,12 @@
 
  	 $(function(){
 		   $("#post_text").html(wb_post.html);
+		   $("div.nipic2 span.niimg, div.nipic2 span.niimg2, div.nipic2 span.niimg3").each(
+			   function(i){
+//				   alert($(this).html());
+//				   alert(wb_post.images[i].attr("src"));
+				   $(this).html(wb_post.images[i]);
+			   });
 		   $("#publishButton").click(
 			   function(){
 				   //window.location.reload();
