@@ -73,7 +73,7 @@
 						   }
 					   }
 				   );
-				   $.get("end-embed.html", function(data){$("body").html(data);});
+				   $.get("end-embed.html?ts=" + new Date(), function(data){$("body").html(data);});
 			   });
 		   
        });

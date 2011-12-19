@@ -1,28 +1,27 @@
-function cachedImage(src){
+ï»¿function cachedImage(src){
 	return $("<img/>").attr("src", src);
 }
 
 var token    /*String*/,
     uid      /*String*/,
     friends  /*Array*/,
-    selectedUsers /*Array<JSON>*/,
+    selectedUsers = []/*Array<JSON>*/,
     index_url = window.location,
     $loadingImg = cachedImage("images/loading.jpg"),
-//		<p>ÎÒ·ÅÁË100£¤´û¿î£¬@XXÓÃ60£¤ËÇÑøÁË²İÄàÂí£¬@XXÓÃ38ÔªÂòÁË¡¶¶û¿µĞ´Õæ¼¯¡·£¬@XXÓÃ2£¤ËÍ¸øÜ½ÈØ½ã½ãÒ»Ãæ¾µ×Ó¡­¡­Çë½ĞÎÒÕ®Ö÷°É£¡http://</p>
     wb_post = {text:"", html:""},
     typeImages = [cachedImage("images/endtxt1.png"), cachedImage("images/endtxt1.png"), cachedImage("images/endtxt1.png")],
-    actions = [{label:"ËÇÑøÁËÒ»Æ¥²İÄàÂí", image:cachedImage("images/pic1.png"), image_text:cachedImage("images/txt1.png")},
-			   {label:"ÂòÁËÒ»±¾¡¶¶û¿µĞ´Õæ¼¯¡·", image:cachedImage("images/pic2.png"), image_text:cachedImage("images/txt2.png")},
-			   {label:"ËÍÁËÒ»Ãæ¾µ×Ó¸øÜ½ÈØ½ã½ã", image:cachedImage("images/pic3.png"), image_text:cachedImage("images/txt3.png")},
-			   {label:"ËÍÁËÒ»²¿ÕÕÏà»ú¸ø³ÂÀÏÊ¦", image:cachedImage("images/pic4.png"), image_text:cachedImage("images/txt4.png")},
-			   {label:"ËÇÑøÁËÒ»Ö»»ÒÌ«ÀÇ", image:cachedImage("images/pic5.png"), image_text:cachedImage("images/txt5.png")},
-			   {label:"Âò»úÆ±È¥ÃÀ¹úÕÒ·ï½ãÏàÇ×", image:cachedImage("images/pic6.png"), image_text:cachedImage("images/txt6.png")},
-			   {label:"È¥ÕûÈİ±ä³ÉÁËÈİæÖæÖ", image:cachedImage("images/pic7.png"), image_text:cachedImage("images/txt7.png")},
-			   {label:"ÂòÖ©ÖëÏÀÌ××°È¥Õü¾ÈµØÇò", image:cachedImage("images/pic8.png"), image_text:cachedImage("images/txt8.png")},
-			   {label:"ÑøÁËÒ»³ØÌÁµÄºÓĞ·", image:cachedImage("images/pic9.png"), image_text:cachedImage("images/txt9.png")},
-			   {label:"ÖÖÏÂÒ»¸öÃÃ×ÓµÈÀ´ÄêÊÕ»ñ", image:cachedImage("images/pic10.png"), image_text:cachedImage("images/txt10.png")},
-			   {label:"ÂòÁËÉú·¢¼ÁËÍ¸ø¸ğ´óÒ¯", image:cachedImage("images/pic11.png"), image_text:cachedImage("images/txt11.png")},
-			   {label:"ÂòÁËÔö¸ßĞ¬ËÍ¸ø¹ùĞ¡Ã÷", image:cachedImage("images/pic12.png"), image_text:cachedImage("images/txt12.png")}];
+    actions = [{label:"é¥²å…»äº†ä¸€åŒ¹è‰æ³¥é©¬", image:cachedImage("images/pic1.png"), image_text:cachedImage("images/txt1.png")},
+			   {label:"ä¹°äº†ä¸€æœ¬ã€Šå°”åº·å†™çœŸé›†ã€‹", image:cachedImage("images/pic2.png"), image_text:cachedImage("images/txt2.png")},
+			   {label:"é€äº†ä¸€é¢é•œå­ç»™èŠ™è“‰å§å§", image:cachedImage("images/pic3.png"), image_text:cachedImage("images/txt3.png")},
+			   {label:"é€äº†ä¸€éƒ¨ç…§ç›¸æœºç»™é™ˆè€å¸ˆ", image:cachedImage("images/pic4.png"), image_text:cachedImage("images/txt4.png")},
+			   {label:"é¥²å…»äº†ä¸€åªç°å¤ªç‹¼", image:cachedImage("images/pic5.png"), image_text:cachedImage("images/txt5.png")},
+			   {label:"ä¹°æœºç¥¨å»ç¾å›½æ‰¾å‡¤å§ç›¸äº²", image:cachedImage("images/pic6.png"), image_text:cachedImage("images/txt6.png")},
+			   {label:"å»æ•´å®¹å˜æˆäº†å®¹å¬·å¬·", image:cachedImage("images/pic7.png"), image_text:cachedImage("images/txt7.png")},
+			   {label:"ä¹°èœ˜è››ä¾ å¥—è£…å»æ‹¯æ•‘åœ°çƒ", image:cachedImage("images/pic8.png"), image_text:cachedImage("images/txt8.png")},
+			   {label:"å…»äº†ä¸€æ± å¡˜çš„æ²³èŸ¹", image:cachedImage("images/pic9.png"), image_text:cachedImage("images/txt9.png")},
+			   {label:"ç§ä¸‹ä¸€ä¸ªå¦¹å­ç­‰æ¥å¹´æ”¶è·", image:cachedImage("images/pic10.png"), image_text:cachedImage("images/txt10.png")},
+			   {label:"ä¹°äº†ç”Ÿå‘å‰‚é€ç»™è‘›å¤§çˆ·", image:cachedImage("images/pic11.png"), image_text:cachedImage("images/txt11.png")},
+			   {label:"ä¹°äº†å¢é«˜é‹é€ç»™éƒ­å°æ˜", image:cachedImage("images/pic12.png"), image_text:cachedImage("images/txt12.png")}];
 
 function /*Array<Number>*/ getRandomIndex(total/*Number*/, limits/*Number*/){
 	var result = new Array();

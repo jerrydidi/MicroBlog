@@ -92,7 +92,7 @@ a:hover{text-decoration:none}
 .ttxt {padding:2px;width:495px;height:45px;margin:18px 0 0 0px;}
 .ttxt2 {padding:2px;width:144px;height:38px;margin:26px 0 0 15px;}
 .ttxt2 input {vertical-align:middle;}
-.ttxt3 {padding:2px;width:144px;height:38px;margin:10px 0 0 180px;}
+.ttxt3 {padding:2px;width:144px;height:38px;margin:10px 0 0 180px;cursor:pointer;}
 .headpic span p { margin-left:12px;text-align:left;}
 .headpic .ttxt2 p {display:inline-block;margin-left:4px;}
 .nipic2 {float:right;width:440px;height:108px;margin:120px 0 0 3px;clear:both;}
