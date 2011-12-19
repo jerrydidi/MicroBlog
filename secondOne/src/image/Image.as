@@ -53,17 +53,17 @@
 			
 			//
 			
-			var bitmap:Bitmap = _loader.content as Bitmap;
+			//var bitmap:Bitmap = _loader.content as Bitmap;
 			if(_scale!= 1)
 			{
-				bitmap.width = 100;
-				bitmap.height = 100;
+				_loader.width = 100;
+				_loader.height = 100;
 
 			}
-
-			bitmap.alpha = 0;
-			bitmap.smoothing = true;
-			TweenLite.to(bitmap, 0.5, {alpha:1, ease:Back.easeIn});
+			_loader.alpha = 0;
+			//bitmap.alpha = 0;
+			//bitmap.smoothing = true;
+			TweenLite.to(_loader, 0.5, {alpha:1, ease:Back.easeIn});
 
 
 		}

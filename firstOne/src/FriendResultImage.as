@@ -56,10 +56,10 @@
 			_loader.width = 98;
 			_loader.height = 98;
 			//
-			var bitmap:Bitmap = _loader.content as Bitmap;
-			bitmap.alpha = 0;
-			bitmap.smoothing = true;
-			TweenLite.to(bitmap, 0.5, {alpha:1, ease:Back.easeIn});
+			//var bitmap:Bitmap = _loader.content as Bitmap;
+			_loader.alpha = 0;
+			//bitmap.smoothing = true;
+			TweenLite.to(_loader, 0.5, {alpha:1, ease:Back.easeIn});
 
 			
 			_nickName.htmlText = Util.getBlogLinkString(_friendData.screen_name,_friendData.url);

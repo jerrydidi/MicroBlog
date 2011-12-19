@@ -1,14 +1,19 @@
 ﻿
 package 
 {
-	import flash.display.MovieClip;
+
 	import flash.text.TextField;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.net.URLRequest;
 	import com.sina.microblog.events.*;
 	import flash.text.TextFormat;
+	import com.adobe.images.JPGEncoder;
+	import com.adobe.images.PNGEncoder;
+	import flash.display.Loader;
+	import flash.utils.*;
 
+	import flash.display.*;
 	public class DistributePage 
 	{
 		//main page reference
@@ -20,10 +25,12 @@ package
 		private var _imageResult:Image;
 		
 		private var _checked:Boolean = true;
+		//
+		private var _bmd:BitmapData;
 		
 		//
 		private var _strUpdate:String;
-
+		private var _loader:Loader = new Loader();
 		//
 		public function DistributePage(mainPage:MicroBlogMain)
 		{
@@ -84,6 +91,7 @@ package
 		private function distributeClick(e:MouseEvent):void
 		{
 			distribute();
+			//loadImage();
 			
 			
 		}
@@ -94,12 +102,23 @@ package
 			var obj = new Object  ;
 			//obj.status  = "hahaha ";
 			obj.status  = this._strUpdate;
+			//var coder:JPGEncoder = new JPGEncoder(100);
+
+			//_bmd = new BitmapData(300,300);
+			//_bmd.draw(_mainPage.stage);
+			
+			//var ary:ByteArray = coder.encode(_bmd);
+			//trace("obj.pic:"+obj.pic)
+			//obj.pic = null;
+			//obj.pic = ary;
 			
 
-			trace("distribute");
+			
+		
 			_mainPage.mb.addEventListener("distributeResultEvent", onDistributeResult);
 			_mainPage.mb.addEventListener("distributeErrorEvent", onDistributeError);
 			_mainPage.mb.callWeiboAPI("2/statuses/update",obj, "POST", "distributeResultEvent", "distributeErrorEvent");
+			//_mainPage.mb.updateStatus(this._strUpdate,obj.pic);
 			//flash.net.navigateToURL(url,"_self");
 
 			//focus();
@@ -154,6 +173,34 @@ package
 			trace("focus error");
 
 		}
+		
+		private function loadImage():void
+		{
+			trace("loadImage");
+			//var _loader:Loader = new Loader();
+			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loadImageComplete);
+			var url:String = "images/Result" + _mainPage.setNumber.toString() + ".png";
+
+			_loader.load( new URLRequest(url));
+			
+		}
+		private function loadImageComplete(e:Event):void
+		{
+			trace("loadImageComplete");
+
+			_loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, loadImageComplete);
+			//_mainPage.page4.addChild(_loader);
+			
+			//
+			var bitmap:Bitmap = _loader.content as Bitmap;
+
+			_bmd = bitmap.bitmapData;
+			//trace("_bmd:"+_bmd);
+			
+			distribute();
+
+		}
+		
 
 		//
 		private function logoClick(e:MouseEvent):void
@@ -161,6 +208,8 @@ package
 			var url:URLRequest = new URLRequest("http://www.yinongdai.com");  
 			flash.net.navigateToURL(url, "_blank");
 		}
+		
+		
 
 		//show comments
 		private function showComments():void
@@ -177,7 +226,7 @@ package
 			_text.x = -205;
 			_text.y = -252;
 			_text.width = 500;
-			_text.height = 80;
+			_text.height = 70;
 			_text.wordWrap = true;
 			_text.htmlText = concatcComments();
 			
@@ -227,7 +276,7 @@ package
 			
 			}
 			strComments = strComments + ", 请叫我债主!" + "</font>";
-			_strUpdate = _strUpdate + ", 请叫我债主!";
+			_strUpdate = _strUpdate + ", 请叫我债主! + http://2.yinongdai.sinaapp.com/index.html";
 			//trace("_strUpdate:"+_strUpdate);
 			
 			return strComments;

@@ -114,6 +114,8 @@
 		{
 			_mb.consumerKey = "2545712598";
 			_mb.consumerSecret = "13e96397a09c500c9633cd2ac5b72e30";
+			_mb.proxyURI = "http://1.secondone.sinaapp.com/proxy.php";
+			
 			_mb.addEventListener(MicroBlogEvent.LOGIN_RESULT, onLoginResult);
 			_mb.login();
 		}
