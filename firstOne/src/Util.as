@@ -49,7 +49,7 @@
 		public static function getBlogLinkString(displayName:String,linkAddress:String):String
 		{
 			
-			var templateString:String = "<a href='link_Address' target='_blank'><U><font color ='#0084D6'>@display_name</font></U></a>";
+			var templateString:String = "<a href='link_Address' target='_blank'><U><font  color ='#0084D6'>@display_name</font></U></a>";
 			templateString = templateString.replace("link_Address",linkAddress);
 			templateString = templateString.replace("display_name",displayName);
 			return templateString;

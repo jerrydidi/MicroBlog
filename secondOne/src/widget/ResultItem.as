@@ -3,6 +3,7 @@
 	import flash.display.MovieClip;
 	import image.Image;
 	import flash.text.TextField;
+	import flash.text.TextFormat;
 	public class ResultItem extends MovieClip{
 		//
 		private var _resultImage:Image;
@@ -71,9 +72,13 @@
 			
 			//
 			this.addChild(_txtFriend);
+			_txtFriend.width = 200;
 			_txtFriend.text = "@" + _friendData.screen_name;
 			_txtFriend.x = _txtXPos;
 			_txtFriend.y = _txtYPos;
+			var txtFormat:TextFormat = new TextFormat();
+			txtFormat.color = 0xCC0000;
+			_txtFriend.setTextFormat(txtFormat);
 			
 			
 		}

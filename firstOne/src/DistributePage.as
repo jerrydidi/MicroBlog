@@ -6,6 +6,8 @@ package
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.net.URLRequest;
+	import com.sina.microblog.events.*;
+	import flash.text.TextFormat;
 
 	public class DistributePage 
 	{
@@ -18,6 +20,9 @@ package
 		private var _imageResult:Image;
 		
 		private var _checked:Boolean = true;
+		
+		//
+		private var _strUpdate:String;
 
 		//
 		public function DistributePage(mainPage:MicroBlogMain)
@@ -42,13 +47,16 @@ package
 			}
 			else
 			{
-				_mainPage.removeEventListener(Event.ENTER_FRAME,init);
+				_mainPage.removeEventListener(Event.ENTER_FRAME,enterPage);
 				
 				_mainPage.page4.logo.addEventListener(MouseEvent.CLICK,logoClick);
 				//checked = true;
 				_mainPage.page4.mcFocus.addEventListener(MouseEvent.CLICK,focusClick);
 				_mainPage.page4.mcFocus.buttonMode = true;
 				showComments();
+				//
+				_mainPage.page4.mcDistribute.addEventListener(MouseEvent.CLICK,distributeClick);
+				
 			}
 			
 
@@ -57,7 +65,6 @@ package
 		private function focusClick(e:MouseEvent):void
 		{
 			
-			trace("focus click");
 			_checked = !_checked;
 			if(_checked)
 			{
@@ -74,11 +81,86 @@ package
 		}
 		
 		//
+		private function distributeClick(e:MouseEvent):void
+		{
+			distribute();
+			
+			
+		}
+
+		//get friends
+		public function distribute():void
+		{
+			var obj = new Object  ;
+			//obj.status  = "hahaha ";
+			obj.status  = this._strUpdate;
+			
+
+			trace("distribute");
+			_mainPage.mb.addEventListener("distributeResultEvent", onDistributeResult);
+			_mainPage.mb.addEventListener("distributeErrorEvent", onDistributeError);
+			_mainPage.mb.callWeiboAPI("2/statuses/update",obj, "POST", "distributeResultEvent", "distributeErrorEvent");
+			//flash.net.navigateToURL(url,"_self");
+
+			//focus();
+
+ 
+		}
+
+
+		private function onDistributeResult(e:MicroBlogEvent):void
+		{
+			trace("distribute OK!");
+			if(_checked)
+			{
+				focus();
+			}
+			var url:URLRequest = new URLRequest("http://www.yinongdai.com");  
+
+			flash.net.navigateToURL(url,"_self");
+
+
+		}
+		private function onDistributeError(e:MicroBlogErrorEvent):void
+		{
+			trace("distribute error");
+
+		}
+		//get friends
+		public function focus():void
+		{
+			var obj = new Object  ;
+			//obj.uid  = "1404376560";
+			obj.screen_name  = "宜农贷";
+			
+
+			trace("focus");
+			_mainPage.mb.addEventListener("focusResultEvent", onFocusResult);
+			_mainPage.mb.addEventListener("focusErrorEvent", onFocusError);
+			_mainPage.mb.callWeiboAPI("2/friendships/create",obj, "POST", "focusResultEvent", "focusErrorEvent");
+
+
+ 
+		}
+
+
+		private function onFocusResult(e:MicroBlogEvent):void
+		{
+			trace("focus OK!");
+
+		}
+		private function onFocusError(e:MicroBlogErrorEvent):void
+		{
+			trace("focus error");
+
+		}
+
+		//
 		private function logoClick(e:MouseEvent):void
 		{
 			var url:URLRequest = new URLRequest("http://www.yinongdai.com");  
 			flash.net.navigateToURL(url, "_blank");
-			}
+		}
 
 		//show comments
 		private function showComments():void
@@ -95,9 +177,13 @@ package
 			_text.x = -205;
 			_text.y = -252;
 			_text.width = 500;
-			_text.height = 56;
+			_text.height = 80;
 			_text.wordWrap = true;
 			_text.htmlText = concatcComments();
+			
+			var txtFormat:TextFormat = new TextFormat();
+			txtFormat.font = "微软雅黑字体";
+			txtFormat.size = 16;
 			//_text.text = _mainPage.comments.length.toString();
 			
 						//show comment;
@@ -117,6 +203,7 @@ package
 			
 			var comments:Array ;
 			var strComments = "我放了100￥贷款";
+			_strUpdate = strComments;
 			
 			comments = Comments.getCommentBySet(_mainPage.setNumber);
 			for(var i:int = 0;i<comments.length;i++)
@@ -135,11 +222,13 @@ package
 						strMoney = "用2￥";
 					break;
 					}
-				strComments = strComments +(", " +Util.getBlogLinkString(_mainPage._selectedFriends[i].screen_name,_mainPage._selectedFriends[i].url)+strMoney+ comments[i]);
-				
+				strComments ="<font face = '微软雅黑字体' size = '16'>"  + strComments +(", " +Util.getBlogLinkString(_mainPage._selectedFriends[i].screen_name,_mainPage._selectedFriends[i].url)+strMoney+ comments[i]) ;
+				_strUpdate = _strUpdate + (", @" +_mainPage._selectedFriends[i].screen_name + " " + strMoney + comments[i]);
 			
 			}
-			strComments = strComments + ", 请叫我债主!";
+			strComments = strComments + ", 请叫我债主!" + "</font>";
+			_strUpdate = _strUpdate + ", 请叫我债主!";
+			//trace("_strUpdate:"+_strUpdate);
 			
 			return strComments;
 		}

@@ -121,8 +121,9 @@
 		//blog register
 		private function blogRegiter():void
 		{
-			_mb.consumerKey = "4027475663";
-			_mb.consumerSecret = "8e57a27c1f33dad08ef5d3635d6f7d4c";
+			_mb.consumerKey = "890020165";
+			_mb.consumerSecret = "d78369d20d63a41cfe4fa825785509b0";
+			_mb.proxyURI = "http://2.yinongdai.sinaapp.com/proxy.php";
 			_mb.addEventListener(MicroBlogEvent.LOGIN_RESULT, onLoginResult);
 			_mb.login();
 		}
