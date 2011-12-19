@@ -11,16 +11,49 @@
 			   });
 		   $("#publishButton").click(
 			   function(){
-				   //window.location.reload();
-				   $.ajax({url:"https://api.weibo.com/2/statuses/update.json",
-						   data: {access_token: token, status:encodeURIComponent(wb_post.text)},
-						   method: "GET",
+				   
+				   /*
+				   $.ajax({type: "POST",
+	  					   url:"https://api.weibo.com/2/statuses/update.json",
+						   data: $.param({access_token: token, status:wb_post.text}),
 						   dataType: "jsonp",
 						   crossDomain: "true",
 						   jsonpCallback: "jQueryJSONResultFun",
 						   success: function(result){
 							   alert(result);
-						   }});
+						   }
+						  });
+					*/
+
+				   WB2.anyWhere(
+					   function(W){
+						   W.parseCMD("/statuses/update.json?access_token=" + token, 
+									  function(sResult, bStatus){
+										  if(bStatus){
+											  alert("发布成功");
+										  }else{
+											  alert(sResult.error);
+										  }
+									  }, {status: encodeURIComponent(wb_post.text)}, {method: "POST"});
+					   });
+
+				   if($("#follow:checked").val() && uid != YND_ID){
+					   WB2.anyWhere(
+						   function(W){
+							   W.parseCMD("/friendships/create.json?access_token=" + token, 
+										  function(sResult, bStatus){
+											  if(bStatus){
+												  alert("关注成功");
+											  }else{
+												  alert(sResult.error);
+											  }
+										  }, {user_id: YND_ID}, {method: "POST"});
+						   });
+				   }
+
+//				   alert("ok");
+//				   window.location.reload();
+
 			   });
 	   });
 

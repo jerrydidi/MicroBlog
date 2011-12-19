@@ -20,9 +20,9 @@
 		 $2_user_action:{},
 		 text: function(){
 			 return [this.subject, 
-					 this.textUser(this.$60_user_action["user"]), this.$60, this.$60_user_action["action"]["label"],
-					 this.textUser(this.$38_user_action["user"]), this.$38, this.$38_user_action["action"]["label"],
-					 this.textUser(this.$2_user_action["user"]), this.$2, this.$2_user_action["action"]["label"],
+					 this.textUser(this.$60_user_action["user"]) + " " + this.$60 + this.$60_user_action["action"]["label"],
+					 this.textUser(this.$38_user_action["user"]) + " " + this.$38 + this.$38_user_action["action"]["label"],
+					 this.textUser(this.$2_user_action["user"]) + " " + this.$2 + this.$2_user_action["action"]["label"],
 					 this.tail].join("， ");
 		 },
 		 html: function(){
@@ -34,6 +34,9 @@
 			 return ht;
 		 },
 		 htmlUser: function(user){
+			 if(!user["url"]){
+				 return this.textUser(user);
+			 }
 			 return $("<div/>").append($("<a/>").attr("href", user["url"]).html(this.textUser(user))).html();
 		 },
 		 textUser: function(user){

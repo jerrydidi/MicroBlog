@@ -2,7 +2,8 @@
 	return $("<img/>").attr("src", src);
 }
 
-var token    /*String*/,
+var YND_ID = "1656839855",
+    token    /*String*/,
     uid      /*String*/,
     friends  /*Array*/,
     selectedUsers = []/*Array<JSON>*/,
