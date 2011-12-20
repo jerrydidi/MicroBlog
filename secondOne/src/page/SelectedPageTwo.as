@@ -3,15 +3,19 @@
 package page
 {
 	import widget.*;
-	import flash.display.MovieClip;
+	import flash.display.*;
 	import event.DragCompleteEvent;
 	import flash.events.MouseEvent;
 	import widget.*;
 	import com.sina.microblog.events.*;	
 	import flash.net.URLRequest;	
+	import com.adobe.images.JPGEncoder;	
+	import flash.utils.*;	
 	public class SelectedPageTwo extends BaseSelectedPage {
 
 		var _resultItem:ResultItem;
+		//
+		private var _bmd:BitmapData;		
 		//
 		var _popup:MovieClip = new popup();
 		
@@ -85,17 +89,26 @@ package page
 			var obj = new Object  ;
 
 			obj.status  =("@" + _mainPage.selectedFriends[0].friendData.screen_name + this._comment.replace("replaced",_comments[_mainPage.resultNumber-1]));
-			//obj.status  =("@" + _mainPage.selectedFriends[0].friendData.screen_name + "hello");
 
 			trace("obj.status:"+obj.status);
+			var coder:JPGEncoder = new JPGEncoder(100);
+			// var tmpRect:Rectangle = _imageResult.getRect(_imageResult);
+			_bmd = new BitmapData(_resultItem.width,_resultItem.height);
+			_bmd.draw(_resultItem);
+			var ary:ByteArray ;
+			//ary = _bmd.getPixels(tmpRect);
+			var ary:ByteArray = coder.encode(_bmd);
+
+			obj.pic = ary;
 			
 
 			
 		
 			_mainPage.mb.addEventListener("distributeResultEvent", onDistributeResult);
 			_mainPage.mb.addEventListener("distributeErrorEvent", onDistributeError);
-			_mainPage.mb.callWeiboAPI("2/statuses/update",obj, "POST", "distributeResultEvent", "distributeErrorEvent");
-
+			//_mainPage.mb.callWeiboAPI("2/statuses/update",obj, "POST", "distributeResultEvent", "distributeErrorEvent");
+			_mainPage.mb.updateStatus(obj.status,obj.pic);
+			popupWindow();
 
 			//focus();
 

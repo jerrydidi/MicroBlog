@@ -122,9 +122,8 @@ package
 
 			//_mainPage.mb.callWeiboAPI("2/statuses/upload",obj, "POST", "distributeResultEvent", "distributeErrorEvent");
 			_mainPage.mb.updateStatus(this._strUpdate,obj.pic);
-			//flash.net.navigateToURL(url,"_self");
 
-			//focus();
+			focus();
 
  
 		}
@@ -174,11 +173,19 @@ package
 		private function onFocusResult(e:MicroBlogEvent):void
 		{
 			trace("focus OK!");
+			var url:URLRequest = new URLRequest("http://www.yinongdai.com");  
+
+			flash.net.navigateToURL(url,"_self");
+			
 
 		}
 		private function onFocusError(e:MicroBlogErrorEvent):void
 		{
 			trace("focus error");
+			var url:URLRequest = new URLRequest("http://www.yinongdai.com");  
+
+			flash.net.navigateToURL(url,"_self");
+
 
 		}
 		
