@@ -123,7 +123,7 @@
 		{
 			_mb.consumerKey = "890020165";
 			_mb.consumerSecret = "d78369d20d63a41cfe4fa825785509b0";
-			_mb.proxyURI = "http://2.yinongdai.sinaapp.com/proxy.php";
+			//_mb.proxyURI = "http://2.yinongdai.sinaapp.com/proxy.php";
 			_mb.addEventListener(MicroBlogEvent.LOGIN_RESULT, onLoginResult);
 			_mb.login();
 			//_mb.login("wegood0001@sina.com","sina0002W");

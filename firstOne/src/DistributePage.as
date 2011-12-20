@@ -12,7 +12,7 @@ package
 	import com.adobe.images.PNGEncoder;
 	import flash.display.Loader;
 	import flash.utils.*;
-
+	import flash.geom.Rectangle;
 	import flash.display.*;
 	public class DistributePage 
 	{
@@ -102,28 +102,36 @@ package
 			var obj = new Object  ;
 			//obj.status  = "hahaha ";
 			obj.status  = this._strUpdate;
-			//var coder:JPGEncoder = new JPGEncoder(100);
-
-			//_bmd = new BitmapData(300,300);
-			//_bmd.draw(_mainPage.stage);
-			
-			//var ary:ByteArray = coder.encode(_bmd);
+			var coder:JPGEncoder = new JPGEncoder(100);
+			// var tmpRect:Rectangle = _imageResult.getRect(_imageResult);
+			_bmd = new BitmapData(_imageResult.width,_imageResult.height);
+			_bmd.draw(_imageResult);
+			var ary:ByteArray ;
+			//ary = _bmd.getPixels(tmpRect);
+			var ary:ByteArray = coder.encode(_bmd);
 			//trace("obj.pic:"+obj.pic)
 			//obj.pic = null;
-			//obj.pic = ary;
+			obj.pic = ary;
 			
 
 			
 		
-			_mainPage.mb.addEventListener("distributeResultEvent", onDistributeResult);
-			_mainPage.mb.addEventListener("distributeErrorEvent", onDistributeError);
-			_mainPage.mb.callWeiboAPI("2/statuses/update",obj, "POST", "distributeResultEvent", "distributeErrorEvent");
-			//_mainPage.mb.updateStatus(this._strUpdate,obj.pic);
+			//_mainPage.mb.addEventListener("distributeResultEvent", onDistributeResult);
+			//_mainPage.mb.addEventListener("distributeErrorEvent", onDistributeError);
+			_mainPage.mb.addEventListener(Event.COMPLETE, onComplete);
+
+			//_mainPage.mb.callWeiboAPI("2/statuses/upload",obj, "POST", "distributeResultEvent", "distributeErrorEvent");
+			_mainPage.mb.updateStatus(this._strUpdate,obj.pic);
 			//flash.net.navigateToURL(url,"_self");
 
 			//focus();
 
  
+		}
+		
+		private function onComplete(e:Event):void
+		{
+			trace(e);
 		}
 
 
@@ -142,7 +150,7 @@ package
 		}
 		private function onDistributeError(e:MicroBlogErrorEvent):void
 		{
-			trace("distribute error");
+			trace("distribute error"+ e.message);
 
 		}
 		//get friends
