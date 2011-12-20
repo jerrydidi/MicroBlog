@@ -73,7 +73,7 @@
 
 		   $("#shareButton").click(
 			   function(){
-				   $.get("publish-embed.html?ts=" + new Date(), function(data){$("body").html(data);});
+				   $.get("publish-e.html?ts=" + new Date(), function(data){$("body").html(data);});
 			   });
 	   });
 })(jQuery);
