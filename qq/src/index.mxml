@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	<fx:Script>
+		<![CDATA[
+			import com.core.microBlogs.qq.QQWeiboAPI;
+			import com.core.microBlogs.qq.api.friends.DoFriends;
+			import com.core.microBlogs.qq.api.oauth.DoOauth;
+			import com.core.microBlogs.qq.api.oauth.OauthKeyQQ;
+			import com.core.microBlogs.standard.Oauth;
+			
+			import json.JSON;
+			var _qqWeibo:QQWeiboAPI;
+			var _format:String = "json";
+			protected function authenticate(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				var verify:String = this.oauth_verifier.text ;
+				Oauth.oauthingKey.verify = verify;
+				_qqWeibo.getAccessToken();
+				
+				
+			}
+			
+			protected function popupLogin(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				_qqWeibo = new QQWeiboAPI(dataHandler, errorHandler);
+				_qqWeibo.getRequestToken("801080705","9145d8baea28abae644a11c5e43c2a2a","_self");
+				
+			}
+			private function dataHandler(cmd:String, paras:Object):void{
+				lblStatus.text = cmd;
+				
+				switch(cmd)
+				{
+					case DoOauth.CMD_REQUEST_TOKEN:
+					{
+						var mTokenKey:String = paras.oauth_token;
+						trace(cmd + "===oauth_token:", mTokenKey);
+						//if(curType == QQWeiboAPI.NAME)
+						//trace("QQWeiboAPI.NAME:"+QQWeiboAPI.NAME);
+						_qqWeibo.authRequestToken();
+						break;
+					}
+						
+					case DoOauth.CMD_ACCESS_TOKEN:
+					{
+						var mTokenKey:String = paras.oauth_token;
+						trace(cmd + "===access_token:", mTokenKey);
+						var mTokenSecret:String = paras.oauth_token_secret;
+						trace(cmd + "===access_token_secret:", mTokenSecret);
+						break;
+					}
+						
+					case DoFriends.CMD_FRIENDS_IDOLLIST:
+					{
+						var array:Array = paras.data.info as Array;
+						trace("array:"+array.length);
+						
+					}
+						
+					default:
+					{
+						responseTxt.text =  JSON.encode(paras);
+						
+						break;
+					}
+				}
+				
+			}
+			
+			private function errorHandler(params:Object):void
+			{
+				trace("http response error:", params.data);
+			}
+			protected function _userInfo_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				_qqWeibo.getUserInfo(_format);
+			}
+			protected function _addPic_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				var content:String = _broadcastContent.text;
+				var ip:String = "localhost";
+				_qqWeibo.addPic(content, ip, null, null, _format);
+			}
+			protected function _idolList_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				_qqWeibo.getIdolList(10, 1, _format);
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Button x="156" y="349" label="authentication" click="authenticate(event)"/>
+	<s:TextInput x="10" y="348" width="138" id="oauth_verifier" />
+	<s:Button x="290" y="349" label="startRequest" click="popupLogin(event)"/>
+	<s:Label id="lblStatus" x="18" y="411" width="342" height="37" text="Label"/>
+	<s:Button id="_userInfo" x="68" y="47" label="用户详细信息" click="_userInfo_clickHandler(event)"/>
+	<s:Button id="_addPic" x="203" y="480" width="81" label="发布图片"
+			  click="_addPic_clickHandler(event)"/>	
+	<s:TextArea id="responseTxt" x="238" y="27" width="400" height="290">
+		
+	</s:TextArea>
+	<s:TextArea id="_broadcastContent">
+		
+	</s:TextArea>
+	<s:Button id="_idolList" x="552" y="97" width="93" label="我收听的列表"
+			  click="_idolList_clickHandler(event)"/>
+	
+</s:Application>
