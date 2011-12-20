@@ -88,10 +88,10 @@
 			_loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, loadImageComplete);
 			
 			//
-			var bitmap:Bitmap = _loader.content as Bitmap;
-			bitmap.alpha = 0;
-			bitmap.smoothing = true;
-			TweenLite.to(bitmap, 0.5, {alpha:1, ease:Back.easeIn});
+			//var bitmap:Bitmap = _loader.content as Bitmap;
+			_loader.alpha = 0;
+			//bitmap.smoothing = true;
+			TweenLite.to(_loader, 0.5, {alpha:1, ease:Back.easeIn});
 			
 			//bitmap.blendMode =  BlendMode.OVERLAY;
 
