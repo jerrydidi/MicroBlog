@@ -112,8 +112,8 @@
 		//blog register
 		private function blogRegiter():void
 		{
-			_mb.consumerKey = "2545712598";
-			_mb.consumerSecret = "13e96397a09c500c9633cd2ac5b72e30";
+			_mb.consumerKey = "1625362241";
+			_mb.consumerSecret = "b196f99718cc61baf9c0e4fed45ce0f1";
 			_mb.proxyURI = "http://1.secondone.sinaapp.com/proxy.php";
 			
 			_mb.addEventListener(MicroBlogEvent.LOGIN_RESULT, onLoginResult);
