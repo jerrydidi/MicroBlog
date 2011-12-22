@@ -102,7 +102,7 @@ package com.core.microBlogs.qq.api.oauth
 		 * 交换access_token，获取最后的授权token，获取后请自行在应用程序中做持久化，建议与应用账户系统进行绑定。
 		 * */
 		public function getAccessToken():void{
-			trace("get AccessToken");;
+			//trace("get AccessToken");;
 			var paras:Array = [];
 			Oauth.oauthingKey.callbackUrl = null;
 			Oauth.oauthingKey.httpMethod = "GET";

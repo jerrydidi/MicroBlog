@@ -106,7 +106,8 @@
 
 			_mb.addEventListener("getFriendsResultEvent", onGetFriendsResult);
 			_mb.addEventListener("getFriendsErrorEvent", onGetFriendsError);
-			_mb.callWeiboAPI("2/friendships/friends",obj, "GET", "getFriendsResultEvent", "getFriendsErrorEvent");
+			_mb.callWeiboAPI("2/friendships/friends/bilateral",obj, "GET", "getFriendsResultEvent", "getFriendsErrorEvent");
+			//_mb.callWeiboAPI("2/friendships/friends",obj, "GET", "getFriendsResultEvent", "getFriendsErrorEvent");
 
  
 		}
@@ -114,6 +115,8 @@
 
 		private function onGetFriendsResult(e:MicroBlogEvent):void
 		{
+			//trace("get friends");
+
 			var data:Object = e.result;
 
 			_mainPage.friends = data.users as Array;
@@ -123,7 +126,7 @@
 		}
 		private function onGetFriendsError(e:MicroBlogErrorEvent):void
 		{
-
+			trace("get friends error");
 		}
 		
 		public function showFriendsPanel():void

@@ -88,7 +88,7 @@ package page
 		{
 			var obj = new Object  ;
 
-			obj.status  =("@" + _mainPage.selectedFriends[0].friendData.screen_name + this._comment.replace("replaced",_comments[_mainPage.resultNumber-1]));
+			obj.status  =("@" + _mainPage.selectedFriends[0].friendData.screen_name + "  " +this._comment.replace("replaced",_comments[_mainPage.resultNumber-1]));
 
 			trace("obj.status:"+obj.status);
 			var coder:JPGEncoder = new JPGEncoder(100);

@@ -14,7 +14,7 @@
 	import flash.events.TextEvent;
 	import com.core.microBlogs.qq.api.oauth.*;
 	import flash.events.Event;
-	
+	import com.util.OauthUrlUtil;	
 	public class MainPage extends MovieClip {
 		//micro blog reference
 		private var _QQWeibo:QQWeiboAPI = new QQWeiboAPI(dataHandler, errorHandler);
@@ -53,8 +53,37 @@
 			_txtAuto.type =  TextFieldType.INPUT; 
 			page0.mcAuth.addEventListener(MouseEvent.CLICK,authClickHandler);
 			page0.addChild(_txtAuto);
-			_QQWeibo.getRequestToken("801081220","bd393829076def233f7f8f12a6b5e6f5");
+			
+			strOauth_token=stage.loaderInfo.parameters.oauth_token;			
+			strVerifier=stage.loaderInfo.parameters.oauth_verifier;			
 
+			//if ge the token and verfigier then auth it directly
+			//if(strOauth_token != null && strVerifier != null)
+			{
+
+				var key:OauthKeyQQ = new OauthKeyQQ();
+
+				key.customKey = "801081220";
+				key.customSecrect = "bd393829076def233f7f8f12a6b5e6f5";
+				//key.callbackUrl = OauthUrlUtil.executeString(null);
+			
+				Oauth.oauthingKey = key;
+			
+				//Oauth.oauthingKey.httpMethod = "GET";
+
+				Oauth.oauthingKey.tokenKey = "b77af24ddf364f3ba3dd8317a9cdbf84";
+				Oauth.oauthingKey.verify = "279923";
+				
+				Oauth.oauthingKey.tokenSecrect = "58611f3b59ea2ab08a5d19fe51ad5fa8";
+				//_QQWeibo.authRequestToken();
+				_QQWeibo.getAccessToken();
+				
+			}
+			//else
+			//{
+				//_QQWeibo.getRequestToken("801081220","bd393829076def233f7f8f12a6b5e6f5");
+				
+			//}
 			
 		}
 		
@@ -176,6 +205,8 @@
 				case DoOauth.CMD_REQUEST_TOKEN:
 				{
 
+					trace("paras.oauth_token:"+paras.oauth_token);
+					trace("paras.oauth_token_secret:"+paras.oauth_token_secret);
 					_QQWeibo.authRequestToken();
 
 					break;

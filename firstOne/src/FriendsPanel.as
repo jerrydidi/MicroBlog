@@ -28,7 +28,11 @@
 			this._seq = seq;
 			this._friends = _microBlogMain.friends;
 			this._friendNum = _friends.length;
-			listFriends();
+			trace("this._friendNum:"+this._friendNum);
+			if(this._friendNum>0)
+			{
+				listFriends();
+			}
 		}
 
 
@@ -38,7 +42,15 @@
 			var i:int = 0;
 			var showFriendsIdx:Array = new Array();
 			//showFriendsIdx = getRamdonFriendListIndex(3);
-			showFriendsIdx = Util.getRamdonListIndex(3,this._friendNum);
+			if(this._friendNum>3)
+			{
+				showFriendsIdx = Util.getRamdonListIndex(3,this._friendNum);
+			}
+			else
+			{
+				showFriendsIdx = Util.getRamdonListIndex(this._friendNum,this._friendNum);
+				
+			}
 			//clear firstly
 			for each (var showFriendItem:FriendImage in showFriends)
 			{
