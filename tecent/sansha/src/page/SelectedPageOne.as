@@ -4,7 +4,6 @@
 	import flash.display.MovieClip;
 	import event.DragCompleteEvent;
 	import flash.events.MouseEvent;
-	import com.sina.microblog.MicroBlog;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import com.sina.microblog.events.*;

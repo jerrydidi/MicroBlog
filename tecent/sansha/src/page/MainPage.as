@@ -12,6 +12,8 @@
 	import flash.text.TextField;
 	import flash.text.TextFieldType;
 	import flash.events.TextEvent;
+	import com.core.microBlogs.qq.api.oauth.*;
+	import flash.events.Event;
 	
 	public class MainPage extends MovieClip {
 		//micro blog reference
@@ -31,7 +33,10 @@
 		private var _txtAuto:TextField = new TextField();
 		//
 		public var resultNumber:int = Math.round(Math.random()*6)+1;
-		
+
+		var strOauth_token:String;			
+		var strVerifier:String;			
+
 		//public var resultNumber:int =6;
 			
 		//
@@ -41,11 +46,48 @@
 		public function MainPage() {
 			// constructor code
 			page0.btnLogin.addEventListener(MouseEvent.CLICK,loginClickHandler);
-			_QQWeibo.getRequestToken("801081220","bd393829076def233f7f8f12a6b5e6f5");
+			//page0.addEventListener(Event.ENTER_FRAME,enterPage);
+			
+
 			_txtAuto.text = "auth verfier here";
 			_txtAuto.type =  TextFieldType.INPUT; 
 			page0.mcAuth.addEventListener(MouseEvent.CLICK,authClickHandler);
-			page0.addChild(_txtAuto)
+			page0.addChild(_txtAuto);
+			_QQWeibo.getRequestToken("801081220","bd393829076def233f7f8f12a6b5e6f5");
+			
+		}
+		
+		private function enterPage(e:Event):void
+		{
+					page0.removeEventListener(Event.ENTER_FRAME,enterPage);
+
+
+					strOauth_token=stage.loaderInfo.parameters.oauth_token;			
+					strVerifier=stage.loaderInfo.parameters.oauth_verifier;			
+
+					//if ge the token and verfigier then auth it directly
+					if(strOauth_token != null && strVerifier != null)
+					{
+				
+						var key:OauthKeyQQ = new OauthKeyQQ();
+						key.customKey = "801081220";
+						key.customSecrect = "bd393829076def233f7f8f12a6b5e6f5";
+						Oauth.oauthingKey = key;
+
+						Oauth.oauthingKey.verify = strVerifier;
+						Oauth.oauthingKey.tokenKey =strOauth_token;
+						//Oauth.oauthingKey.tokenSecrect = "98b3d9dfeef535c59b80f4670dc0786a";
+						_QQWeibo.getAccessToken();
+									
+
+					}
+					else
+					{
+						_QQWeibo.getRequestToken("801081220","bd393829076def233f7f8f12a6b5e6f5","http://www.riasun.com/microblog/qq/index.swf");
+					}
+
+						
+				
 			
 		}
 		private function authClickHandler(event:MouseEvent):void
@@ -127,14 +169,14 @@
 		//
 		private function dataHandler(cmd:String, paras:Object):void{
 
+			trace("cmd:"+cmd);
 			switch(cmd)
 			{
 				case DoOauth.CMD_REQUEST_TOKEN:
 				{
-					var mTokenKey:String = paras.oauth_token;
-					trace(cmd + "===oauth_token:", mTokenKey);
+
 					_QQWeibo.authRequestToken();
-						
+
 					break;
 				}
 
@@ -149,7 +191,7 @@
 				case DoFriends.CMD_FRIENDS_IDOLLIST:
 				{
 					_friends = paras.data.info as Array;
-					trace("_friends:"+_friends.length);
+					//trace("_friends:"+_friends.length);
 					changePage(1);
 					break;
 				}

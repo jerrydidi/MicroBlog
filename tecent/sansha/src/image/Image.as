@@ -27,8 +27,8 @@
 		{
 			// constructor code
 			//trace("imageURL:"+imageURL)
-			//this._imageURL = imageURL;
-			this._imageURL = "images/pic01.jpg";
+			this._imageURL = imageURL;
+			//this._imageURL = "images/pic01.jpg";
 			this._scale = scale;
 		}
 
@@ -65,8 +65,8 @@
 			else
 			{
 				
-				_loader.width = 180;
-				_loader.height = 180;
+				//_loader.width = 180;
+				//_loader.height = 180;
 
 			
 			}

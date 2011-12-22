@@ -9,10 +9,13 @@ package page
 	import widget.*;
 	import com.sina.microblog.events.*;	
 	import flash.net.URLRequest;	
+	import com.adobe.images.JPGEncoder;	
 	import flash.utils.*;	
 	import com.core.microBlogs.qq.QQWeiboAPI;
 	import com.core.microBlogs.qq.api.friends.DoFriends;
 	import com.core.microBlogs.qq.api.broadcast.DoBroadcast;
+	
+	import flash.net.FileReference;
 	public class SelectedPageTwo extends BaseSelectedPage {
 
 		var _resultItem:ResultItem;
@@ -24,6 +27,7 @@ package page
 		private var _QQWeibo:QQWeiboAPI = new QQWeiboAPI(dataHandler, errorHandler);
 		//
 		var _popup:MovieClip = new popup();
+
 		
 		var _comments:Array = [
 			"害怕明天，怎么能过好今天？",
@@ -90,6 +94,7 @@ package page
 		//get friends
 		private function distributeClick(e:MouseEvent):void
 		{
+			
 			uploadPic();
 			//popupWindow();
 		}
@@ -99,9 +104,19 @@ package page
 			var obj = new Object  ;
 			obj.status  = ("@" +_mainPage.selectedFriends[0].friendData.name + this._comment.replace("replaced",_comments[_mainPage.resultNumber-1]));
 			//trace("obj.status:"+obj.status);
-
-			var ip:String = "localhost/images/pic01.jpg";
-			_QQWeibo.addPic(obj.status, ip, null, null, _format);
+			var coder:JPGEncoder = new JPGEncoder(100);
+			// var tmpRect:Rectangle = _imageResult.getRect(_imageResult);
+			_bmd = new BitmapData(_resultItem.width,_resultItem.height);
+			_bmd.draw(_resultItem);
+			var ary:ByteArray ;
+			//ary = _bmd.getPixels(tmpRect);
+			var ary:ByteArray = coder.encode(_bmd);
+			//var _file:FileReference = new FileReference();
+			//_file.save(ary,"test.jpg");
+			var picURL:String = "http://www.riasun.com/microblog/qq/images/pic0"+ _mainPage.resultNumber.toString()+".jpg";
+			//_QQWeibo.addPic(obj.status, ip, null, null,"images/pic01.jpg");
+			var ip:String = "localhost";
+			_QQWeibo.addPicURL(obj.status, ip,picURL, null, null,"json");
 			
 		}
 		
@@ -119,7 +134,7 @@ package page
 			trace("cmd:"+cmd);
 			switch(cmd)
 			{
-				case DoBroadcast.CMD_ADD_PIC:
+				case DoBroadcast.CMD_ADD_PIC_URL:
 				{
 					popupWindow();
 					break;
@@ -137,7 +152,7 @@ package page
 		}
 		private function errorHandler(params:Object):void
 		{
-			trace("http response error:", params.data);
+			trace("selected page two http response error:", params.data);
 		}
 
 		
