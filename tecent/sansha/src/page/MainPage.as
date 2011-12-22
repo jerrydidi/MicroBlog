@@ -46,85 +46,70 @@
 		public function MainPage() {
 			// constructor code
 			page0.btnLogin.addEventListener(MouseEvent.CLICK,loginClickHandler);
-			//page0.addEventListener(Event.ENTER_FRAME,enterPage);
+			this.pop.visible = false;
+			this.pop.btnClose.addEventListener(MouseEvent.CLICK,btnCloseClickHandler);
+			this.pop.btnAuth.addEventListener(MouseEvent.CLICK,authClickHandler);
 			
 
-			_txtAuto.text = "auth verfier here";
-			_txtAuto.type =  TextFieldType.INPUT; 
-			page0.mcAuth.addEventListener(MouseEvent.CLICK,authClickHandler);
-			page0.addChild(_txtAuto);
+
 			
-			strOauth_token=stage.loaderInfo.parameters.oauth_token;			
-			strVerifier=stage.loaderInfo.parameters.oauth_verifier;			
+//			strOauth_token=stage.loaderInfo.parameters.oauth_token;			
+//			strVerifier=stage.loaderInfo.parameters.oauth_verifier;			
 
 			//if ge the token and verfigier then auth it directly
 			//if(strOauth_token != null && strVerifier != null)
-			{
-
-				var key:OauthKeyQQ = new OauthKeyQQ();
-
-				key.customKey = "801081220";
-				key.customSecrect = "bd393829076def233f7f8f12a6b5e6f5";
-				//key.callbackUrl = OauthUrlUtil.executeString(null);
-			
-				Oauth.oauthingKey = key;
-			
-				//Oauth.oauthingKey.httpMethod = "GET";
-
-				Oauth.oauthingKey.tokenKey = "b77af24ddf364f3ba3dd8317a9cdbf84";
-				Oauth.oauthingKey.verify = "279923";
-				
-				Oauth.oauthingKey.tokenSecrect = "58611f3b59ea2ab08a5d19fe51ad5fa8";
-				//_QQWeibo.authRequestToken();
-				_QQWeibo.getAccessToken();
-				
-			}
+//			{
+//
+//				var key:OauthKeyQQ = new OauthKeyQQ();
+//
+//				key.customKey = "801081220";
+//				key.customSecrect = "bd393829076def233f7f8f12a6b5e6f5";
+//				//key.callbackUrl = OauthUrlUtil.executeString(null);
+//			
+//				Oauth.oauthingKey = key;
+//			
+//				//Oauth.oauthingKey.httpMethod = "GET";
+//
+//				Oauth.oauthingKey.tokenKey = "b77af24ddf364f3ba3dd8317a9cdbf84";
+//				Oauth.oauthingKey.verify = "279923";
+//				
+//				Oauth.oauthingKey.tokenSecrect = "58611f3b59ea2ab08a5d19fe51ad5fa8";
+//				//_QQWeibo.authRequestToken();
+//				_QQWeibo.getAccessToken();
+//				
+//			}
 			//else
-			//{
-				//_QQWeibo.getRequestToken("801081220","bd393829076def233f7f8f12a6b5e6f5");
-				
-			//}
+//			{
+				_QQWeibo.getRequestToken("801081220","bd393829076def233f7f8f12a6b5e6f5");
+//				
+//			}
 			
+		}
+
+		
+		private function loginClickHandler(e:MouseEvent):void
+		{
+			//page0.btnLogin.removeEventListener(MouseEvent.CLICK,loginClickHandler);
+			this.pop.visible = true;
+			_QQWeibo.authRequestToken();
+			
+
 		}
 		
-		private function enterPage(e:Event):void
+		private function btnCloseClickHandler(e:MouseEvent):void
 		{
-					page0.removeEventListener(Event.ENTER_FRAME,enterPage);
-
-
-					strOauth_token=stage.loaderInfo.parameters.oauth_token;			
-					strVerifier=stage.loaderInfo.parameters.oauth_verifier;			
-
-					//if ge the token and verfigier then auth it directly
-					if(strOauth_token != null && strVerifier != null)
-					{
-				
-						var key:OauthKeyQQ = new OauthKeyQQ();
-						key.customKey = "801081220";
-						key.customSecrect = "bd393829076def233f7f8f12a6b5e6f5";
-						Oauth.oauthingKey = key;
-
-						Oauth.oauthingKey.verify = strVerifier;
-						Oauth.oauthingKey.tokenKey =strOauth_token;
-						//Oauth.oauthingKey.tokenSecrect = "98b3d9dfeef535c59b80f4670dc0786a";
-						_QQWeibo.getAccessToken();
-									
-
-					}
-					else
-					{
-						_QQWeibo.getRequestToken("801081220","bd393829076def233f7f8f12a6b5e6f5","http://www.riasun.com/microblog/qq/index.swf");
-					}
-
-						
-				
-			
+			this.pop.visible = false;
 		}
+
 		private function authClickHandler(event:MouseEvent):void
 		{
-			var verify:String = _txtAuto.text ;
+			var verify:String = this.pop.txtAuth.text ;
+			//remove the space char
+			verify = verify.replace(/^\s*|\s*$/g,"").split(" ").join("");
 			Oauth.oauthingKey.verify = verify;
 			_QQWeibo.getAccessToken();
+			this.pop.visible = false;
+			
 
 
 		}
@@ -205,9 +190,9 @@
 				case DoOauth.CMD_REQUEST_TOKEN:
 				{
 
-					trace("paras.oauth_token:"+paras.oauth_token);
-					trace("paras.oauth_token_secret:"+paras.oauth_token_secret);
-					_QQWeibo.authRequestToken();
+					//trace("paras.oauth_token:"+paras.oauth_token);
+					//trace("paras.oauth_token_secret:"+paras.oauth_token_secret);
+					//_QQWeibo.authRequestToken();
 
 					break;
 				}
@@ -242,14 +227,6 @@
 			trace("http response error:", params.data);
 		}
 		
-		private function loginClickHandler(e:MouseEvent):void
-		{
-			page0.btnLogin.removeEventListener(MouseEvent.CLICK,loginClickHandler);
-			//blogRegiter();
-			_QQWeibo.authRequestToken();
-			
-
-		}
 		//get friends
 		public function getFriends():void
 		{

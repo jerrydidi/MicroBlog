@@ -30,23 +30,26 @@
 		{
 			_mainPage.childPage = _mainPage.page1;
 		
-			//
-			_friendsSelectedPanel = new FriendsSelectedPanel(_mainPage.friends);
-			_friendsSelectedPanel.x = 145;
-			_friendsSelectedPanel.y = 100;
-			_mainPage.childPage.addChild(_friendsSelectedPanel);
-			//
+			if(_mainPage.friends.length >0)
+			{
+				//
+				_friendsSelectedPanel = new FriendsSelectedPanel(_mainPage.friends);
+				_friendsSelectedPanel.x = 145;
+				_friendsSelectedPanel.y = 100;
+				_mainPage.childPage.addChild(_friendsSelectedPanel);
+				//
 
 
-			_friendsPanel = new FriendsPanel(_mainPage.friends);
-			_friendsPanel.x = 75;
-			_friendsPanel.y = 360;
-			_friendsPanel.addEventListener(DragCompleteEvent.DRAG_COMPLETE_EVENT,dragComplete)
-			_mainPage.childPage.addChild(_friendsPanel);
-					//
+				_friendsPanel = new FriendsPanel(_mainPage.friends);
+				_friendsPanel.x = 75;
+				_friendsPanel.y = 360;
+				_friendsPanel.addEventListener(DragCompleteEvent.DRAG_COMPLETE_EVENT,dragComplete)
+				_mainPage.childPage.addChild(_friendsPanel);
+				//
 
-			//
-			_mainPage.childPage.mcToPageThree.addEventListener(MouseEvent.CLICK,nextPage);
+				//
+				_mainPage.childPage.mcToPageThree.addEventListener(MouseEvent.CLICK,nextPage);
+			}
 			//
 			
 		}

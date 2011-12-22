@@ -181,15 +181,17 @@
 		}
 		
 		
-		//get friends
+		//get friends 
 		public function getFriends():void
 		{
 			var obj = new Object  ;
 			obj.uid = this._uid;
+			//friend number
+			obj.count = 200;
 
 			_mb.addEventListener("getFriendsResultEvent", onGetFriendsResult);
 			_mb.addEventListener("getFriendsErrorEvent", onGetFriendsError);
-			_mb.callWeiboAPI("2/friendships/friends",obj, "GET", "getFriendsResultEvent", "getFriendsErrorEvent");
+			_mb.callWeiboAPI("2/friendships/friends/bilateral",obj, "GET", "getFriendsResultEvent", "getFriendsErrorEvent");
 		}
 
 
@@ -198,6 +200,7 @@
 			var data:Object = e.result;
 
 			_friends = data.users as Array;
+			trace("_friends.length:"+_friends.length);
 
 			//get friends then goto page 1
 			changePage(1);
