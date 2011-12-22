@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>宜农贷</title>
+<meta charset="utf-8" />
+<meta name="generator" content="editplus" />
+<meta name="author" content="" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<link rel="stylesheet" type="text/css" href="style.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!--
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=4027475663" type="text/javascript" charset="utf-8"></script>
+-->
+<script type="text/javascript" src="js/jquery-1.7.1.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/app.js" charset="utf-8"></script>
+<script type="text/javascript">
+    //- 4027475663
+    //- 2658053936
+    var hash = document.location.hash.substring(1);
+    var token = getParamByName(hash, "access_token");
+    var uid = getParamByName(hash, "uid");
+//	alert("token:" + token + ", uid:" + uid);
+    (function($){
+        $(function(){
+/*        
+            $.WB2.api("/friendships/friends.json", null);
+*/
+            $.getJSON("https://api.weibo.com/2/friendships/friends.json?callback=?",
+                   {access_token: token, uid: uid},
+                   function(result){
+                       var users = result.data.users;
+                       if(users == null){
+                           return;
+                       }
+                       //alert(result.data.users);
+                   });
+
+//            $('<span class="mimg"><img alt="头像"/><p></p></span>').wrap();
+
+            $("#okButton").click(function(){
+                var buffer = $("<div/>");
+                buffer.load("end-embed.html");
+                $("body > div").empty();
+                $("body").append(buffer.empty());
+            });
+
+        });
+
+    })(jQuery);
+
+    
+
+</script>
+</head>
+<body>
+<!-- 头部 -->
+<div class="header2">
+	<div class="logo">
+		<a href=""><img src="images/logo.png" alt="" /></a></div>
+
+    <div>
+	<div class="barindex"></div>
+
+	<div class="minipic">
+		<span class="mimg">
+			<img src="images/index_07.jpg" alt="头像" />
+			<p>小雅心儿</p>
+			<input type="checkbox" id="input" />
+		</span>
+		<span class="mimg2">
+			<img src="images/index_07.jpg" alt="头像" />
+			<p>小雅心儿</p>
+			<input type="checkbox" id="input" />
+		</span>
+		<span class="mimg3">
+			<img src="images/index_07.jpg" alt="头像" />
+			<p>小雅心儿</p>
+			<input type="checkbox" id="input" />
+		</span>
+		<span class="btn">
+			<a href=""><img src="images/btn1.png" alt="" /></a>
+		</span>
+	</div>
+
+	<div class="minipic2">
+		<span class="m2img">
+			<img src="images/index_07.jpg" alt="头像" />
+			<p>小雅心儿</p>
+			<input type="checkbox" id="input" />
+		</span>
+		<span class="m2img2">
+			<img src="images/index_07.jpg" alt="头像" />
+			<p>小雅心儿</p>
+			<input type="checkbox" id="input" />
+		</span>
+		<span class="m2img3">
+			<img src="images/index_07.jpg" alt="头像" />
+			<p>小雅心儿</p>
+			<input type="checkbox" id="input" />
+		</span>
+		<span class="btn2">
+			<a href=""><img src="images/btn1.png" alt="" /></a>
+		</span>
+	</div>
+
+	<div class="minipic3">
+		<span class="m3img">
+			<img src="images/index_07.jpg" alt="头像" />
+			<p>小雅心儿</p>
+			<input type="checkbox" id="input" />
+		</span>
+		<span class="m3img2">
+			<img src="images/index_07.jpg" alt="头像" />
+			<p>小雅心儿</p>
+			<input type="checkbox" id="input" />
+		</span>
+		<span class="m3img3">
+			<img src="images/index_07.jpg" alt="头像" />
+			<p>小雅心儿</p>
+			<input type="checkbox" id="input" />
+		</span>
+		<span class="btn3">
+			<a href=""><img src="images/btn1.png" alt="" /></a>
+		</span>
+	</div>
+
+	<div class="button2">
+		<a id="okButton" href="javascript:void(0);"><img src="images/index_15.jpg" alt="" /></a></div>
+    </div>
+</div>
+</body>
+</html>

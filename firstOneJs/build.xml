@@ -1,0 +1,8 @@
+<project name="firOne" default="build-local" basedir=".">
+    
+    <target name="">
+    </target>
+
+    
+    
+</project>
