@@ -54,6 +54,7 @@
 			page0.mcAuth.addEventListener(MouseEvent.CLICK,authClickHandler);
 			page0.addChild(_txtAuto);
 			_QQWeibo.getRequestToken("801081220","bd393829076def233f7f8f12a6b5e6f5");
+
 			
 		}
 		
@@ -213,8 +214,9 @@
 		private function loginClickHandler(e:MouseEvent):void
 		{
 			page0.btnLogin.removeEventListener(MouseEvent.CLICK,loginClickHandler);
-
 			//blogRegiter();
+			_QQWeibo.authRequestToken();
+			
 
 		}
 		//get friends
