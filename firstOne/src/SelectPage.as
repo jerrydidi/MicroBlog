@@ -103,6 +103,7 @@
 		{
 			var obj = new Object  ;
 			obj.uid = _mainPage._uid;
+			obj.count = 200;
 
 			_mb.addEventListener("getFriendsResultEvent", onGetFriendsResult);
 			_mb.addEventListener("getFriendsErrorEvent", onGetFriendsError);
