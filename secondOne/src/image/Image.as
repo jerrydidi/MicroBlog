@@ -8,6 +8,8 @@
 	import flash.display.BlendMode;
 	import com.greensock.TweenLite;
 	import com.greensock.easing.*;
+	import event.DragCompleteEvent;
+	import event.ImageLoadEvent;
 
 
 	public class Image extends MovieClip
@@ -61,6 +63,7 @@
 
 			}
 			_loader.alpha = 0;
+			this.dispatchEvent(new ImageLoadEvent(ImageLoadEvent.IMAGE_LOAD_EVENT,true));
 			//bitmap.alpha = 0;
 			//bitmap.smoothing = true;
 			TweenLite.to(_loader, 0.5, {alpha:1, ease:Back.easeIn});

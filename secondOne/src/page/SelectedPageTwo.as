@@ -11,6 +11,10 @@ package page
 	import flash.net.URLRequest;	
 	import com.adobe.images.JPGEncoder;	
 	import flash.utils.*;	
+	import flash.events.Event;
+	import event.ImageLoadEvent;
+	import com.greensock.TweenLite;
+	import com.greensock.easing.*;
 	public class SelectedPageTwo extends BaseSelectedPage {
 
 		var _resultItem:ResultItem;
@@ -47,6 +51,7 @@ package page
 			var selectedItem:FriendSelectedItem;
 			selectedItem = _mainPage.selectedFriends[0];
 			_resultItem = new ResultItem(_mainPage.resultNumber,selectedItem.friendData);
+			_resultItem.addEventListener(ImageLoadEvent.IMAGE_LOAD_EVENT,itemLoadComplete);
 			_resultItem.x = 10;
 			_resultItem.y = 10;
 			
@@ -56,8 +61,25 @@ package page
 			_mainPage.childPage.btnPopup.addEventListener(MouseEvent.CLICK,distributeClick);
 			_popup.x = 567;
 			_popup.y = 390;
+			//trace("_mainPage.childPage.btnPopup:"+_mainPage.childPage.btnPopup);
+			//trace("_mainPage.childPage.btnPopup.enabled:"+_mainPage.childPage.btnPopup.enabled);
+			_mainPage.childPage.btnPopup.enabled = false;
+			var btn:SimpleButton = _mainPage.childPage.btnPopup as SimpleButton;
+			btn.visible = false;
 			
 		
+		}
+		
+		private function itemLoadComplete(e:ImageLoadEvent):void
+		{
+			
+			trace("itemLoadComplete");
+			_mainPage.childPage.btnPopup.visible = true;
+			_mainPage.childPage.btnPopup.alpha = 0;
+			TweenLite.to(_mainPage.childPage.btnPopup, 0.5, {alpha:1, ease:Back.easeIn});
+
+			//_mainPage.childPage.btnPopup.enabled = true;
+			
 		}
 		
 		private function popupWindow():void
@@ -86,40 +108,57 @@ package page
 		//get friends
 		public function distributeClick(e:MouseEvent):void
 		{
+			popupWindow();
+			ditribute();			
+			
+			_mainPage.childPage.btnPopup.enabled = false;
+
+
+ 
+		}
+		
+		private function ditribute():void
+		{
+			
+			//trace("distributeClick");
 			var obj = new Object  ;
 
 			obj.status  =("@" + _mainPage.selectedFriends[0].friendData.screen_name + "  " +this._comment.replace("replaced",_comments[_mainPage.resultNumber-1]));
 
-			trace("obj.status:"+obj.status);
-			var coder:JPGEncoder = new JPGEncoder(100);
-			// var tmpRect:Rectangle = _imageResult.getRect(_imageResult);
+			//trace("obj.status:"+obj.status);
+			var coder:JPGEncoder = new JPGEncoder(50);
+
 			_bmd = new BitmapData(_resultItem.width,_resultItem.height);
 			_bmd.draw(_resultItem);
 			var ary:ByteArray ;
-			//ary = _bmd.getPixels(tmpRect);
 			var ary:ByteArray = coder.encode(_bmd);
 
 			obj.pic = ary;
-			
-
-			
-		
-			_mainPage.mb.addEventListener("distributeResultEvent", onDistributeResult);
-			_mainPage.mb.addEventListener("distributeErrorEvent", onDistributeError);
+			//_mainPage.mb.addEventListener("distributeResultEvent", onDistributeResult);
+			//_mainPage.mb.addEventListener("distributeErrorEvent", onDistributeError);
 			//_mainPage.mb.callWeiboAPI("2/statuses/update",obj, "POST", "distributeResultEvent", "distributeErrorEvent");
+			_mainPage.mb.addEventListener(Event.COMPLETE,distributeComplete);
 			_mainPage.mb.updateStatus(obj.status,obj.pic);
-			popupWindow();
+			
+			//var url:URLRequest = new URLRequest("http://weibo.com/u/2108175657");  
 
-			//focus();
-
- 
+			//flash.net.navigateToURL(url,"_self");
+			
+			//disable button
+			
+		}
+		
+		private function distributeComplete(e:Event):void
+		{
+			trace("distrbuteComplete");
 		}
 
 
 		private function onDistributeResult(e:MicroBlogEvent):void
 		{
 
-			trace("distribute ok")
+			trace("distribute ok");
+			//_mainPage.childPage.btnPopup.enabled = true;
 			popupWindow();
 
 		}
@@ -128,17 +167,10 @@ package page
 			trace("distribute error");
 
 		}
-		
-		
-		
-		
 		private function focusClick(e:MouseEvent):void
 		{
 			focus();
 		}
-		
-		
-		
 		public function focus():void
 		{
 			var obj = new Object  ;
@@ -148,25 +180,30 @@ package page
 			_mainPage.mb.addEventListener("focusResultEvent", onFocusResult);
 			_mainPage.mb.addEventListener("focusErrorEvent", onFocusError);
 			_mainPage.mb.callWeiboAPI("2/friendships/create",obj, "POST", "focusResultEvent", "focusErrorEvent");
-
-			removePopup();
-			var url:URLRequest = new URLRequest("http://weibo.com/u/2108175657");  
-
-			flash.net.navigateToURL(url,"_self");
-
-
- 
 		}
 
 
 		private function onFocusResult(e:MicroBlogEvent):void
 		{
 			trace("focus OK!");
+			//ditribute();
+			
+			removePopup();
+			var url:URLRequest = new URLRequest("http://weibo.com/u/2108175657");  
+
+			flash.net.navigateToURL(url,"_self");
+			
 
 		}
 		private function onFocusError(e:MicroBlogErrorEvent):void
 		{
 			trace("focus error");
+			removePopup();
+			//ditribute();			
+			
+			var url:URLRequest = new URLRequest("http://weibo.com/u/2108175657");  
+
+			flash.net.navigateToURL(url,"_self");
 
 		}
 

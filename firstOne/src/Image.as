@@ -8,6 +8,7 @@
 	import flash.display.BlendMode;
 	import com.greensock.TweenLite;
 	import com.greensock.easing.*;
+	import event.ImageLoadEvent;
 
 
 	public class Image extends MovieClip
@@ -85,6 +86,7 @@
 		private function loadImageComplete(e:Event):void
 		{
 
+			this.dispatchEvent(new ImageLoadEvent(ImageLoadEvent.IMAGE_LOAD_EVENT,true));
 			_loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, loadImageComplete);
 			
 			//

@@ -4,6 +4,9 @@
 	import image.Image;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
+	import flash.events.Event;
+	import event.DragCompleteEvent;
+
 	public class ResultItem extends MovieClip{
 		//
 		private var _resultImage:Image;
@@ -68,7 +71,9 @@
 			_imgPath = "images/pic0" + _seq.toString() + ".jpg";
 			_resultImage = new Image(_imgPath);
 			this.addChild(_resultImage);
+			//_resultImage.addEventListener(Event.COMPLETE,loadComplete);
 			_resultImage.loadImage();
+			
 			
 			//
 			this.addChild(_txtFriend);
@@ -81,6 +86,12 @@
 			_txtFriend.setTextFormat(txtFormat);
 			
 			
+		}
+		
+		private function loadComplete(e:Event):void
+		{
+
+			//this.dispatchEvent(new DragCompleteEvent(DragCompleteEvent.DRAG_COMPLETE_EVENT));
 		}
 
 	}

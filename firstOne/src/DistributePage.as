@@ -14,6 +14,9 @@ package
 	import flash.utils.*;
 	import flash.geom.Rectangle;
 	import flash.display.*;
+	import event.ImageLoadEvent;
+	import com.greensock.TweenLite;
+	import com.greensock.easing.*;
 	public class DistributePage 
 	{
 		//main page reference
@@ -63,6 +66,8 @@ package
 				showComments();
 				//
 				_mainPage.page4.mcDistribute.addEventListener(MouseEvent.CLICK,distributeClick);
+				_mainPage.page4.mcDistribute.visible = false;
+
 				
 			}
 			
@@ -102,7 +107,7 @@ package
 			var obj = new Object  ;
 			//obj.status  = "hahaha ";
 			obj.status  = this._strUpdate;
-			var coder:JPGEncoder = new JPGEncoder(100);
+			var coder:JPGEncoder = new JPGEncoder(50);
 			// var tmpRect:Rectangle = _imageResult.getRect(_imageResult);
 			_bmd = new BitmapData(_imageResult.width,_imageResult.height);
 			_bmd.draw(_imageResult);
@@ -252,6 +257,7 @@ package
 			
 						//show comment;
 			_imageResult = new Image(_mainPage.setNumber,1);
+			_imageResult.addEventListener(ImageLoadEvent.IMAGE_LOAD_EVENT,imageLoadComplete);
 
 			_mainPage.page4.addChild(_imageResult);
 			_imageResult.x = -268;
@@ -259,6 +265,14 @@ package
 			_imageResult.loadImage();
 
 
+		}
+		
+		private function imageLoadComplete(e:ImageLoadEvent):void
+		{
+			_mainPage.page4.mcDistribute.visible = true;
+			_mainPage.page4.mcDistribute.alpha = 0;
+			TweenLite.to(_mainPage.page4.mcDistribute, 0.5, {alpha:1, ease:Back.easeIn});
+			
 		}
 		
 		//contact the comment
