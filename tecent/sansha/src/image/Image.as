@@ -8,6 +8,9 @@
 	import flash.display.BlendMode;
 	import com.greensock.TweenLite;
 	import com.greensock.easing.*;
+	import flash.events.DataEvent;
+	import flash.events.IOErrorEvent;
+	import event.ImageLoadEvent;
 
 
 	public class Image extends MovieClip
@@ -19,6 +22,8 @@
 		var _picSeq:int;
 		
 		var _scale:Number;
+		 
+
 		
 	
 		private var _selected:Boolean = false;
@@ -40,19 +45,28 @@
 		public function loadImage():void
 		{
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loadImageComplete);
+			_loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, loadImageErrorComplete);
 			_loader.x = 0;
 			_loader.y = 0;
 			this.addChild(_loader);
+
 
 			_loader.load(new URLRequest(_imageURL));
 
 		}
 
-
+		private function loadImageErrorComplete(e:IOErrorEvent):void
+		{
+			trace("io error");
+			this.dispatchEvent(new ImageLoadEvent(ImageLoadEvent.IMAGE_LOAD_EVENT,true));
+			
+		}
+		
 		private function loadImageComplete(e:Event):void
 		{
 			_loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, loadImageComplete);
-			
+			//dispatch load complete event
+			this.dispatchEvent(new ImageLoadEvent(ImageLoadEvent.IMAGE_LOAD_EVENT,true));
 			//
 			
 			//var bitmap:Bitmap = _loader.content as Bitmap;
@@ -65,14 +79,10 @@
 			else
 			{
 				
-				//_loader.width = 180;
-				//_loader.height = 180;
 
 			
 			}
 			_loader.alpha = 0;
-			//bitmap.alpha = 0;
-			//bitmap.smoothing = true;
 			TweenLite.to(_loader, 0.5, {alpha:1, ease:Back.easeIn});
 
 

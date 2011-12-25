@@ -90,6 +90,7 @@
 		private function loginClickHandler(e:MouseEvent):void
 		{
 			//page0.btnLogin.removeEventListener(MouseEvent.CLICK,loginClickHandler);
+			trace("authRequestToken");
 			this.pop.visible = true;
 			_QQWeibo.authRequestToken();
 			
@@ -208,7 +209,7 @@
 				case DoFriends.CMD_FRIENDS_IDOLLIST:
 				{
 					_friends = paras.data.info as Array;
-					//trace("_friends:"+_friends.length);
+					trace("_friends:"+_friends.length);
 					changePage(1);
 					break;
 				}

@@ -99,6 +99,7 @@
 				var friendItem:FriendItem = new FriendItem(_friends[i]);
 				//friendItem.width = 100;
 				//friendItem.height = 100;
+				//trace("i:"+i)
 				friendItem.x = i * 110 ;
 				//friendItem.y = row * 50;
 				

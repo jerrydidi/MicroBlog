@@ -4,6 +4,8 @@
 	import image.Image;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
+	import event.ImageLoadEvent;
+
 	public class ResultItem extends MovieClip{
 		//
 		private var _resultImage:Image;
@@ -19,7 +21,8 @@
 		private var _txtXPos:Number = 80;
 		private var _txtYPos:Number = 15;
 		
-
+		//loading
+		private var _loading:MovieClip = new loading();;			
 		public function ResultItem(_seq:int,_data:Object) {
 			
 			// constructor code
@@ -68,6 +71,8 @@
 			_imgPath = "images/pic0" + _seq.toString() + ".jpg";
 			_resultImage = new Image(_imgPath);
 			this.addChild(_resultImage);
+			_resultImage.addEventListener(ImageLoadEvent.IMAGE_LOAD_EVENT,imageLoadComplete);
+			
 			_resultImage.loadImage();
 			
 			//
@@ -80,8 +85,21 @@
 			txtFormat.color = 0xCC0000;
 			_txtFriend.setTextFormat(txtFormat);
 			
+			_loading.x = 220 - _loading.width/2;
+			_loading.y = 220 - _loading.height/2;
+			addChild(_loading);			
+			
 			
 		}
+
+		private function imageLoadComplete(e:ImageLoadEvent):void
+		{
+			removeChild(_loading);
+
+			_resultImage.removeEventListener(ImageLoadEvent.IMAGE_LOAD_EVENT,imageLoadComplete);
+			
+		}
+		
 
 	}
 	
