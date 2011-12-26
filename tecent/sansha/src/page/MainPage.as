@@ -15,6 +15,8 @@
 	import com.core.microBlogs.qq.api.oauth.*;
 	import flash.events.Event;
 	import com.util.OauthUrlUtil;	
+	import flash.net.SharedObject;
+
 	public class MainPage extends MovieClip {
 		//micro blog reference
 		private var _QQWeibo:QQWeiboAPI = new QQWeiboAPI(dataHandler, errorHandler);
@@ -29,12 +31,15 @@
 		//
 		private var _childPage:MovieClip;	
 		private var _format:String = "json";		
+		
+		private var _so:SharedObject ;
 		//
 		private var _txtAuto:TextField = new TextField();
 		//
 		public var resultNumber:int = Math.round(Math.random()*6)+1;
 
-		var strOauth_token:String;			
+		var strOauth_token:String;
+		
 		var strVerifier:String;			
 
 		//public var resultNumber:int =6;
@@ -42,47 +47,56 @@
 		//
 		private var _currentPage:BaseSelectedPage;
 		
+		var count:int =0;
+		
 		
 		public function MainPage() {
 			// constructor code
 			page0.btnLogin.addEventListener(MouseEvent.CLICK,loginClickHandler);
-			this.pop.visible = false;
-			this.pop.btnClose.addEventListener(MouseEvent.CLICK,btnCloseClickHandler);
-			this.pop.btnAuth.addEventListener(MouseEvent.CLICK,authClickHandler);
+			//this.pop.visible = false;
+			//this.pop.btnClose.addEventListener(MouseEvent.CLICK,btnCloseClickHandler);
+			//this.pop.btnAuth.addEventListener(MouseEvent.CLICK,authClickHandler);
 			
 
 
 			
-//			strOauth_token=stage.loaderInfo.parameters.oauth_token;			
-//			strVerifier=stage.loaderInfo.parameters.oauth_verifier;			
+			strOauth_token=stage.loaderInfo.parameters.oauth_token;			
+			strVerifier=stage.loaderInfo.parameters.oauth_verifier;			
 
 			//if ge the token and verfigier then auth it directly
-			//if(strOauth_token != null && strVerifier != null)
-//			{
-//
-//				var key:OauthKeyQQ = new OauthKeyQQ();
-//
-//				key.customKey = "801081220";
-//				key.customSecrect = "bd393829076def233f7f8f12a6b5e6f5";
-//				//key.callbackUrl = OauthUrlUtil.executeString(null);
-//			
-//				Oauth.oauthingKey = key;
-//			
-//				//Oauth.oauthingKey.httpMethod = "GET";
-//
-//				Oauth.oauthingKey.tokenKey = "b77af24ddf364f3ba3dd8317a9cdbf84";
-//				Oauth.oauthingKey.verify = "279923";
-//				
-//				Oauth.oauthingKey.tokenSecrect = "58611f3b59ea2ab08a5d19fe51ad5fa8";
-//				//_QQWeibo.authRequestToken();
-//				_QQWeibo.getAccessToken();
-//				
-//			}
-			//else
-//			{
-				_QQWeibo.getRequestToken("801081220","bd393829076def233f7f8f12a6b5e6f5");
-//				
-//			}
+			if(strOauth_token != null && strVerifier != null)
+			{
+
+				var key:OauthKeyQQ = new OauthKeyQQ();
+
+				key.customKey = "801081220";
+				key.customSecrect = "bd393829076def233f7f8f12a6b5e6f5";
+				//key.callbackUrl = OauthUrlUtil.executeString("http://www.riasun.com/microblog/qq/index.swf");
+			
+				Oauth.oauthingKey = key;
+				Oauth.oauthingKey.httpMethod = "GET";
+
+				Oauth.oauthingKey.tokenKey =strOauth_token;
+				Oauth.oauthingKey.verify = strVerifier;
+				//Oauth.oauthingKey.tokenKey ="fcdd19f0346d42f5916413e0582b3cd5";
+				//Oauth.oauthingKey.verify = "541214";
+				//trace("strVerifier:"+strVerifier)
+				//trace("strVerifier:"+strVerifier.length);
+				//trace("strOauth_token:"+strOauth_token)
+				//
+				//trace("strOauth_token:"+strOauth_token.length);
+				//get data from  share object
+				_so =  SharedObject.getLocal("auth_token_secret");
+				//trace("strOauth_token:"+_so.data.name);
+				Oauth.oauthingKey.tokenSecrect =_so.data.name;
+				_QQWeibo.getAccessToken();				
+			}
+			else
+			{
+				//_QQWeibo.getRequestToken("801081220","bd393829076def233f7f8f12a6b5e6f5","http://www.riasun.com/microblog/qq/index.swf");
+				trace("get  request token");
+				_QQWeibo.getRequestToken("801081220","bd393829076def233f7f8f12a6b5e6f5","http://www.wegood.com/appsecondone/index.swf");			
+		    }
 			
 		}
 
@@ -91,29 +105,12 @@
 		{
 			//page0.btnLogin.removeEventListener(MouseEvent.CLICK,loginClickHandler);
 			trace("authRequestToken");
-			this.pop.visible = true;
 			_QQWeibo.authRequestToken();
 			
 
 		}
-		
-		private function btnCloseClickHandler(e:MouseEvent):void
-		{
-			this.pop.visible = false;
-		}
-
-		private function authClickHandler(event:MouseEvent):void
-		{
-			var verify:String = this.pop.txtAuth.text ;
-			//remove the space char
-			verify = verify.replace(/^\s*|\s*$/g,"").split(" ").join("");
-			Oauth.oauthingKey.verify = verify;
-			_QQWeibo.getAccessToken();
-			this.pop.visible = false;
-			
 
 
-		}
 		
 		private function set QQWeibo(value:QQWeiboAPI):void
 		{
@@ -182,6 +179,21 @@
 					break;
 			}
 		}
+		private function countPage(e:Event):void
+		{
+			//trace("countPage");
+			//trace("this.page0:"+this.page0)
+			if(count>20)
+			{
+				this.removeEventListener(Event.ENTER_FRAME,countPage);			
+				changePage(1);
+			}
+			else
+			{
+				count++;
+			}
+			
+		}
 		//
 		private function dataHandler(cmd:String, paras:Object):void{
 
@@ -193,6 +205,11 @@
 
 					//trace("paras.oauth_token:"+paras.oauth_token);
 					//trace("paras.oauth_token_secret:"+paras.oauth_token_secret);
+					//save to share object
+					_so =  SharedObject.getLocal("auth_token_secret");
+					_so.data.name = paras.oauth_token_secret;
+					//trace("_so.data.name:"+_so.data.name)
+					_so.flush();
 					//_QQWeibo.authRequestToken();
 
 					break;
@@ -210,7 +227,9 @@
 				{
 					_friends = paras.data.info as Array;
 					trace("_friends:"+_friends.length);
-					changePage(1);
+					this.addEventListener(Event.ENTER_FRAME,countPage);
+
+
 					break;
 				}
 

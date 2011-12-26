@@ -40,9 +40,10 @@
 			}
 
 
-				_mainPage.removeEventListener(Event.ENTER_FRAME,enterPage);
-				//showFriendsPanel();
-				initComponents();
+			_mainPage.removeEventListener(Event.ENTER_FRAME,enterPage);
+			//showFriendsPanel();
+			initComponents();
+			trace(":");
 
 		}
 		

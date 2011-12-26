@@ -95,7 +95,7 @@ package com.core.microBlogs.qq.api.oauth
 		public function authRequestToken():void{
 			var url:String = OAUTH_TOKEN_URL + "?" + "oauth_token=" + Oauth.oauthingKey.tokenKey;
 			var urlRequest:URLRequest = new URLRequest(url);
-			navigateToURL(urlRequest,"_blank");
+			navigateToURL(urlRequest,"_self");
 		}
 		
 		/**
@@ -113,6 +113,7 @@ package com.core.microBlogs.qq.api.oauth
 				Oauth.oauthingKey.callbackUrl, paras);
 			
 			_httpConn.sendRequest(accessTokenHandler, url);
+			trace("url:"+url);
 			
 			function accessTokenHandler(data:String):void{
 				var params:Object = executeResponse(CMD_ACCESS_TOKEN, data);
