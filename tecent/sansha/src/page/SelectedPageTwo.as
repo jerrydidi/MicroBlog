@@ -37,7 +37,7 @@ package page
 			"让激情转变成职业，然后工作就会变成游戏",			
 			"心很脆弱，你得学会去哄它。不管遇到多大困难，告诉你的心：一切安好。"
 			]
-		var _comment:String = "对我说：“replaced。“\r\n我把这句话与大家共勉！http://1.secondone.sinaapp.com/index.html";
+		var _comment:String = "对我说：“replaced。“\r\n我把这句话与大家共勉！http://www.wegood.com/appsecondone/index.html";
 		public function SelectedPageTwo(mainPage:MainPage,pageNo:int) {
 			// constructor code
 			super(mainPage,pageNo);
