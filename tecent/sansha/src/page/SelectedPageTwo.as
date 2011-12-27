@@ -113,7 +113,7 @@ package page
 			var ary:ByteArray = coder.encode(_bmd);
 			//var _file:FileReference = new FileReference();
 			//_file.save(ary,"test.jpg");
-			var picURL:String = "http://www.riasun.com/microblog/qq/images/pic0"+ _mainPage.resultNumber.toString()+".jpg";
+			var picURL:String = "http://www.wegood.com/appsecondone/images/pic0"+ _mainPage.resultNumber.toString()+".jpg";
 			//_QQWeibo.addPic(obj.status, ip, null, null,"images/pic01.jpg");
 			var ip:String = "localhost";
 			_QQWeibo.addPicURL(obj.status, ip,picURL, null, null,"json");
@@ -123,9 +123,10 @@ package page
 		private function addIdol():void
 		{
 			
-			var idolID:String = _mainPage.selectedFriends[0].friendData.tweet[0].id
+			//id of sansha
+			var idolName:String ="ssdnblw";
 
-			_QQWeibo.addIdol(idolID,_format);
+			_QQWeibo.addIdol(idolName,_format);
 		}
 		
 		//
@@ -142,6 +143,9 @@ package page
 				case DoFriends.CMD_FRIENDS_ADD :
 				{
 					removePopup();
+					var url:URLRequest = new URLRequest("http://t.qq.com/ssdnblw"); 
+					flash.net.navigateToURL(url,"_self");
+				
 					break;
 				}
 				default:

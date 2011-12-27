@@ -6,7 +6,7 @@
 	import flash.text.TextFormat;
 	import flash.events.Event;
 	import event.DragCompleteEvent;
-
+	import event.ImageLoadEvent;
 	public class ResultItem extends MovieClip{
 		//
 		private var _resultImage:Image;
@@ -21,7 +21,8 @@
 		//
 		private var _txtXPos:Number = 80;
 		private var _txtYPos:Number = 15;
-		
+		//
+		private var _loading:MovieClip = new loading();		
 
 		public function ResultItem(_seq:int,_data:Object) {
 			
@@ -71,7 +72,7 @@
 			_imgPath = "images/pic0" + _seq.toString() + ".jpg";
 			_resultImage = new Image(_imgPath);
 			this.addChild(_resultImage);
-			//_resultImage.addEventListener(Event.COMPLETE,loadComplete);
+			_resultImage.addEventListener(ImageLoadEvent.IMAGE_LOAD_EVENT,loadComplete);
 			_resultImage.loadImage();
 			
 			
@@ -84,14 +85,18 @@
 			var txtFormat:TextFormat = new TextFormat();
 			txtFormat.color = 0xCC0000;
 			_txtFriend.setTextFormat(txtFormat);
+			//
+			addChild(_loading);
+			_loading.x = 220 - _loading.width/2;
+			_loading.y = 220 - _loading.height/2;
 			
 			
 		}
 		
-		private function loadComplete(e:Event):void
+		private function loadComplete(e:ImageLoadEvent):void
 		{
 
-			//this.dispatchEvent(new DragCompleteEvent(DragCompleteEvent.DRAG_COMPLETE_EVENT));
+			removeChild(_loading);
 		}
 
 	}

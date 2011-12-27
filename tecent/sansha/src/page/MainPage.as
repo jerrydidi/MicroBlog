@@ -34,9 +34,7 @@
 		
 		private var _so:SharedObject ;
 		//
-		private var _txtAuto:TextField = new TextField();
-		//
-		public var resultNumber:int = Math.round(Math.random()*6)+1;
+		public var resultNumber:int = Math.floor(Math.random()*6)+1;
 
 		var strOauth_token:String;
 		
@@ -53,13 +51,6 @@
 		public function MainPage() {
 			// constructor code
 			page0.btnLogin.addEventListener(MouseEvent.CLICK,loginClickHandler);
-			//this.pop.visible = false;
-			//this.pop.btnClose.addEventListener(MouseEvent.CLICK,btnCloseClickHandler);
-			//this.pop.btnAuth.addEventListener(MouseEvent.CLICK,authClickHandler);
-			
-
-
-			
 			strOauth_token=stage.loaderInfo.parameters.oauth_token;			
 			strVerifier=stage.loaderInfo.parameters.oauth_verifier;			
 
@@ -78,8 +69,8 @@
 
 				Oauth.oauthingKey.tokenKey =strOauth_token;
 				Oauth.oauthingKey.verify = strVerifier;
-				//Oauth.oauthingKey.tokenKey ="fcdd19f0346d42f5916413e0582b3cd5";
-				//Oauth.oauthingKey.verify = "541214";
+				//Oauth.oauthingKey.tokenKey ="e0074a4011424eb4969ee10124d6b6af";
+				//Oauth.oauthingKey.verify = "679635";
 				//trace("strVerifier:"+strVerifier)
 				//trace("strVerifier:"+strVerifier.length);
 				//trace("strOauth_token:"+strOauth_token)
@@ -89,12 +80,13 @@
 				_so =  SharedObject.getLocal("auth_token_secret");
 				//trace("strOauth_token:"+_so.data.name);
 				Oauth.oauthingKey.tokenSecrect =_so.data.name;
+				//Oauth.oauthingKey.tokenSecrect ="271963b64becc947eb5bc81101fc2e3e";
 				_QQWeibo.getAccessToken();				
 			}
 			else
 			{
-				//_QQWeibo.getRequestToken("801081220","bd393829076def233f7f8f12a6b5e6f5","http://www.riasun.com/microblog/qq/index.swf");
-				trace("get  request token");
+				//_QQWeibo.getRequestToken("801081220","bd393829076def233f7f8f12a6b5e6f5");
+				trace("get request token");
 				_QQWeibo.getRequestToken("801081220","bd393829076def233f7f8f12a6b5e6f5","http://www.wegood.com/appsecondone/index.swf");			
 		    }
 			
@@ -226,16 +218,12 @@
 				case DoFriends.CMD_FRIENDS_IDOLLIST:
 				{
 					_friends = paras.data.info as Array;
-					trace("_friends:"+_friends.length);
 					this.addEventListener(Event.ENTER_FRAME,countPage);
-
-
 					break;
 				}
 
 				default:
 				{
-
 					break;
 				}
 			}
@@ -250,7 +238,7 @@
 		//get friends
 		public function getFriends():void
 		{
-			_QQWeibo.getIdolList(20, 1, _format);
+			_QQWeibo.getIdolList(200, 1, _format);
 		}
 	}
 	

@@ -95,7 +95,8 @@
 			for  (var i:int =0;i<_friendNum;i++)
 			{
 
-				//trace(":" +_friends[i].profile_image_url +"::" + i.toString());
+				//trace("name is:" +_friends[i].tweet[0].name);
+				//trace("id is:" +_friends[i].tweet[0].id);
 				var friendItem:FriendItem = new FriendItem(_friends[i]);
 				//friendItem.width = 100;
 				//friendItem.height = 100;

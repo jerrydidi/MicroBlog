@@ -5,6 +5,8 @@ package widget
 	import flash.text.TextField;
 	import image.Image;
 	import flash.text.TextFormat;
+	import event.ImageLoadEvent;
+
 	public class FriendSelectedItem extends MovieClip {
 
 		private var _friendData:Object;
@@ -14,6 +16,8 @@ package widget
 		private var _bg:MovieClip = new MovieClip();
 		//
 		private var _txtName:TextField = new TextField();
+		//
+		private var _loading:MovieClip = new loading();
 		
 		public function FriendSelectedItem(_data:Object) {
 			// constructor code
@@ -30,6 +34,7 @@ package widget
 			//
 			_friendImage = new Image(_data.avatar_large);
 			this.addChild(_friendImage);
+			_friendImage.addEventListener(ImageLoadEvent.IMAGE_LOAD_EVENT,picLoadComplete);
 			_friendImage.loadImage();
 			//
 			_txtName.text = "@" + _data.screen_name;
@@ -40,6 +45,19 @@ package widget
 			_txtName.setTextFormat(txtFormat);
 			_txtName.y = 190;
 			this.addChild(_txtName);
+			//
+			addChild(_loading);
+			_loading.x = 90 - _loading.width/2;
+			_loading.y = 90 - _loading.height/2;
+			
+			
+			
+		}
+		
+		public function picLoadComplete(e:ImageLoadEvent):void
+		{
+			removeChild(_loading);
+			
 			
 		}
 		
