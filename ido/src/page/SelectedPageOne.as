@@ -58,7 +58,7 @@
 		
 		private function nextPage(e:MouseEvent):void
 		{
-			trace("========nextPage=========================");
+			//trace("========nextPage=========================");
 			_mainPage.selectedFriends = _friendsSelectedPanel.friendsSelected;
 			//updateBlogWithImage();
 			_mainPage.changePage(2);
@@ -68,7 +68,7 @@
 		
 		private function leftPage(e:MouseEvent):void
 		{
-			trace("========leftPage=========================");
+			//trace("========leftPage=========================");
 			_friendsPanel.prevPage(e);
 			
 		}
@@ -76,7 +76,7 @@
 		
 		private function rightPage(e:MouseEvent):void
 		{
-			trace("========rightPage=========================");
+			//trace("========rightPage=========================");
 			_friendsPanel.nextPage(e);
 		}		
 		

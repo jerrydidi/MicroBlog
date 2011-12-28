@@ -28,6 +28,8 @@
 			
 			this._userlink = _userurl;
 			this._friendlink = _friendurl;
+			//trace("_userurl:"+_userurl);
+			//trace("_friendurl:"+_friendurl);
 			loadImage();
 			
 

@@ -39,20 +39,7 @@
 
 			this._friends = friends;
 			this._friendNum = _friends.length;
-			
-			//_left.x = -50;
-			//_left.y = 229;
-	
 
-			//_right.x = 350;
-			//_right.y = 229;
-			
-			//addChild(_left);
-			//addChild(_right);
-			
-			//_left.addEventListener(MouseEvent.CLICK,prevPage);
-			//_right.addEventListener(MouseEvent.CLICK,nextPage);
-			_friendsbg.x=0;
 			_friendsbg.y=0;
 			//addChild(_friendsbg);
 			listAllFriends();
@@ -99,7 +86,9 @@
 			panel.mask = mcMask;
 			
 			_friendNum = _friends.length;
-			_pageNum = Math.ceil((_friendNum/_rowNum)/2);
+			_pageNum = Math.ceil(_friendNum/(_rowNum*2));
+			trace("_friendNum:"+_friendNum);
+			trace("_pageNum:"+_pageNum);
 			for  (var i:int =0;i<_friendNum;i++)
 			{
 

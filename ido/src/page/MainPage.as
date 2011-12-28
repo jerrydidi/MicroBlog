@@ -6,7 +6,8 @@
 	import flash.events.MouseEvent;
 	import widget.FriendItem;
 	import widget.PopupFriendItem;
-	
+		import flash.text.TextField;
+	import flash.text.TextFormat;
 	
 	public class MainPage extends MovieClip {
 		//micro blog reference
@@ -24,7 +25,7 @@
 		
 		private var _selectedImage:PopupFriendItem;
 		
-		public var resultNumber:int = Math.round(Math.random()*6)+1;
+		public var resultNumber:int = Math.round(Math.random()*3)+1;
 		
 		//public var resultNumber:int =6;
 		
@@ -36,7 +37,15 @@
 			// constructor code
 			page0.btnLogin.addEventListener(MouseEvent.CLICK,loginClickHandler);
 			
-		 var _bg:MovieClip = new MovieClip();		
+			
+			var _txtFriend:TextField = new TextField()
+			
+			
+			
+
+			
+			
+			var _bg:MovieClip = new MovieClip();		
 		
 			
 		}
@@ -129,7 +138,6 @@
 					break;
 				case 1 :
 					this.gotoAndStop(2);
-					
 					_currentPage = new SelectedPageOne(this,1);
 					break;
 				case 2 :
@@ -145,8 +153,8 @@
 		//
 		private function loginClickHandler(e:MouseEvent):void
 		{
-			trace("======loginClickHandler========");
-			page0.btnLogin.removeEventListener(MouseEvent.CLICK,loginClickHandler);
+			//trace("======loginClickHandler========");
+			//page0.btnLogin.removeEventListener(MouseEvent.CLICK,loginClickHandler);
 
 			blogRegiter();
 
@@ -160,7 +168,6 @@
 			
 			_mb.consumerKey = "108044056";
 			_mb.consumerSecret = "c95fe37a1a9c24e19440e51a7a143194";
-			//
 			_mb.proxyURI = "http://1.idotashishui.sinaapp.com/proxy.php";
 			
 		
@@ -192,12 +199,12 @@
 			var data:Object = e.result;
 			//set the uid
 			_uid = data.uid;
-			trace("_uid :" + _uid);
+			//trace("_uid :" + _uid);
 
 			// get profile
 			getProfile();
 			//get friends
-			getFriends();
+			//getFriends();
 		}
 
 		private function onGetUIDError(e:MicroBlogErrorEvent):void
@@ -221,10 +228,11 @@
 		private function onGetProfileResult(e:MicroBlogEvent):void
 		{
 			var data:Object = e.result;
-
 			_profile = data as Object;
 			
-	 
+			trace("_profile:"+_profile);
+
+			getFriends();
 			
 		}
 		//new MicroBlogEvent
@@ -239,7 +247,8 @@
 		{
 			var obj = new Object  ;
 			obj.uid = this._uid;
-
+			obj.count=200;
+			//obj.sort=1;
 			_mb.addEventListener("getFriendsResultEvent", onGetFriendsResult);
 			_mb.addEventListener("getFriendsErrorEvent", onGetFriendsError);
 			//_mb.callWeiboAPI("2/friendships/friends",obj, "GET", "getFriendsResultEvent", "getFriendsErrorEvent");
@@ -251,33 +260,36 @@
 		{
 			var data:Object = e.result;
 
-			_friends = data.users as Array;
-			
-			trace("_friends.length :" + _friends.length);
-			
-			var tempfriends:Array = new Array();
-			for  (var i:int =0;i<friends.length;i++)
+			if(data.users !=undefined &&data.users !=null)
 			{
+				_friends = data.users as Array;
+				
+				if(_friends !=undefined &&_friends !=null)
+				{
+					//trace("_friends:"+_friends.length);
 
-				if (!(friends[i].gender == profile.gender)){
-					tempfriends.push(friends[i]);
+					var tempfriends:Array = new Array();
+					for  (var i:int =0;i<friends.length;i++)
+					{
+						//trace("profile:"+_profile);
+						//trace("profile.gender:"+_profile.gender);
+						if ((friends[i].gender != _profile.gender)){
+							tempfriends.push(friends[i]);
+						}
+					}
+					_friends = tempfriends;
+					//get friends then goto page 1
+					trace("_friends.length :" + _friends.length);
+					changePage(1);
+					
+					}
 				}
 			}
-			_friends = tempfriends;
-			//get friends then goto page 1
-
-			changePage(1);
-			
-
-		}
 		
 		private function onGetFriendsError(e:MicroBlogErrorEvent):void
 		{
 
 		}
-		
-		
-		
 	}
 	
 }

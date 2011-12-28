@@ -39,29 +39,15 @@ package page
 		
 		public function SelectedPageTwo(mainPage:MainPage,pageNo:int) {
 			// constructor code
-			trace("===two===SelectedPageTwo=======");
+			//trace("===two===SelectedPageTwo=======");
 			super(mainPage,pageNo);
 		}
 		
 		override public function initComponents():void
 		{
-			trace("===two===initComponents===0====");
+			//trace("===two===initComponents===0====");
 
 			_mainPage.childPage = _mainPage.page2;
-			//
-
-			
-			//var selectedItem:FriendSelectedItem;
-			//selectedItem = _mainPage.selectedFriends[0];
-			//_resultItem = new ResultItem(_mainPage.resultNumber,selectedItem.friendData);
-			//_resultItem.x = 10;
-			//_resultItem.y = 10;
-
-			
-			//_mainPage.childPage.addChildAt(_resultItem,0);
-			
-
-			//
 			_mainPage.childPage.btnPopup.addEventListener(MouseEvent.CLICK,distributeClick);
 			_mainPage.childPage.btnNext.addEventListener(MouseEvent.CLICK,nextpage);
 
@@ -80,10 +66,11 @@ package page
 			_friendsSelectedPanel.x = 300;
 			_friendsSelectedPanel.y = 295;
 			_mainPage.childPage.addChild(_friendsSelectedPanel);		
-			trace("===two===initComponents===1====",_mainPage.friends.length,"-----",_mainPage.selectedFriends.length);
-			var randomNumber:int = Math.round(Math.random()*(_mainPage.friends.length))+1;
-			trace("===two===initComponents===2====",randomNumber);
+			//trace("===two===initComponents===1====",_mainPage.friends.length,"-----",_mainPage.selectedFriends.length);
+			var randomNumber:int = Math.floor(Math.random()*(_mainPage.friends.length));
+			//trace("===two===initComponents===2====",randomNumber);
 			var selectedItem:PopupFriendItem;
+			trace("randomNumber:"+randomNumber);
 			selectedItem = new PopupFriendItem(_mainPage.friends[randomNumber]);			
 			_friendsSelectedPanel.dragHandler(selectedItem);
 			_mainPage.selectedImage = selectedItem;
@@ -91,7 +78,7 @@ package page
 		
 		private function popupWindow():void
 		{
-			trace("===two===popupWindow=======");
+			//trace("===two===popupWindow=======");
 			_mainPage.childPage.alpha = 0.5;
 			_mainPage.addChild(_popup);
 			_popup.mcFocus.addEventListener(MouseEvent.CLICK,focusClick);
@@ -100,17 +87,12 @@ package page
 			_popup.btnright.addEventListener(MouseEvent.CLICK,rightPage);					
 			
 		}
-		
-		
-		
 		private function leftPage(e:MouseEvent):void
 		{
 			trace("========leftPage=========================");
 			_friendsPanel.prevPage(e);
 			
 		}
-		
-		
 		private function rightPage(e:MouseEvent):void
 		{
 			trace("========rightPage=========================");
@@ -138,34 +120,17 @@ package page
 		//get friends
 		public function distributeClick(e:MouseEvent):void
 		{
-			trace("===two===distributeClick=======");
+			//trace("===two===distributeClick=======");
 			var obj = new Object  ;
 
 			obj.status  =("@" + _mainPage.selectedFriends[0].friendData.screen_name + this._comment.replace("replaced",_comments[_mainPage.resultNumber-1]));
 
 			trace("obj.status:"+obj.status);
-			//var coder:JPGEncoder = new JPGEncoder(100);
-			
-			//_bmd = new BitmapData(_resultItem.width,_resultItem.height);
-			//_bmd.draw(_resultItem);
-			//var ary:ByteArray ;
-			//var ary:ByteArray = coder.encode(_bmd);
-
-			//obj.pic = ary;
-			
-
-			
-		
 			_mainPage.mb.addEventListener("distributeResultEvent", onDistributeResult);
 			_mainPage.mb.addEventListener("distributeErrorEvent", onDistributeError);
-			//_mainPage.mb.callWeiboAPI("2/statuses/update",obj, "POST", "distributeResultEvent", "distributeErrorEvent");
-			//_mainPage.mb.updateStatus(obj.status,obj.pic);
 			popupWindow();
 
 			//focus();
-
- 
-
 		}
 
 

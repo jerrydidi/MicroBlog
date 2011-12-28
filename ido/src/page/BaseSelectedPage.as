@@ -21,7 +21,7 @@
 		private function enterPage(e:Event):void
 		{
 
-			trace("enterPage" + _mainPage.childPage)
+			//trace("enterPage" + _mainPage.childPage)
 			switch(_pageNo)
 			{
 				case 1:
