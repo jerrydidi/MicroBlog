@@ -191,8 +191,8 @@
 
 			_mb.addEventListener("getFriendsResultEvent", onGetFriendsResult);
 			_mb.addEventListener("getFriendsErrorEvent", onGetFriendsError);
-			//_mb.callWeiboAPI("2/friendships/friends",obj, "GET", "getFriendsResultEvent", "getFriendsErrorEvent");
-			_mb.callWeiboAPI("2/friendships/friends/bilateral",obj, "GET", "getFriendsResultEvent", "getFriendsErrorEvent");
+			_mb.callWeiboAPI("2/friendships/friends",obj, "GET", "getFriendsResultEvent", "getFriendsErrorEvent");
+			//_mb.callWeiboAPI("2/friendships/friends/bilateral",obj, "GET", "getFriendsResultEvent", "getFriendsErrorEvent");
 		}
 
 
