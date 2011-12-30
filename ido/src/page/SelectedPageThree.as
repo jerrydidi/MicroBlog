@@ -19,6 +19,8 @@ package page
 	import event.ImageLoadEvent;
 	import com.greensock.TweenLite;
 	import com.greensock.easing.*;	
+	import flash.text.TextFieldType;
+
 	public class SelectedPageThree extends BaseSelectedPage {
 		private var _friendsPanel:PopupFriendsPanel
 		private var _friendsSelectedPanel:FriendsSelectedPanel;
@@ -45,7 +47,7 @@ package page
 		override public function initComponents():void
 		{
 			_mainPage.childPage = _mainPage.page3;
-			comment=this._comments[Math.floor(Math.random()*3)]+" http://1.idotashishui.sinaapp.com";
+			comment=this._comments[Math.floor(Math.random()*3)]
 			selectedFriend = _mainPage.selectedImage.friendData.screen_name;
 			//
 
@@ -59,6 +61,7 @@ package page
 			_txtFriend.height = 48;
 			trace("initComponents 11");
 			_txtFriend.text=comment.replace("XXX",selectedFriend);
+			_txtFriend.type = TextFieldType.INPUT;
 			//_txtFriend.text = (this._comments[_mainPage.resultNumber-1].replace("XXX",_mainPage.selectedImage.friendData.screen_name) + " http://1.idotashishui.sinaapp.com");
 			trace("initComponents 111");
 			_txtFriend.x = 31;
@@ -119,7 +122,7 @@ package page
 			
 			//obj.status  =_mainPage.childPage.weibotext.text;
 			//obj.status = (this._comments[_mainPage.resultNumber-1].replace("XXX",_mainPage.selectedImage.friendData.screen_name) + " http://1.idotashishui.sinaapp.com");
-			obj.status = _txtFriend.text;
+			obj.status = _txtFriend.text +" http://1.idotashishui.sinaapp.com";;
 			trace("obj.status:"+obj.status);
 			var coder:JPGEncoder = new JPGEncoder(50);
 			//trace("===three===distributeClick=====1==",_resultItem.width,_resultItem.height);

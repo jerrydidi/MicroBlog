@@ -173,6 +173,7 @@
 		
 			
 			
+			trace("blogRegiter")
 			_mb.addEventListener(MicroBlogEvent.LOGIN_RESULT, onLoginResult);
 			_mb.login();
 		}
