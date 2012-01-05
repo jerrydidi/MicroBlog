@@ -4,10 +4,7 @@
 	import com.sina.microblog.MicroBlog;
 	import com.sina.microblog.events.*;
 	import flash.events.MouseEvent;
-	import widget.FriendItem;
-	import widget.PopupFriendItem;
-		import flash.text.TextField;
-	import flash.text.TextFormat;
+	
 	
 	public class MainPage extends MovieClip {
 		//micro blog reference
@@ -22,12 +19,8 @@
 		private var _uid:String;
 		//
 		private var _childPage:MovieClip;	
+		public var resultNumber:int = Math.round(Math.random()*6)+1;
 		
-		private var _selectedImage:PopupFriendItem;
-		
-		public var resultNumber:int = Math.round(Math.random()*3)+1;
-		
-		private var _friendNum:int = 2;
 		//public var resultNumber:int =6;
 		
 		//
@@ -37,7 +30,7 @@
 		public function MainPage() {
 			// constructor code
 			page0.btnLogin.addEventListener(MouseEvent.CLICK,loginClickHandler);
-			var _bg:MovieClip = new MovieClip();		
+			
 		}
 		
 		public function set selectedFriends(value:Array):void
@@ -62,17 +55,6 @@
 			return _childPage;
 		}
 		
-		
-		public function set selectedImage(selectedImage:PopupFriendItem):void
-		{
-			this._selectedImage = selectedImage;
-		}
-		
-		public function get selectedImage():PopupFriendItem
-		{
-			return _selectedImage;
-		}		
-		
 		public function set mb(value:MicroBlog):void
 		{
 			this._mb = value;
@@ -96,28 +78,6 @@
 			return _friends;			
 		}
 		
-		public function set profile(value:Object):void
-		{
-			
-			this._profile = value;
-		}
-		
-		public function get profile():Object
-		{
-			return _profile;			
-		}		
-		
-		public function set uid(value:String):void
-		{
-			
-			this._uid = value;
-		}
-		
-		public function get uid():String
-		{
-			return _uid;			
-		}	
-		
 		public function changePage(pageIdx:int):void
 		{
 			switch (pageIdx)
@@ -128,6 +88,7 @@
 					break;
 				case 1 :
 					this.gotoAndStop(2);
+					
 					_currentPage = new SelectedPageOne(this,1);
 					break;
 				case 2 :
@@ -136,15 +97,14 @@
 					break;
 				case 3 :
 					this.gotoAndStop(4);
-					_currentPage = new SelectedPageThree(this,3);
+					//_currentPage = new SelectedPageThree(this);
 					break;
 			}
 		}
 		//
 		private function loginClickHandler(e:MouseEvent):void
 		{
-			//trace("======loginClickHandler========");
-			//page0.btnLogin.removeEventListener(MouseEvent.CLICK,loginClickHandler);
+			page0.btnLogin.removeEventListener(MouseEvent.CLICK,loginClickHandler);
 
 			blogRegiter();
 
@@ -152,14 +112,10 @@
 		//blog register
 		private function blogRegiter():void
 		{
-			//_mb.consumerKey = "1625362241";
-			//_mb.consumerSecret = "b196f99718cc61baf9c0e4fed45ce0f1";
-			//_mb.proxyURI = "http://1.secondone.sinaapp.com/proxy.php";
+			_mb.consumerKey = "1625362241";
+			_mb.consumerSecret = "b196f99718cc61baf9c0e4fed45ce0f1";
+			_mb.proxyURI = "http://1.secondone.sinaapp.com/proxy.php";
 			
-			_mb.consumerKey = "108044056";
-			_mb.consumerSecret = "c95fe37a1a9c24e19440e51a7a143194";
-			_mb.proxyURI = "http://1.idotashishui.sinaapp.com/proxy.php";
-			//trace("blogRegiter")
 			_mb.addEventListener(MicroBlogEvent.LOGIN_RESULT, onLoginResult);
 			_mb.login();
 		}
@@ -186,12 +142,12 @@
 			var data:Object = e.result;
 			//set the uid
 			_uid = data.uid;
-			//trace("_uid :" + _uid);
+			trace("_uid :" + _uid);
 
 			// get profile
 			getProfile();
 			//get friends
-			//getFriends();
+			getFriends();
 		}
 
 		private function onGetUIDError(e:MicroBlogErrorEvent):void
@@ -215,12 +171,8 @@
 		private function onGetProfileResult(e:MicroBlogEvent):void
 		{
 			var data:Object = e.result;
-			_profile = data as Object;
-			
-			//trace("_profile:"+_profile);
 
-			getFriends();
-			
+			_profile = data as Object;
 		}
 		//new MicroBlogEvent
 		private function onGetProfileError(e:MicroBlogErrorEvent):void
@@ -229,77 +181,41 @@
 		}
 		
 		
-		//get friends
+		//get friends 
 		public function getFriends():void
 		{
 			var obj = new Object  ;
 			obj.uid = this._uid;
+			//friend number
 			obj.count = 200;
-			obj.page = 1;
-			//obj.sort=1;
+
 			_mb.addEventListener("getFriendsResultEvent", onGetFriendsResult);
 			_mb.addEventListener("getFriendsErrorEvent", onGetFriendsError);
 			_mb.callWeiboAPI("2/friendships/friends",obj, "GET", "getFriendsResultEvent", "getFriendsErrorEvent");
 			//_mb.callWeiboAPI("2/friendships/friends/bilateral",obj, "GET", "getFriendsResultEvent", "getFriendsErrorEvent");
 		}
 
-		//
+
 		private function onGetFriendsResult(e:MicroBlogEvent):void
 		{
 			var data:Object = e.result;
-			var friendsArray = new Array();
-			friendsArray=data.users as Array;
-			if(friendsArray.length > 0){
-				_friends = _friends.concat(friendsArray);
-				var obj = new Object  ;
-				obj.uid = this._uid;
-				obj.count = 200;
-				obj.page = _friendNum++;
-				_mb.callWeiboAPI("2/friendships/friends",obj, "GET", "getFriendsResultEvent", "getFriendsErrorEvent");				
-			}
-			else{
-				if(_friends.length>0)
-				{
-					//trace("_friends:"+_friends.length);
-					var tempfriends:Array = new Array();
-					for  (var i:int =0;i<friends.length;i++)
-					{
-						if ((friends[i].gender != _profile.gender)){
-							tempfriends.push(friends[i]);
-						}
-					}
-					_friends = tempfriends;
-					changePage(1);
-				}
-			}
+
+			_friends = data.users as Array;
+			trace("_friends.length:"+_friends.length);
+
+			//get friends then goto page 1
+			changePage(1);
+			
+
 		}
 		
-		private function onGetFriendsResult1(e:MicroBlogEvent):void
-		{
-			var data:Object = e.result;
-
-			_friends=data.users as Array;
-
-				if(_friends.length>0)
-				{
-					//trace("_friends:"+_friends.length);
-					var tempfriends:Array = new Array();
-					for  (var i:int =0;i<friends.length;i++)
-					{
-						if ((friends[i].gender != _profile.gender)){
-							tempfriends.push(friends[i]);
-						}
-					}
-					_friends = tempfriends;
-					changePage(1);
-				}
-
-		}		
-		//
 		private function onGetFriendsError(e:MicroBlogErrorEvent):void
 		{
 
 		}
+		
+		
+		
 	}
 	
 }
