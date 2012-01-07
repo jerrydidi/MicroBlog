@@ -36,7 +36,13 @@
 						return;
 					}
 					break;
-				
+				case 3:
+					if (_mainPage.page3 == null ||_mainPage.page3 == undefined)
+					{
+						return;
+					}
+					break;
+								
 			}
 
 

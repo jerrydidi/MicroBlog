@@ -1,212 +1,99 @@
-﻿
-
-package page
+﻿package page
 {
 	import widget.*;
-	import flash.display.*;
-	import event.DragCompleteEvent;
+	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
-	import widget.*;
-	import com.sina.microblog.events.*;	
-	import flash.net.URLRequest;	
-	import com.adobe.images.JPGEncoder;	
-	import flash.utils.*;	
+	import com.sina.microblog.MicroBlog;
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
+	import com.sina.microblog.events.*;
 	import flash.events.Event;
-	import event.ImageLoadEvent;
-	import com.greensock.TweenLite;
-	import com.greensock.easing.*;
+
+	
 	public class SelectedPageTwo extends BaseSelectedPage {
 
-		var _resultItem:ResultItem;
-		//
-		private var _bmd:BitmapData;		
-		//
-		var _popup:MovieClip = new popup();
-		
-		var _comments:Array = [
-			"害怕明天，怎么能过好今天？",
-			"让激情转变成职业，然后工作就会变成游戏",
-			"只需要一点点勇气，就可以让人生逆转。",
-			"死记硬背也许能让你通过大学4年，但会毁掉你接下来的40年。", 	
-			"让激情转变成职业，然后工作就会变成游戏",			
-			"心很脆弱，你得学会去哄它。不管遇到多大困难，告诉你的心：一切安好。"
 
-
-							  
-							  ]
-		var _comment:String = "对我说：“replaced。“\r\n我把这句话与大家共勉！http://1.secondone.sinaapp.com/index.html";
 		
+		private var _mb:MicroBlog;
 		
+		private var _imageSeq:int =0;
+		
+		private var _imageNum:int =6;
+		
+		private var _txtArray =[
+								    "什么时候回家啊？不要等到妈妈的电话再去犹豫回家，@XXXX,让我们宜起回家，享受这份世间最浓的感情。",
+      "我们可以等到有出息了、有钱了，让父母过上好日子，但是父母不能等，也等不了，父母需要的，只是子女回家时的笑脸，@XXXX，让我们宜起回家。",
+      "家是一本书，一本写下彼此对爱的理解爱的承诺的书，一本好书不需要太多华丽的辞藻，不需要太多波折的剧情，需要的，只是作者淳朴又纯真的感情，@XXXX，让我们宜起书写最质朴的家书。"								
+								];
+		
+		private var randomNum:int = Math.floor(Math.random() * 3);
+		//
 		public function SelectedPageTwo(mainPage:MainPage,pageNo:int) {
 			// constructor code
 			super(mainPage,pageNo);
+			_mb = mainPage.mb;
 		}
 		
 		override public function initComponents():void
 		{
-
 			_mainPage.childPage = _mainPage.page2;
+			_mainPage.childPage.addEventListener(Event.ENTER_FRAME,pageInit)
+		
+
+			
 			//
 			
-			var selectedItem:FriendSelectedItem;
-			selectedItem = _mainPage.selectedFriends[0];
-			_resultItem = new ResultItem(_mainPage.resultNumber,selectedItem.friendData);
-			_resultItem.addEventListener(ImageLoadEvent.IMAGE_LOAD_EVENT,itemLoadComplete);
-			_resultItem.x = 10;
-			_resultItem.y = 10;
-			
-			_mainPage.childPage.addChildAt(_resultItem,0);
-			
-			//
-			_mainPage.childPage.btnPopup.addEventListener(MouseEvent.CLICK,distributeClick);
-			_popup.x = 567;
-			_popup.y = 390;
-			//trace("_mainPage.childPage.btnPopup:"+_mainPage.childPage.btnPopup);
-			//trace("_mainPage.childPage.btnPopup.enabled:"+_mainPage.childPage.btnPopup.enabled);
-			_mainPage.childPage.btnPopup.enabled = false;
-			var btn:SimpleButton = _mainPage.childPage.btnPopup as SimpleButton;
-			btn.visible = false;
-			
-		
 		}
 		
-		private function itemLoadComplete(e:ImageLoadEvent):void
+		private function pageInit(e:Event):void
 		{
-			
-			trace("itemLoadComplete");
-			_mainPage.childPage.btnPopup.visible = true;
-			_mainPage.childPage.btnPopup.alpha = 0;
-			TweenLite.to(_mainPage.childPage.btnPopup, 0.5, {alpha:1, ease:Back.easeIn});
-
-			//_mainPage.childPage.btnPopup.enabled = true;
-			
+			if(_mainPage.childPage.imagesPanel.mcToPageFour)
+			{
+				_mainPage.childPage.removeEventListener(Event.ENTER_FRAME,pageInit);
+				_mainPage.childPage.imagesPanel.mcToPageFour.addEventListener(MouseEvent.CLICK,nextPage);
+				_mainPage.childPage.imagesPanel.btnPrev.addEventListener(MouseEvent.CLICK,prevImage);
+				_mainPage.childPage.imagesPanel.btnNext.addEventListener(MouseEvent.CLICK,nextImage);
+				
+				//randomNum
+				_mainPage.childPage.imagesPanel.txt.text = (_txtArray[randomNum] as String).replace("XXXX",_mainPage.selectedFriends[0].screen_name);
+				//trace("pageInit")
+				
+			}
+			else
+			{
+				trace("no page to 4")
+				
+			}
 		}
 		
-		private function popupWindow():void
+		private function nextPage(e:MouseEvent):void
 		{
-			_mainPage.childPage.alpha = 0.5;
-			_mainPage.addChild(_popup);
-			_popup.mcFocus.addEventListener(MouseEvent.CLICK,focusClick);
+			_mainPage.txtWish = _mainPage.childPage.imagesPanel.txt.text;
+			_mainPage.changePage(3);
+			_mainPage.resultNumber = (_imageSeq + 1)
+			//trace("wish text is :" + _mainPage.txtWish);
 
 			
 		}
-		
-		private function popupCloseClick(e:MouseEvent):void
+		private function prevImage(e:MouseEvent):void
 		{
-			
-			removePopup();
-		}
-		
-		private function removePopup():void
-		{
-			_mainPage.removeChild(_popup);
-			_mainPage.childPage.alpha = 1;
+			if(_imageSeq>0)
+			{
+				(_mainPage.childPage.imagesPanel.imageSlide as  MovieClip).prevFrame();
+				_imageSeq--;
+			}
+
 			
 		}
-		
-		
-		//get friends
-		public function distributeClick(e:MouseEvent):void
+		private function nextImage(e:MouseEvent):void
 		{
-			popupWindow();
-			ditribute();			
-			
-			_mainPage.childPage.btnPopup.enabled = false;
-
-
- 
-		}
-		
-		private function ditribute():void
-		{
-			
-			//trace("distributeClick");
-			var obj = new Object  ;
-
-			obj.status  =("@" + _mainPage.selectedFriends[0].friendData.screen_name + "  " +this._comment.replace("replaced",_comments[_mainPage.resultNumber-1]));
-
-			//trace("obj.status:"+obj.status);
-			var coder:JPGEncoder = new JPGEncoder(50);
-
-			_bmd = new BitmapData(_resultItem.width,_resultItem.height);
-			_bmd.draw(_resultItem);
-			var ary:ByteArray ;
-			var ary:ByteArray = coder.encode(_bmd);
-
-			obj.pic = ary;
-			//_mainPage.mb.addEventListener("distributeResultEvent", onDistributeResult);
-			//_mainPage.mb.addEventListener("distributeErrorEvent", onDistributeError);
-			//_mainPage.mb.callWeiboAPI("2/statuses/update",obj, "POST", "distributeResultEvent", "distributeErrorEvent");
-			_mainPage.mb.addEventListener(Event.COMPLETE,distributeComplete);
-			_mainPage.mb.updateStatus(obj.status,obj.pic);
-			
-			//var url:URLRequest = new URLRequest("http://weibo.com/u/2108175657");  
-
-			//flash.net.navigateToURL(url,"_self");
-			
-			//disable button
+			if(_imageSeq < (_imageNum-1))
+			{
+				(_mainPage.childPage.imagesPanel.imageSlide as  MovieClip).nextFrame();
+				_imageSeq++;
+			}
 			
 		}
-		
-		private function distributeComplete(e:Event):void
-		{
-			trace("distrbuteComplete");
-		}
-
-
-		private function onDistributeResult(e:MicroBlogEvent):void
-		{
-
-			trace("distribute ok");
-			//_mainPage.childPage.btnPopup.enabled = true;
-			popupWindow();
-
-		}
-		private function onDistributeError(e:MicroBlogErrorEvent):void
-		{
-			trace("distribute error");
-
-		}
-		private function focusClick(e:MouseEvent):void
-		{
-			focus();
-		}
-		public function focus():void
-		{
-			var obj = new Object  ;
-			//obj.uid  = "1404376560";
-			obj.screen_name  = "三个傻瓜来贺岁";
-			trace("focus");
-			_mainPage.mb.addEventListener("focusResultEvent", onFocusResult);
-			_mainPage.mb.addEventListener("focusErrorEvent", onFocusError);
-			_mainPage.mb.callWeiboAPI("2/friendships/create",obj, "POST", "focusResultEvent", "focusErrorEvent");
-		}
-
-
-		private function onFocusResult(e:MicroBlogEvent):void
-		{
-			trace("focus OK!");
-			//ditribute();
-			
-			removePopup();
-			var url:URLRequest = new URLRequest("http://weibo.com/u/2108175657");  
-
-			flash.net.navigateToURL(url,"_self");
-			
-
-		}
-		private function onFocusError(e:MicroBlogErrorEvent):void
-		{
-			trace("focus error");
-			removePopup();
-			//ditribute();			
-			
-			var url:URLRequest = new URLRequest("http://weibo.com/u/2108175657");  
-
-			flash.net.navigateToURL(url,"_self");
-
-		}
-
 		
 
 		

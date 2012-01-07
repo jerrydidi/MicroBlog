@@ -4,6 +4,7 @@
 	import com.sina.microblog.MicroBlog;
 	import com.sina.microblog.events.*;
 	import flash.events.MouseEvent;
+	import flash.events.Event;
 	
 	
 	public class MainPage extends MovieClip {
@@ -19,7 +20,9 @@
 		private var _uid:String;
 		//
 		private var _childPage:MovieClip;	
-		public var resultNumber:int = Math.round(Math.random()*6)+1;
+		//
+		public var txtWish:String;
+		public var resultNumber:int = 0;
 		
 		//public var resultNumber:int =6;
 		
@@ -29,7 +32,20 @@
 		
 		public function MainPage() {
 			// constructor code
-			page0.btnLogin.addEventListener(MouseEvent.CLICK,loginClickHandler);
+			page0.addEventListener(Event.ENTER_FRAME,enterPage);
+			
+		}
+		
+		private function enterPage(e:Event):void
+		{
+			//trace("enter page");
+
+			if(page0.btnLogin)
+			{
+				page0.removeEventListener(Event.ENTER_FRAME,enterPage);
+				page0.btnLogin.addEventListener(MouseEvent.CLICK,loginClickHandler);
+				
+			}
 			
 		}
 		
@@ -97,7 +113,7 @@
 					break;
 				case 3 :
 					this.gotoAndStop(4);
-					//_currentPage = new SelectedPageThree(this);
+					_currentPage = new SelectedPageThree(this,3);
 					break;
 			}
 		}
