@@ -94,6 +94,7 @@ package page
 			//trace("load image complete!");
 			_imageLoaded = true;
 			_mainPage.childPage.btnSendToWeibo.addEventListener(MouseEvent.CLICK,sendToWeibo);
+			_mainPage.childPage.btnToPageOne.addEventListener(MouseEvent.CLICK,backToPrevPage);
 			_mainPage.childPage.btnBack.addEventListener(MouseEvent.CLICK,backToPage);
 
 				
@@ -103,6 +104,13 @@ package page
 
 				
 		
+		private function backToPrevPage(e:MouseEvent):void
+		{
+
+			_mainPage.changePage(1);
+			
+			
+		}
 		private function backToPage(e:MouseEvent):void
 		{
 
