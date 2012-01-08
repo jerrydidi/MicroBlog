@@ -17,6 +17,7 @@ package page
 	import flash.utils.*;		
 	import flash.geom.Matrix;
 	import flash.filters.BlurFilter;
+	import event.ImageLoadEvent;
 
 	public class SelectedPageThree extends BaseSelectedPage {
 
@@ -25,34 +26,33 @@ package page
 		private var _mb:MicroBlog;
 		
 		private var _txtName:TextField = new TextField();
-		private var _image:Image;
+		//
+		private var _avatar:ResultAvatar;
 		//
 		private var _bmd:BitmapData;		
+		//
+		private var _imageLoaded:Boolean = false;
 		
 		public function SelectedPageThree(mainPage:MainPage,pageNo:int) {
 			// constructor code
 			super(mainPage,pageNo);
 			_mb = mainPage.mb;
-			_image = new Image(_mainPage.selectedFriends[0].avatar_large,55);
+			_avatar = new ResultAvatar(_mainPage.selectedFriends[0]);
+			_avatar.addEventListener(ImageLoadEvent.IMAGE_LOAD_EVENT,imageLoadComplete);
+			
 		}
 		
 		override public function initComponents():void
 		{
 			_mainPage.childPage = _mainPage.page3;
 			_mainPage.childPage.addEventListener(Event.ENTER_FRAME,pageInit)
-		
-
-			
-			//
-			
 		}
 		
 		private function pageInit(e:Event):void
 		{
-			if(_mainPage.childPage.mcToPageFive)
+			if(_mainPage.childPage.btnSendToWeibo)
 			{
 				_mainPage.childPage.removeEventListener(Event.ENTER_FRAME,pageInit);
-				_mainPage.childPage.mcToPageFive.addEventListener(MouseEvent.CLICK,sendToWeibo);
 				_mainPage.childPage.images.gotoAndStop(_mainPage.resultNumber);
 				//
 				_txtName.text = "@" + _mainPage.selectedFriends[0].screen_name;
@@ -69,13 +69,16 @@ package page
 				var blur:BlurFilter = new BlurFilter(0,0);
 				_txtName.filters = [blur];
 				_mainPage.childPage.content.addChild(_txtName);
+
+				
+				_avatar.x = 299;
+				_avatar.y = 38;
+				_mainPage.childPage.content.addChild(_avatar);
+				_mainPage.childPage.btnSendToWeibo.visible = _imageLoaded;
 				//
-				_image.loadImage();
-				_image.x = 299;
-				_image.y =38;
-				_mainPage.childPage.content.addChild(_image);
+				//_clicked = false;
 				
-				
+
 
 				
 			}
@@ -86,10 +89,34 @@ package page
 			}
 		}
 		
+		public function imageLoadComplete(e:ImageLoadEvent):void
+		{
+			//trace("load image complete!");
+			_imageLoaded = true;
+			_mainPage.childPage.btnSendToWeibo.addEventListener(MouseEvent.CLICK,sendToWeibo);
+			_mainPage.childPage.btnBack.addEventListener(MouseEvent.CLICK,backToPage);
+
+				
+			
+			
+		}
+
+				
+		
+		private function backToPage(e:MouseEvent):void
+		{
+
+			var url:URLRequest = new URLRequest("http://3.yinongdai.sinaapp.com/index.html");  
+
+			flash.net.navigateToURL(url,"_self");
+			
+			
+		}
 		private function sendToWeibo(e:MouseEvent):void
 		{
 
-			ditribute();
+			if(_imageLoaded)
+				ditribute();
 			
 		}
 

@@ -55,7 +55,7 @@
 				_mainPage.childPage.imagesPanel.btnNext.addEventListener(MouseEvent.CLICK,nextImage);
 				
 				//randomNum
-				_mainPage.childPage.imagesPanel.txt.text = (_txtArray[randomNum] as String).replace("XXXX",_mainPage.selectedFriends[0].screen_name);
+				_mainPage.childPage.imagesPanel.txt.text = ((_txtArray[randomNum] as String).replace("XXXX",_mainPage.selectedFriends[0].screen_name) + "http://3.yinongdai.sinaapp.com/index.html");
 				//trace("pageInit")
 				
 			}

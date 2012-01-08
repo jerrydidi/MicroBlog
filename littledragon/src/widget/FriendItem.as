@@ -37,8 +37,8 @@
 			_friendImage.loadImage();
 			//
 			addChild(_loading);
-			_loading.x = 50 - _loading.width/2;
-			_loading.y = 50 - _loading.height/2;
+			_loading.x = 42 - _loading.width/2;
+			_loading.y = 42 - _loading.height/2;
 			//
 			_check.x = 67;
 			
