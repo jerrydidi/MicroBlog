@@ -52,7 +52,7 @@
 			}
 			else
 			{
-				trace("no page to 3");
+				trace("no page to 1");
 				
 			}
 		}
@@ -60,7 +60,7 @@
 		private function nextPage(e:MouseEvent):void
 		{
 			//trace("to page 3");
-			_mainPage.selectedFriends.push(_friendsPanel.selectedItem.friendData);
+			_mainPage.selectedFriends[0]=_friendsPanel.selectedItem.friendData;
 			_mainPage.changePage(2);
 			
 		}

@@ -18,6 +18,7 @@ package page
 	import flash.geom.Matrix;
 	import flash.filters.BlurFilter;
 	import event.ImageLoadEvent;
+	import flash.display.SimpleButton;
 
 	public class SelectedPageThree extends BaseSelectedPage {
 
@@ -32,6 +33,14 @@ package page
 		private var _bmd:BitmapData;		
 		//
 		private var _imageLoaded:Boolean = false;
+		//
+		private var _btnSendToWeibo:SimpleButton = new buttonSendToWeibo();
+		//
+		private var _btnToPageOne:SimpleButton = new buttonToPageOne();
+		//
+		private var _btnBackToWeibo:SimpleButton = new btnBackToWeibo();
+		//
+		private var _result:MovieClip = new result();
 		
 		public function SelectedPageThree(mainPage:MainPage,pageNo:int) {
 			// constructor code
@@ -50,52 +59,76 @@ package page
 		
 		private function pageInit(e:Event):void
 		{
-			if(_mainPage.childPage.btnSendToWeibo)
-			{
-				_mainPage.childPage.removeEventListener(Event.ENTER_FRAME,pageInit);
-				_mainPage.childPage.images.gotoAndStop(_mainPage.resultNumber);
-				//
-				_txtName.text = "@" + _mainPage.selectedFriends[0].screen_name;
-				var txtFormat:TextFormat = new TextFormat();
-				txtFormat.color = 0x990000;
-				txtFormat.size = 14;
-				_txtName.setTextFormat(txtFormat);
-				_txtName.x = 192;
-				_txtName.y = 122;
-				_txtName.width = 150;
+			trace("page init")
+			_mainPage.childPage.removeEventListener(Event.ENTER_FRAME,pageInit);
+			_result = new result();
+			_result.x = 380;
+			_result.y = 316;
+			_mainPage.addChild(_result);
+			_result.images.gotoAndStop(_mainPage.resultNumber);
+			//
+			_txtName.text = "@" + _mainPage.selectedFriends[0].screen_name;
+			var txtFormat:TextFormat = new TextFormat();
+			txtFormat.color = 0x990000;
+			txtFormat.size = 14;
+			_txtName.setTextFormat(txtFormat);
+			_txtName.x = 192;
+			_txtName.y = 122;
+			_txtName.width = 150;
 
 				
-				//trace("_txtName.text:" + _txtName.text);
-				var blur:BlurFilter = new BlurFilter(0,0);
-				_txtName.filters = [blur];
-				_mainPage.childPage.content.addChild(_txtName);
+			//trace("_txtName.text:" + _txtName.text);
+			var blur:BlurFilter = new BlurFilter(0,0);
+			_txtName.filters = [blur];
+			_result.content.addChild(_txtName);
 
 				
-				_avatar.x = 299;
-				_avatar.y = 38;
-				_mainPage.childPage.content.addChild(_avatar);
-				_mainPage.childPage.btnSendToWeibo.visible = _imageLoaded;
+			_avatar.x = 299;
+			_avatar.y = 38;
+			_result.content.addChild(_avatar);
+				
+			//
+			_btnSendToWeibo = new buttonSendToWeibo();
+			//
+			_btnToPageOne = new buttonToPageOne();
+			//
+			_btnBackToWeibo = new btnBackToWeibo();
+				
+				
+				
+				_btnSendToWeibo.x = 327;
+				_btnSendToWeibo.y = 513;
+				
+				_btnToPageOne.x = 227;
+				_btnToPageOne.y = 500;
+				
+				_btnBackToWeibo.x = 389;
+				_btnBackToWeibo.y = 500;
+				
+				_mainPage.addChild(_btnSendToWeibo);
+				_mainPage.addChild(_btnToPageOne);
+				_mainPage.addChild(_btnBackToWeibo);
+				_btnSendToWeibo.visible = _imageLoaded;
+				_btnToPageOne.visible = false;
+				_btnBackToWeibo.visible = false;
 				//
 				//_clicked = false;
 				
+				_btnSendToWeibo.addEventListener(MouseEvent.CLICK,sendToWeibo);
+				_btnToPageOne.addEventListener(MouseEvent.CLICK,backToPrevPage);
+				_btnBackToWeibo.addEventListener(MouseEvent.CLICK,backToPage);
 
 
 				
-			}
-			else
-			{
-				trace("no page to 4")
-				
-			}
+
+
 		}
 		
 		public function imageLoadComplete(e:ImageLoadEvent):void
 		{
-			//trace("load image complete!");
+			trace("load image complete!");
 			_imageLoaded = true;
-			_mainPage.childPage.btnSendToWeibo.addEventListener(MouseEvent.CLICK,sendToWeibo);
-			_mainPage.childPage.btnToPageOne.addEventListener(MouseEvent.CLICK,backToPrevPage);
-			_mainPage.childPage.btnBack.addEventListener(MouseEvent.CLICK,backToPage);
+			_btnSendToWeibo.visible = true;
 
 				
 			
@@ -106,6 +139,11 @@ package page
 		
 		private function backToPrevPage(e:MouseEvent):void
 		{
+
+			_mainPage.removeChild(_result);
+			_mainPage.removeChild(_btnSendToWeibo);
+			_mainPage.removeChild(_btnToPageOne);
+			_mainPage.removeChild(_btnBackToWeibo);
 
 			_mainPage.changePage(1);
 			
@@ -124,7 +162,13 @@ package page
 		{
 
 			if(_imageLoaded)
+			{
+				_btnSendToWeibo.visible = false;
+				_btnToPageOne.visible = true;
+				_btnBackToWeibo.visible = true;
+				
 				ditribute();
+			}
 			
 		}
 
@@ -136,14 +180,14 @@ package page
 
 			obj.status  = _mainPage.txtWish;
 
-			var coder:JPGEncoder = new JPGEncoder(100);
+			var coder:JPGEncoder = new JPGEncoder(80);
 
-			var mcContent:MovieClip;
-			mcContent = _mainPage.childPage as MovieClip;
+			//var mcContent:MovieClip;
+			//mcContent = _result as MovieClip;
 			var maxtrix:Matrix = new Matrix();
 			maxtrix.translate(207,247);
 			_bmd = new BitmapData(414,494);
-			_bmd.draw(mcContent,maxtrix);
+			_bmd.draw(_result,maxtrix);
 			var ary:ByteArray = coder.encode(_bmd);
 
 			obj.pic = ary;
@@ -172,9 +216,9 @@ package page
 			trace("focus OK!");
 			//ditribute();
 			
-			var url:URLRequest = new URLRequest("http://www.yinongdai.com");  
+			//var url:URLRequest = new URLRequest("http://www.yinongdai.com");  
 
-			flash.net.navigateToURL(url,"_self");
+			//flash.net.navigateToURL(url,"_self");
 			
 
 		}
@@ -182,9 +226,9 @@ package page
 		{
 			trace("focus error");
 			
-			var url:URLRequest = new URLRequest("http://www.yinongdai.com");  
+			//var url:URLRequest = new URLRequest("http://www.yinongdai.com");  
 
-			flash.net.navigateToURL(url,"_self");
+			//flash.net.navigateToURL(url,"_self");
 
 		}
 
