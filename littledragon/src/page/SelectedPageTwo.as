@@ -20,7 +20,7 @@
 		
 		private var _imageSeq:int =0;
 		
-		private var _imageNum:int =6;
+		private var _imageNum:int = 8;
 		private var _count:int = 0;
 		private var _imagesPanel :MovieClip ;
 		
