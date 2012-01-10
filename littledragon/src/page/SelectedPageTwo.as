@@ -73,10 +73,12 @@
 				
 			//randomNum
 			_imagesPanel.txt.text = ((_txtArray[randomNum] as String).replace("XXXX",_mainPage.selectedFriends[0].screen_name));
+			_imagesPanel.txt.maxChars = 100;
 			_imagesPanel.txt.addEventListener(Event.CHANGE,txtInputHandler);
 			var numRemain:int;
 			numRemain = 100 - _imagesPanel.txt.text.length;
 			_imagesPanel.txtNum.text = _txtNum.replace("XXXX",numRemain.toString());
+			
 			
 
 			

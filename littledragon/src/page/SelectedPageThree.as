@@ -41,6 +41,8 @@ package page
 		private var _btnBackToWeibo:SimpleButton = new btnBackToWeibo();
 		//
 		private var _result:MovieClip = new result();
+		//
+		private var _friendProfile:Object;
 		
 		public function SelectedPageThree(mainPage:MainPage,pageNo:int) {
 			// constructor code
@@ -119,6 +121,7 @@ package page
 				_btnBackToWeibo.addEventListener(MouseEvent.CLICK,backToPage);
 
 
+
 				
 
 
@@ -126,7 +129,7 @@ package page
 		
 		public function imageLoadComplete(e:ImageLoadEvent):void
 		{
-			trace("load image complete!");
+			//trace("load image complete!");
 			_imageLoaded = true;
 			_btnSendToWeibo.visible = true;
 
@@ -152,7 +155,8 @@ package page
 		private function backToPage(e:MouseEvent):void
 		{
 
-			var url:URLRequest = new URLRequest("http://3.yinongdai.sinaapp.com/index.html");  
+			var url:URLRequest = new URLRequest("http://weibo.com/u/" +_mainPage._uid.toString());  
+			//trace("_mainPage.selectedFriends[0].url:"+_mainPage.selectedFriends[0].city);
 
 			flash.net.navigateToURL(url,"_self");
 			
@@ -234,6 +238,7 @@ package page
 
 		
 
+		
 
 		
 

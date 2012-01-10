@@ -15,9 +15,9 @@
 		//selected friends array
 		private var _selectedFriends:Array = new Array();
 		//profile
-		private var _profile:Object;
+		public var _profile:Object;
 		//
-		private var _uid:String;
+		public var _uid:String;
 		//
 		private var _childPage:MovieClip;	
 		//
@@ -189,6 +189,8 @@
 			var data:Object = e.result;
 
 			_profile = data as Object;
+			//trace("getFriendProfile" +_profile.name) ;
+			
 		}
 		//new MicroBlogEvent
 		private function onGetProfileError(e:MicroBlogErrorEvent):void
