@@ -14,8 +14,8 @@
 		private var _friends:Array;
 		private var _friendNum:int;
 		
-		private var _left:SimpleButton = new btnImage(); 
-		private var _right:SimpleButton = new btnImage();
+		private var _left:SimpleButton ; 
+		private var _right:SimpleButton ;
 		
 		private var _selectedItem:FriendItem;
 		private var panel:MovieClip= new MovieClip();
@@ -34,26 +34,32 @@
 		public var _seq:int = 0;
 		
 
-		public function FriendsPanel(friends:Array)
+		public function FriendsPanel()
 		{
 			// constructor code
 			
 
+		}
+		
+		public function init(friends:Array):void
+		{
+			//trace("friends:"+friends);
 			this._friends = friends;
 			this._friendNum = _friends.length;
 			
-			_left.x = -120;
-			_left.y = 168;
+			//_left.x = -120;
+			//_left.y = 168;
 	
 
-			_right.x = 130;
-			_right.y = 193;
-			_right.rotation = 180;
-			addChild(_left);
-			addChild(_right);
-			_left.addEventListener(MouseEvent.CLICK,prevPage);
-			_right.addEventListener(MouseEvent.CLICK,nextPage);
-			listAllFriends();
+			//_right.x = 130;
+			//_right.y = 193;
+			//_right.rotation = 180;
+			//addChild(_left);
+			//addChild(_right);
+			//_left.addEventListener(MouseEvent.CLICK,prevPage);
+			//_right.addEventListener(MouseEvent.CLICK,nextPage);
+			//listAllFriends();
+			
 		}
 		
 		private function prevPage(e:MouseEvent):void
@@ -102,30 +108,20 @@
 
 			for  (var i:int =0;i<_friendNum;i++)
 			{
-
-				//trace(":" +_friends[i].profile_image_url +"::" + i.toString());
 				var friendItem:FriendItem = new FriendItem(_friends[i]);
 				pageIdx = Math.floor(i / perPageNum);
 				pageSeq = i % perPageNum;
 				row = pageSeq % _rowNum;
 				line = Math.floor(pageSeq/_rowNum);
-				//trace("row:"+row);
-				//trace("line:"+line);
-				//trace("pageSeq:"+pageSeq);
-				//trace("pageIdx:"+pageIdx);
 				friendItem.x = row * 106 + 106*_rowNum*pageIdx;
 				friendItem.y = line * 100;
 
 				panel.addChild(friendItem);
 				if(i ==0)
 				{
-					
 					_selectedItem = friendItem;
 					_selectedItem.selected = true;
-					
 				}
-				
-
 			}
 			panel.addEventListener(ImageSelectedEvent.IMAGE_SELECTED_EVENT,imageSelected)
 		}
@@ -145,6 +141,5 @@
 			return this._selectedItem;
 			
 		}
-		
 	}
 }

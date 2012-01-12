@@ -14,7 +14,7 @@
 		//
 		private var _bg:MovieClip = new MovieClip();		
 		//
-		private var _check:MovieClip = new imageCheck();
+		private var _check:MovieClip ;
 		//
 		private var _loading:MovieClip = new loading();
 		//

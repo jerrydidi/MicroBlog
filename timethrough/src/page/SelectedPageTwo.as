@@ -12,6 +12,7 @@
 	import flash.text.TextField;
 	import com.greensock.TweenLite;
 	import com.greensock.easing.*;	
+
 	public class SelectedPageTwo extends BaseSelectedPage {
 
 
@@ -33,6 +34,7 @@
 		private var _txtNum:String ="还可输入XXXX字";
 		
 		private var randomNum:int = Math.floor(Math.random() * 3);
+
 		//
 		public function SelectedPageTwo(mainPage:MainPage,pageNo:int) {
 			// constructor code
@@ -52,103 +54,10 @@
 		{
 
 			_mainPage.childPage.removeEventListener(Event.ENTER_FRAME,pageInit);
-			
-			//trace("page init")
-			_imagesPanel = new imagePanel();
-			_imagesPanel.x = 90;
-			_imagesPanel.y = 150;
-			//_imagesPanel.alpha = 0;
-			
-			//TweenLite.to(_imagesPanel, 0., {alpha:1, ease:Back.easeIn});
-			
-			//_mainPage.childPage.removeChild(_imagesPanel);
-			_mainPage.addChild(_imagesPanel);
-			//trace("_imagesPanel:" + _imagesPanel);
-		
-
-			_imagesPanel.mcToNextPage.addEventListener(MouseEvent.CLICK,nextPage);
-			_imagesPanel.mcToPrevPage.addEventListener(MouseEvent.CLICK,prevPage);
-			_imagesPanel.btnPrev.addEventListener(MouseEvent.CLICK,prevImage);
-			_imagesPanel.btnNext.addEventListener(MouseEvent.CLICK,nextImage);
-				
-			//randomNum
-			_imagesPanel.txt.text = ((_txtArray[randomNum] as String).replace("XXXX",_mainPage.selectedFriends[0].screen_name));
-			_imagesPanel.txt.maxChars = 100;
-			_imagesPanel.txt.addEventListener(Event.CHANGE,txtInputHandler);
-			var numRemain:int;
-			numRemain = 100 - _imagesPanel.txt.text.length;
-			_imagesPanel.txtNum.text = _txtNum.replace("XXXX",numRemain.toString());
-			
-			
 
 			
 		}
 		
-		/**
-		private function pageInit(e:Event):void
-		{
-			if(_mainPage.childPage.imagesPanel)
-			{
-				_mainPage.childPage.removeEventListener(Event.ENTER_FRAME,pageInit);
-				_mainPage.childPage.imagesPanel.mcToNextPage.addEventListener(MouseEvent.CLICK,nextPage);
-				_mainPage.childPage.imagesPanel.mcToPrevPage.addEventListener(MouseEvent.CLICK,prevPage);
-				_mainPage.childPage.imagesPanel.btnPrev.addEventListener(MouseEvent.CLICK,prevImage);
-				_mainPage.childPage.imagesPanel.btnNext.addEventListener(MouseEvent.CLICK,nextImage);
-				
-				//randomNum
-				_mainPage.childPage.imagesPanel.txt.text = ((_txtArray[randomNum] as String).replace("XXXX",_mainPage.selectedFriends[0].screen_name));
-				_mainPage.childPage.imagesPanel.txt.addEventListener(Event.CHANGE,txtInputHandler);
-				var numRemain:int;
-				numRemain = 100 - _mainPage.childPage.imagesPanel.txt.text.length;
-				_mainPage.childPage.imagesPanel.txtNum.text = _txtNum.replace("XXXX",numRemain.toString());
-				
-			}
-			else
-			{
-				trace("no page to 3")
-				
-			}
-		}
-		**/
-		
-		private function txtInputHandler(e:Event):void
-		{
-			var numRemain:int;
-			numRemain = 100 -_imagesPanel.txt.text.length;
-			_imagesPanel.txtNum.text =_txtNum.replace("XXXX",numRemain.toString());
-		}
-		
-		private function prevPage(e:MouseEvent):void
-		{
-			_mainPage.removeChild(_imagesPanel);
 
-			_mainPage.changePage(1);
-		}
-		private function nextPage(e:MouseEvent):void
-		{
-			_mainPage.txtWish = _imagesPanel.txt.text  + "http://3.yinongdai.sinaapp.com/index.html";
-			_mainPage.removeChild(_imagesPanel);
-			_mainPage.changePage(3);
-			_mainPage.resultNumber = (_imageSeq + 1)
-			
-		}
-		private function prevImage(e:MouseEvent):void
-		{
-			if(_imageSeq>0)
-			{
-				(_imagesPanel.imageSlide as  MovieClip).prevFrame();
-				_imageSeq--;
-			}
-		}
-
-		private function nextImage(e:MouseEvent):void
-		{
-			if(_imageSeq < (_imageNum-1))
-			{
-				(_imagesPanel.imageSlide as  MovieClip).nextFrame();
-				_imageSeq++;
-			}
-			
-		}
 	}
 }

@@ -16,7 +16,7 @@
 		
 		private var _mb:MicroBlog;
 		
-		
+
 		
 		public function SelectedPageOne(mainPage:MainPage,pageNo:int) {
 			// constructor code
@@ -28,10 +28,12 @@
 		{
 			_mainPage.childPage = _mainPage.page1;
 			_mainPage.childPage.addEventListener(Event.ENTER_FRAME,pageInit)
+			
 		
 			if(_mainPage.friends.length >0)
 			{
-				_friendsPanel = new FriendsPanel(_mainPage.friends);
+				_friendsPanel = new FriendsPanel();
+				_friendsPanel.init(_mainPage.friends);
 				_friendsPanel.x = 0;
 				_friendsPanel.y = 0;
 				_mainPage.childPage.addChild(_friendsPanel);
@@ -43,18 +45,7 @@
 		
 		private function pageInit(e:Event):void
 		{
-			if(_mainPage.childPage.friendsPanel.mcToPageThree)
-			{
-				_mainPage.childPage.removeEventListener(Event.ENTER_FRAME,pageInit);
-				_mainPage.childPage.friendsPanel.mcToPageThree.addEventListener(MouseEvent.CLICK,nextPage);
-
-				
-			}
-			else
-			{
-				trace("no page to 1");
-				
-			}
+			_mainPage.childPage.removeEventListener(Event.ENTER_FRAME,pageInit);
 		}
 		
 		private function nextPage(e:MouseEvent):void

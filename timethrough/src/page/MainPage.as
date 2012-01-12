@@ -158,7 +158,7 @@
 			var data:Object = e.result;
 			//set the uid
 			_uid = data.uid;
-			trace("_uid :" + _uid);
+			//trace("_uid :" + _uid);
 
 			// get profile
 			getProfile();
