@@ -7,6 +7,8 @@
 	import flash.text.TextField;
 	import flash.display.SimpleButton;
 	import event.ImageSelectedEvent;
+	import flash.events.Event;
+	import event.NextPageEvent;
 
 	public class FriendsPanel extends MovieClip
 	{
@@ -14,8 +16,8 @@
 		private var _friends:Array;
 		private var _friendNum:int;
 		
-		private var _left:SimpleButton ; 
-		private var _right:SimpleButton ;
+		//private var _left:SimpleButton ; 
+		//private var _right:SimpleButton ;
 		
 		private var _selectedItem:FriendItem;
 		private var panel:MovieClip= new MovieClip();
@@ -46,27 +48,38 @@
 			//trace("friends:"+friends);
 			this._friends = friends;
 			this._friendNum = _friends.length;
+			this.addEventListener(Event.ENTER_FRAME,enterPage)
 			
-			//_left.x = -120;
-			//_left.y = 168;
-	
+			
+			
+		}
+		private function enterPage(e:Event):void
+		{
+			
+			if(this.btnToPageThree)
+			{
+				this.removeEventListener(Event.ENTER_FRAME,enterPage)
+				_left.addEventListener(MouseEvent.CLICK,prevPage);
+				_right.addEventListener(MouseEvent.CLICK,nextPage);
+				btnToPageThree.addEventListener(MouseEvent.CLICK,toPageThree);
+				listAllFriends();
 
-			//_right.x = 130;
-			//_right.y = 193;
-			//_right.rotation = 180;
-			//addChild(_left);
-			//addChild(_right);
-			//_left.addEventListener(MouseEvent.CLICK,prevPage);
-			//_right.addEventListener(MouseEvent.CLICK,nextPage);
-			//listAllFriends();
-			
+			}
+			else
+			{
+				//trace("no left");
+			}
+		}
+		private function toPageThree(e:MouseEvent):void
+		{
+			this.dispatchEvent(new NextPageEvent(NextPageEvent.NEXT_PAGE_EVENT));
 		}
 		
 		private function prevPage(e:MouseEvent):void
 		{
 			if(_pageSeq >0)
 			{
-				var targetX:Number = panel.x + 424;
+				var targetX:Number = panel.x + 400;
 				TweenLite.to(panel, 0.2, {x:targetX});
 				_pageSeq--;
 			}
@@ -77,7 +90,7 @@
 			if(_pageSeq <(_pageNum - 1) )
 			{
 
-				var targetX:Number = panel.x - 424;
+				var targetX:Number = panel.x - 400;
 				TweenLite.to(panel, 0.2, {x:targetX});
 				_pageSeq++;
 			}
@@ -86,16 +99,19 @@
 
 		public function listAllFriends():void
 		{
-			panel.x = -202;
-			panel.y = -36;
+			panel.x = 180;
+			panel.y = 197;
 			this.addChild(panel);
 			
 			var mcMask:MovieClip = new MovieClip();
 			mcMask.graphics.beginFill(0xFF9800,0.5);
-			mcMask.graphics.drawRect(0,0,420,220);
+			mcMask.graphics.drawRect(-10,0,400,105);
 			mcMask.graphics.endFill()
-			mcMask.x = -210;
-			mcMask.y = -48;
+			mcMask.graphics.beginFill(0xFF9800,0.5);
+			mcMask.graphics.drawRect(10,100,400,105);
+			mcMask.graphics.endFill()
+			mcMask.x = 175;
+			mcMask.y = 190;
 			this.addChild(mcMask);
 			
 			panel.mask = mcMask;
@@ -113,28 +129,24 @@
 				pageSeq = i % perPageNum;
 				row = pageSeq % _rowNum;
 				line = Math.floor(pageSeq/_rowNum);
-				friendItem.x = row * 106 + 106*_rowNum*pageIdx;
+				if(line == 0)
+				{
+					friendItem.x = row * 100 + 100*_rowNum*pageIdx - 10;
+				}
+				else if(line == 1)
+				{
+					friendItem.x = row * 100 + 100*_rowNum*pageIdx + 10;
+					
+					
+				}
 				friendItem.y = line * 100;
 
 				panel.addChild(friendItem);
-				if(i ==0)
-				{
-					_selectedItem = friendItem;
-					_selectedItem.selected = true;
-				}
+
 			}
-			panel.addEventListener(ImageSelectedEvent.IMAGE_SELECTED_EVENT,imageSelected)
 		}
 		//
-		private function imageSelected(e:ImageSelectedEvent):void
-		{
-			var imageSelected:FriendItem;
-			imageSelected = e.target as FriendItem;
-			_selectedItem.selected = false;
-			_selectedItem = imageSelected;
-			_selectedItem.selected = true;
-			
-		}
+
 		///
 		public function get selectedItem():FriendItem
 		{
