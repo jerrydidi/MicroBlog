@@ -12,6 +12,7 @@
 	import flash.text.TextField;
 	import com.greensock.TweenLite;
 	import com.greensock.easing.*;	
+	
 
 	public class SelectedPageTwo extends BaseSelectedPage {
 
@@ -23,7 +24,7 @@
 		
 		private var _imageNum:int = 8;
 		private var _count:int = 0;
-		private var _imagesPanel :MovieClip ;
+		private var _selectedPanel:SelectedPanel ;
 		
 		private var _txtArray =[
 								    "什么时候回家啊？不要等到妈妈的电话再去犹豫回家，@XXXX,让我们宜起回家，享受这份世间最浓的感情。",
@@ -45,7 +46,11 @@
 		override public function initComponents():void
 		{
 			_mainPage.childPage = _mainPage.page2;
-			_mainPage.childPage.addEventListener(Event.ENTER_FRAME,pageInit);
+			_selectedPanel = new SelectedPanel();
+			_mainPage.addChild(_selectedPanel);
+			_selectedPanel.addEventListener(Event.ENTER_FRAME,pageInit);
+
+			
 			//pageInit();
 			
 		}
@@ -53,8 +58,56 @@
 		private function pageInit(e:Event):void
 		{
 
-			_mainPage.childPage.removeEventListener(Event.ENTER_FRAME,pageInit);
+			if(_selectedPanel.txt)
+			{
+				_selectedPanel.removeEventListener(Event.ENTER_FRAME,pageInit);
+				_selectedPanel.init(_mainPage.selectedFriends);
+				_selectedPanel.backToPageOne.addEventListener(MouseEvent.CLICK,backToPageOne);
+			
+				_selectedPanel.btnNextPage.addEventListener(MouseEvent.CLICK,nextPage);
+			
 
+				//randomNum
+				_selectedPanel.txt.text = ((_txtArray[randomNum] as String).replace("XXXX",_mainPage.selectedFriends[0].screen_name));
+				_selectedPanel.txt.maxChars = 100;
+				_selectedPanel.txt.addEventListener(Event.CHANGE,txtInputHandler);
+				var numRemain:int;
+				numRemain = 100 - _selectedPanel.txt.text.length;
+				_selectedPanel.txtNum.text = _txtNum.replace("XXXX",numRemain.toString());
+
+
+
+			}
+			else
+			{
+				//trace("no text yet");
+				
+			}
+			
+			
+		}
+		
+		private function txtInputHandler(e:Event):void
+		{
+			var numRemain:int;
+			numRemain = 100 -_selectedPanel.txt.text.length;
+			_selectedPanel.txtNum.text =_txtNum.replace("XXXX",numRemain.toString());
+		}
+
+
+		private function backToPageOne(e:MouseEvent):void
+		{
+			_mainPage.removeChild(_selectedPanel);
+			_mainPage.changePage(1);
+			
+		}
+		
+		
+		private function nextPage(e:MouseEvent):void
+		{
+			_mainPage.removeChild(_selectedPanel);
+			_mainPage.txtWish = _selectedPanel.txt.text;
+			_mainPage.changePage(3);
 			
 		}
 		

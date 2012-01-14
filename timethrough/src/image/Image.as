@@ -64,7 +64,7 @@
 
 			}
 			_loader.alpha = 0;
-			this.dispatchEvent(new ImageLoadEvent(ImageLoadEvent.IMAGE_LOAD_EVENT,true));
+			this.dispatchEvent(new ImageLoadEvent(ImageLoadEvent.IMAGE_LOAD_EVENT));
 
 			TweenLite.to(_loader, 0.5, {alpha:1, ease:Back.easeIn});
 

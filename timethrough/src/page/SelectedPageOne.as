@@ -9,6 +9,7 @@
 	import com.sina.microblog.events.*;
 	import flash.events.Event;
 	import event.NextPageEvent;
+	import utils.Util;
 
 	
 	public class SelectedPageOne extends BaseSelectedPage {
@@ -37,7 +38,7 @@
 				_friendsPanel.init(_mainPage.friends);
 				_friendsPanel.x = 0;
 				_friendsPanel.y = 0;
-				_mainPage.childPage.addChild(_friendsPanel);
+				_mainPage.addChild(_friendsPanel);
 				_friendsPanel.addEventListener(NextPageEvent.NEXT_PAGE_EVENT,nextPage);
 			}
 			
@@ -54,8 +55,17 @@
 		private function nextPage(e:NextPageEvent):void
 		{
 			trace("to page 3");
-			//_mainPage.selectedFriends[0]=_friendsPanel.selectedItem.friendData;
-			//_mainPage.changePage(2);
+						
+			var randomAry:Array =  Util.getRamdonListIndex(3,_mainPage.friends.length);
+			var selectedFriends:Array = new Array();
+			for(var i:int =0;i<3;i++)
+			{
+				selectedFriends.push(_mainPage.friends[randomAry[i]]);
+			}
+			_mainPage.selectedFriends = selectedFriends;
+			_mainPage.removeChild(_friendsPanel);
+	
+			_mainPage.changePage(2);
 			
 		}
 		

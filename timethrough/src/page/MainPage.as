@@ -128,8 +128,8 @@
 		//blog register
 		private function blogRegiter():void
 		{
-			_mb.consumerKey = "3653384009";
-			_mb.consumerSecret = "829977110e8bfbcae28bac7aa8d8070e";
+			_mb.consumerKey = "4292556571";
+			_mb.consumerSecret = "070b00ec95bdce16605f4147db3b83a6";
 			_mb.proxyURI = "http://3.yinongdai.sinaapp.com/proxy.php";
 			
 			_mb.addEventListener(MicroBlogEvent.LOGIN_RESULT, onLoginResult);
