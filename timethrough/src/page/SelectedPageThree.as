@@ -30,7 +30,7 @@ package page
 		//
 		private var _bmd:BitmapData;				
 		//
-		private var _checked:Boolean = false;
+		private var _checked:Boolean = true;
 
 		private var _txtContent = "#超时空救兵#你带着他们成功穿越到唐朝，@XXXX 成为了满身尿不湿味道的大湿人，@YYYY 成为了美丽冻人不穿秋裤的林芝郡主、@ZZZZ 则成为了清蒸味美油焖不腻的唐朝大虾。他们再也不用为买船票发愁了。赶紧带着你的好友一起穿越到唐朝吧。";
 
@@ -62,11 +62,12 @@ package page
 				txt = _txtContent.replace("XXXX",_mainPage.selectedFriends[0].screen_name);
 				txt = txt.replace("YYYY",_mainPage.selectedFriends[1].screen_name);
 				txt = txt.replace("ZZZZ",_mainPage.selectedFriends[2].screen_name);
-				_mainPage.txtWish = txt + " http://weibo.com/u/2488135937";
+				_mainPage.txtWish = txt + " http://1.cskjb.sinaapp.com";
 				_distributPanel.init(_mainPage.selectedFriends, txt);
 				_distributPanel.btnDistribute.addEventListener(MouseEvent.CLICK,distribute);
 				_distributPanel.check.addEventListener(MouseEvent.CLICK,checkClick);
 				(_distributPanel.check as MovieClip).buttonMode = true;
+				_distributPanel.check.gotoAndStop(2);
 				
 				
 
