@@ -26,6 +26,8 @@ package page
 		override public function initComponents():void
 		{	
 			_mainPage.childPage = _mainPage.page5;
+			answer = _mainPage.answer[3];
+			checkAnswer();
 
 
 
@@ -53,11 +55,15 @@ package page
 		private function prevPage(e:MouseEvent):void
 		{
 			_mainPage.changePage(4);
+			_mainPage.answer[3] = answer;
+			
 		}
 		
 		private function nextPage(e:MouseEvent):void
 		{
 			_mainPage.changePage(6);
+			_mainPage.answer[3] = answer;
+			
 		}
 		
 		private function answer1Click(e:MouseEvent):void

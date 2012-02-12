@@ -8,7 +8,11 @@
 	import flash.display.BitmapData;	
 	import com.adobe.images.JPGEncoder;		
 	import flash.utils.*;			
+	import event.ThumbChangeEvent;
+
 	public class SelectedPageSeven extends BaseSelectedPage {
+
+		 var yy,mm,dd:int;
 
 		private var _mb:MicroBlog;
 		private var _friendPanel:FriendsPanel;
@@ -31,20 +35,38 @@
 			_friendPanel = new FriendsPanel();
 			_mainPage.childPage.addChild(_friendPanel);
 			_friendPanel.init(_mainPage.friends);
+			_friendPanel.addEventListener(ThumbChangeEvent.Thumb_Change_Event,thumbChange);
 			
 			
 			_mainPage.childPage.btnDistribute.addEventListener(MouseEvent.CLICK, doDistribute);
 			 _mainPage.childPage.txt.wordWrap = true;
 
+			 yy = Math.round(Math.random()*99);
+			 mm = Math.round(Math.random()*12);
+			 dd = Math.round(Math.random()*31);
 
 
 						
+		}
+		
+		private function thumbChange(e:ThumbChangeEvent):void
+		{
+			_friendPanel.checkFriendsSeleced();
+			trace("thumbChange");
+			setText();
+
 		}
 		
 		private function doDistribute(e:MouseEvent):void
 		{
 			_friendPanel.checkFriendsSeleced();
 			_mainPage.selectedFriends = new Array();
+			//setText();
+			ditribute();
+		}
+		
+		private function setText():void
+		{
 			var arry:Array = _friendPanel.selectedFriendsArray;
 			var friendNickName = "";
 			for each(var item:FriendItem in arry)
@@ -53,18 +75,15 @@
 				friendNickName +=("@" + item.friendData.screen_name + " ");
 				
 			}
+
 			 var tmpString:String;
-			 var yy,mm,dd:int;
-			 yy = Math.round(Math.random()*99);
-			 mm = Math.round(Math.random()*12);
-			 dd = Math.round(Math.random()*31);
 			 tmpString = txtContend.replace("FFFF",friendNickName);
 			 tmpString = tmpString.replace("XXXX",_mainPage._profile.screen_name);
 			 tmpString = tmpString.replace("yy",yy.toString());
 			 tmpString = tmpString.replace("mm",mm.toString());
 			 tmpString = tmpString.replace("dd",dd.toString());
 			 _mainPage.childPage.txt.text = tmpString;
-			ditribute();
+			
 		}
 
 		private function ditribute():void

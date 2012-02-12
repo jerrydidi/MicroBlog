@@ -165,6 +165,7 @@
 		public function checkFriendsSeleced():void
 		{
 			
+			//trace("checkFriendsSeleced");
 			selectedFriendsArray = new Array();
 			_friendSelectedNum = 0;
 			for each(var friendItem:FriendItem in friendsArray)
@@ -176,6 +177,7 @@
 				}
 				
 			}
+			//trace("_friendSelectedNum:"+_friendSelectedNum);
 			
 		}
 

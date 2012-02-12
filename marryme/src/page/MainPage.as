@@ -23,6 +23,14 @@
 		//
 		public var txtWish:String;
 		public var resultNumber:int = 0;
+		public var answer:Array = new Array();
+		public var gender:int = -1;
+		
+		public var yy:String = "1987";
+		
+		public var mm:String = "01";
+		
+		public var dd:String = "01";
 		
 		//public var resultNumber:int =6;
 		
@@ -138,6 +146,11 @@
 		private function loginClickHandler(e:MouseEvent):void
 		{
 			page0.btnLogin.removeEventListener(MouseEvent.CLICK,loginClickHandler);
+			//init answer
+			for(var i:int=0;i<5;i++)
+			{
+				this.answer[i] = -1;
+			}
 
 			blogRegiter();
 

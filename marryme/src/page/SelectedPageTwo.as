@@ -23,6 +23,8 @@
 		override public function initComponents():void
 		{	
 			_mainPage.childPage = _mainPage.page2;
+			answer = _mainPage.answer[0];
+			checkAnswer();
 
 
 
@@ -49,11 +51,15 @@
 		private function prevPage(e:MouseEvent):void
 		{
 			_mainPage.changePage(1);
+			_mainPage.answer[0] = answer;
+			
 		}
 		
 		private function nextPage(e:MouseEvent):void
 		{
 			_mainPage.changePage(3);
+			_mainPage.answer[0] = answer;
+			
 		}
 		
 		private function answer1Click(e:MouseEvent):void

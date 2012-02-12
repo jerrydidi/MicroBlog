@@ -26,6 +26,8 @@ package page
 		{	
 			_mainPage.childPage = _mainPage.page6;
 
+			answer = _mainPage.answer[4];
+			checkAnswer();
 
 
 			_mainPage.childPage.answer1.buttonMode = true;
@@ -51,11 +53,15 @@ package page
 		private function prevPage(e:MouseEvent):void
 		{
 			_mainPage.changePage(5);
+			_mainPage.answer[4] = answer;
+			
 		}
 		
 		private function nextPage(e:MouseEvent):void
 		{
 			_mainPage.changePage(7);
+			_mainPage.answer[4] = answer;
+	
 		}
 		
 		private function answer1Click(e:MouseEvent):void
