@@ -158,9 +158,9 @@
 		//blog register
 		private function blogRegiter():void
 		{
-			_mb.consumerKey = "4292556571";
-			_mb.consumerSecret = "070b00ec95bdce16605f4147db3b83a6";
-			_mb.proxyURI = "http://1.cskjb.sinaapp.com/proxy.php";
+			_mb.consumerKey = "3981297727";
+			_mb.consumerSecret = "a26a316eb9a40c7aecf2f16d85857202";
+			_mb.proxyURI = "http://1.merryaman.sinaapp.com/proxy.php";
 			
 			_mb.addEventListener(MicroBlogEvent.LOGIN_RESULT, onLoginResult);
 			_mb.login();
@@ -249,7 +249,7 @@
 			var data:Object = e.result;
 
 			_friends = data.users as Array;
-			trace("_friends.length:"+_friends.length);
+			//trace("_friends.length:"+_friends.length);
 
 			//get friends then goto page 1
 			changePage(1);

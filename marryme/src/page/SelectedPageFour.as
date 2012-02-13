@@ -51,16 +51,23 @@ package page
 		
 		private function prevPage(e:MouseEvent):void
 		{
-			_mainPage.changePage(3);
-			_mainPage.answer[2] = answer;
+			if(answer != -1)
+			{
+				_mainPage.changePage(3);
+				_mainPage.answer[2] = answer;
+			}
 			
 			
 		}
 		
 		private function nextPage(e:MouseEvent):void
 		{
-			_mainPage.changePage(5);
-			_mainPage.answer[2] = answer;
+			if(answer != -1)
+			{
+				_mainPage.changePage(5);
+				
+				_mainPage.answer[2] = answer;
+			}
 			
 			
 		}

@@ -52,15 +52,21 @@ package page
 		
 		private function prevPage(e:MouseEvent):void
 		{
-			_mainPage.changePage(5);
-			_mainPage.answer[4] = answer;
+			if(answer != -1)
+			{
+				_mainPage.changePage(5);
+				_mainPage.answer[4] = answer;
+			}
 			
 		}
 		
 		private function nextPage(e:MouseEvent):void
 		{
-			_mainPage.changePage(7);
-			_mainPage.answer[4] = answer;
+			if(answer != -1)
+			{
+				_mainPage.changePage(7);
+				_mainPage.answer[4] = answer;
+			}
 	
 		}
 		

@@ -50,15 +50,21 @@
 		
 		private function prevPage(e:MouseEvent):void
 		{
-			_mainPage.changePage(1);
-			_mainPage.answer[0] = answer;
+			if(answer != -1)
+			{
+				_mainPage.changePage(1);
+				_mainPage.answer[0] = answer;
+			}
 			
 		}
 		
 		private function nextPage(e:MouseEvent):void
 		{
-			_mainPage.changePage(3);
-			_mainPage.answer[0] = answer;
+			if(answer != -1)
+			{
+				_mainPage.changePage(3);
+				_mainPage.answer[0] = answer;
+			}
 			
 		}
 		

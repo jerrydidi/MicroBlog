@@ -21,7 +21,7 @@
 		//
 		private var answer:int = -1;
 		
-		private var txtContend:String ="通过#嫁人时钟#测试@XXXX 将于 yy年mm月dd日正式出嫁，姐再也不是斗战剩佛了！特此分享给我的好友（FFFF）+程序链接";
+		private var txtContend:String ="通过#嫁人时钟#测试@XXXX 将于 yy年mm月dd日正式出嫁，姐再也不是斗战剩佛了！特此分享给我的好友（FFFF） http://1.merryaman.sinaapp.com";
 				//
 		public function SelectedPageSeven(mainPage:MainPage,pageNo:int) {
 			// constructor code
@@ -41,18 +41,18 @@
 			_mainPage.childPage.btnDistribute.addEventListener(MouseEvent.CLICK, doDistribute);
 			 _mainPage.childPage.txt.wordWrap = true;
 
-			 yy = Math.round(Math.random()*99);
+			 yy = 2011 + Math.round(Math.random()*10);
 			 mm = Math.round(Math.random()*12);
 			 dd = Math.round(Math.random()*31);
 
-
+			setText();
 						
 		}
 		
 		private function thumbChange(e:ThumbChangeEvent):void
 		{
 			_friendPanel.checkFriendsSeleced();
-			trace("thumbChange");
+			//trace("thumbChange");
 			setText();
 
 		}
