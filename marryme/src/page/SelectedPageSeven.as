@@ -41,7 +41,7 @@
 			_mainPage.childPage.btnDistribute.addEventListener(MouseEvent.CLICK, doDistribute);
 			 _mainPage.childPage.txt.wordWrap = true;
 
-			 yy = 2011 + Math.round(Math.random()*10);
+			 yy = 2012 + Math.round(Math.random()*10);
 			 mm = Math.round(Math.random()*12);
 			 dd = Math.round(Math.random()*31);
 

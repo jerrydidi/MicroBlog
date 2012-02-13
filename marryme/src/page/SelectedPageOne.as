@@ -65,11 +65,14 @@
 		
 		private function nextPage(e:MouseEvent):void
 		{
-			_mainPage.changePage(2);
-			_mainPage.yy = _mainPage.childPage.txtYY.text;
-			_mainPage.mm = _mainPage.childPage.txtMM.text;
-			_mainPage.dd = _mainPage.childPage.txtDD.text;
-			_mainPage.gender = this.gender;
+			if(gender != -1)
+			{
+				_mainPage.changePage(2);
+				_mainPage.yy = _mainPage.childPage.txtYY.text;
+				_mainPage.mm = _mainPage.childPage.txtMM.text;
+				_mainPage.dd = _mainPage.childPage.txtDD.text;
+				_mainPage.gender = this.gender;
+			}
 		}
 		
 		private function femaleClick(e:MouseEvent):void

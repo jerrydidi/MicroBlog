@@ -51,11 +51,10 @@ package page
 		
 		private function prevPage(e:MouseEvent):void
 		{
-			if(answer != -1)
-			{
-				_mainPage.changePage(3);
-				_mainPage.answer[2] = answer;
-			}
+
+			_mainPage.changePage(3);
+			_mainPage.answer[2] = answer;
+			
 			
 			
 		}

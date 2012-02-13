@@ -50,11 +50,10 @@
 		
 		private function prevPage(e:MouseEvent):void
 		{
-			if(answer != -1)
-			{
-				_mainPage.changePage(1);
-				_mainPage.answer[0] = answer;
-			}
+
+			_mainPage.changePage(1);
+			_mainPage.answer[0] = answer;
+
 			
 		}
 		

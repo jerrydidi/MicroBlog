@@ -26,11 +26,11 @@
 		public var answer:Array = new Array();
 		public var gender:int = -1;
 		
-		public var yy:String = "1987";
+		public var yy:String = "19--";
 		
-		public var mm:String = "01";
+		public var mm:String = "--";
 		
-		public var dd:String = "01";
+		public var dd:String = "--";
 		
 		//public var resultNumber:int =6;
 		
