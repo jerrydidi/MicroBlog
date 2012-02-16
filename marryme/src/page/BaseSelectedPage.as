@@ -67,6 +67,41 @@
 					}
 					
 					break;
+				case 8:
+					if (_mainPage.page8 == null ||_mainPage.page8 == undefined)
+					{
+						return;
+					}
+					
+					break;
+				case 9:
+					if (_mainPage.page9 == null ||_mainPage.page9 == undefined)
+					{
+						return;
+					}
+					
+					break;
+				case 10:
+					if (_mainPage.page10 == null ||_mainPage.page10 == undefined)
+					{
+						return;
+					}
+					
+					break;
+				case 11:
+					if (_mainPage.page11 == null ||_mainPage.page11 == undefined)
+					{
+						return;
+					}
+					
+					break;
+				case 12:
+					if (_mainPage.page12 == null ||_mainPage.page12 == undefined)
+					{
+						return;
+					}
+					
+					break;
 
 					
 								

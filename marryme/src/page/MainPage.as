@@ -139,6 +139,26 @@
 					this.gotoAndStop(8);
 					_currentPage = new SelectedPageSeven(this,7);
 					break;
+				case 8 :
+					this.gotoAndStop(9);
+					_currentPage = new SelectedPageEight(this,8);
+					break;
+				case 9 :
+					this.gotoAndStop(10);
+					_currentPage = new SelectedPageNine(this,9);
+					break;
+				case 10 :
+					this.gotoAndStop(11);
+					_currentPage = new SelectedPageTen(this,10);
+					break;
+				case 11 :
+					this.gotoAndStop(12);
+					_currentPage = new SelectedPageEleven(this,11);
+					break;
+				case 12 :
+					this.gotoAndStop(13);
+					_currentPage = new SelectedPageTwelve(this,12);
+					break;
 
 			}
 		}
@@ -147,7 +167,7 @@
 		{
 			page0.btnLogin.removeEventListener(MouseEvent.CLICK,loginClickHandler);
 			//init answer
-			for(var i:int=0;i<5;i++)
+			for(var i:int=0;i<10;i++)
 			{
 				this.answer[i] = -1;
 			}

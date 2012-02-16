@@ -4,24 +4,15 @@
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	import com.sina.microblog.MicroBlog;
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;	
-	import com.adobe.images.JPGEncoder;		
-	import flash.utils.*;			
-	import event.ThumbChangeEvent;
+
+	
 
 	public class SelectedPageSeven extends BaseSelectedPage {
 
-		 var yy,mm,dd:int;
-
 		private var _mb:MicroBlog;
-		private var _friendPanel:FriendsPanel;
-				//
-		private var _bmd:BitmapData;		
+		
 		//
 		private var answer:int = -1;
-		
-		private var txtContend:String ="通过#嫁人时钟#测试@XXXX 将于 yy年mm月dd日正式出嫁，姐再也不是斗战剩佛了！特此分享给我的好友（FFFF） http://1.merryaman.sinaapp.com";
 				//
 		public function SelectedPageSeven(mainPage:MainPage,pageNo:int) {
 			// constructor code
@@ -32,82 +23,115 @@
 		override public function initComponents():void
 		{	
 			_mainPage.childPage = _mainPage.page7;
-			_friendPanel = new FriendsPanel();
-			_mainPage.childPage.addChild(_friendPanel);
-			_friendPanel.init(_mainPage.friends);
-			_friendPanel.addEventListener(ThumbChangeEvent.Thumb_Change_Event,thumbChange);
-			
-			
-			_mainPage.childPage.btnDistribute.addEventListener(MouseEvent.CLICK, doDistribute);
-			 _mainPage.childPage.txt.wordWrap = true;
 
-			 yy = 2012 + Math.round(Math.random()*10);
-			 mm = Math.round(Math.random()*12);
-			 dd = Math.round(Math.random()*31);
+			answer = _mainPage.answer[5];
+			checkAnswer();
 
-			setText();
+
+			_mainPage.childPage.answer1.buttonMode = true;
+			_mainPage.childPage.answer1.addEventListener( MouseEvent.CLICK,answer1Click);
+
+			
+			_mainPage.childPage.answer2.buttonMode = true;
+			_mainPage.childPage.answer2.addEventListener( MouseEvent.CLICK,answer2Click);
+
+			_mainPage.childPage.answer3.buttonMode = true;
+			_mainPage.childPage.answer3.addEventListener( MouseEvent.CLICK,answer3Click);
+
+			_mainPage.childPage.answer4.buttonMode = true;
+			_mainPage.childPage.answer4.addEventListener( MouseEvent.CLICK,answer4Click);
+
+			
+			_mainPage.childPage.btnPrevPage.addEventListener( MouseEvent.CLICK,prevPage);
+						
+			_mainPage.childPage.btnNextPage.addEventListener( MouseEvent.CLICK,nextPage);
 						
 		}
 		
-		private function thumbChange(e:ThumbChangeEvent):void
+		private function prevPage(e:MouseEvent):void
 		{
-			_friendPanel.checkFriendsSeleced();
-			//trace("thumbChange");
-			setText();
 
+			_mainPage.changePage(6);
+			_mainPage.answer[5] = answer;
+			
+			
 		}
 		
-		private function doDistribute(e:MouseEvent):void
+		private function nextPage(e:MouseEvent):void
 		{
-			_friendPanel.checkFriendsSeleced();
-			_mainPage.selectedFriends = new Array();
-			//setText();
-			ditribute();
-		}
-		
-		private function setText():void
-		{
-			var arry:Array = _friendPanel.selectedFriendsArray;
-			var friendNickName = "";
-			for each(var item:FriendItem in arry)
+			if(answer != -1)
 			{
-				_mainPage.selectedFriends.push(item.friendData)
-				friendNickName +=("@" + item.friendData.screen_name + " ");
+				_mainPage.changePage(8);
+				_mainPage.answer[5] = answer;
+			}
+	
+		}
+		
+		private function answer1Click(e:MouseEvent):void
+		{
+			
+			answer =1;
+			checkAnswer();
+		}
+
+		
+
+		
+		private function answer2Click(e:MouseEvent):void
+		{
+			answer =2;
+			checkAnswer();
+		}
+
+		
+		private function answer3Click(e:MouseEvent):void
+		{
+			answer =3;
+			checkAnswer();
+		}
+
+		private function answer4Click(e:MouseEvent):void
+		{
+			answer =4;
+			checkAnswer();
+		}
+
+		private function checkAnswer():void
+		{
+			if(answer == 1)
+			{
+				_mainPage.childPage.answer1.gotoAndStop(2);
+				_mainPage.childPage.answer2.gotoAndStop(1);
+				_mainPage.childPage.answer3.gotoAndStop(1);
+				_mainPage.childPage.answer4.gotoAndStop(1);
+			}
+			else  if(answer == 2)
+			{
+				_mainPage.childPage.answer1.gotoAndStop(1);
+				_mainPage.childPage.answer2.gotoAndStop(2);
+				_mainPage.childPage.answer3.gotoAndStop(1);
+				_mainPage.childPage.answer4.gotoAndStop(1);
+
 				
 			}
+			else  if(answer == 3)
+			{
+				_mainPage.childPage.answer1.gotoAndStop(1);
+				_mainPage.childPage.answer2.gotoAndStop(1);
+				_mainPage.childPage.answer3.gotoAndStop(2);
+				_mainPage.childPage.answer4.gotoAndStop(1);
 
-			 var tmpString:String;
-			 tmpString = txtContend.replace("FFFF",friendNickName);
-			 tmpString = tmpString.replace("XXXX",_mainPage._profile.screen_name);
-			 tmpString = tmpString.replace("yy",yy.toString());
-			 tmpString = tmpString.replace("mm",mm.toString());
-			 tmpString = tmpString.replace("dd",dd.toString());
-			 _mainPage.childPage.txt.text = tmpString;
-			
+				
+			}
+			else  if(answer == 4)
+			{
+				_mainPage.childPage.answer1.gotoAndStop(1);
+				_mainPage.childPage.answer2.gotoAndStop(1);
+				_mainPage.childPage.answer3.gotoAndStop(1);
+				_mainPage.childPage.answer4.gotoAndStop(2);
+				
+			}
 		}
-
-		private function ditribute():void
-		{
-			
-			var obj = new Object  ;
-			
-
-			obj.status  = _mainPage.childPage.txt.text;
-
-			var coder:JPGEncoder = new JPGEncoder(80);
-
-			_bmd = new BitmapData(_mainPage.childPage.image.width,_mainPage.childPage.image.height);
-			_bmd.draw(_mainPage.childPage.image);
-			var ary:ByteArray = coder.encode(_bmd);
-
-			obj.pic = ary;
-			_mainPage.mb.updateStatus(obj.status,obj.pic);
-
-			
-
-			
-		}
-
 		
 
 	}

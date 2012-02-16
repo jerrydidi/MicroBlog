@@ -9,14 +9,14 @@ package page
 
 	
 
-	public class SelectedPageEight extends BaseSelectedPage {
+	public class SelectedPageNine extends BaseSelectedPage {
 
 		private var _mb:MicroBlog;
 		
 		//
 		private var answer:int = -1;
 				//
-		public function SelectedPageEight(mainPage:MainPage,pageNo:int) {
+		public function SelectedPageNine(mainPage:MainPage,pageNo:int) {
 			// constructor code
 			super(mainPage,pageNo);
 			_mb = mainPage.mb;
@@ -24,9 +24,9 @@ package page
 		
 		override public function initComponents():void
 		{	
-			_mainPage.childPage = _mainPage.page8;
+			_mainPage.childPage = _mainPage.page9;
 
-			answer = _mainPage.answer[6];
+			answer = _mainPage.answer[7];
 			checkAnswer();
 
 
@@ -53,8 +53,8 @@ package page
 		private function prevPage(e:MouseEvent):void
 		{
 
-			_mainPage.changePage(7);
-			_mainPage.answer[6] = answer;
+			_mainPage.changePage(8);
+			_mainPage.answer[7] = answer;
 			
 			
 		}
@@ -63,8 +63,8 @@ package page
 		{
 			if(answer != -1)
 			{
-				_mainPage.changePage(9);
-				_mainPage.answer[6] = answer;
+				_mainPage.changePage(10);
+				_mainPage.answer[7] = answer;
 			}
 	
 		}
