@@ -138,6 +138,21 @@
 				friendsArray.push(friendItem);
 
 			}
+			if(_friendNum>=3)
+			{
+				(friendsArray[0] as FriendItem).selected = true;
+				(friendsArray[1] as FriendItem).selected = true;
+				(friendsArray[2] as FriendItem).selected = true;
+			}
+			
+			else
+			{
+				for  (var i:int =0;i<_friendNum;i++)
+				{
+					(friendsArray[i] as FriendItem).selected = true;
+				}
+				
+			}
 		}
 		//
 		private function clickController(e:MouseEvent):void

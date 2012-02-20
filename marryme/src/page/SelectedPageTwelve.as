@@ -24,7 +24,7 @@
 		
 		private var _txtNum:String ="还可输入XXXX字";
 		
-		private var txtContend:String ="通过#嫁人时钟#测试@XXXX 将于 yy年mm月dd日正式出嫁，姐再也不是斗战剩佛了！特此分享给我的好友（FFFF）";
+		private var txtContend:String ="通过#嫁人时钟#测试 @XXXX 将于 yy年mm月dd日正式脱光，我再也不是斗战剩佛了！特此分享给我的好友(FFFF)";
 				//
 		public function SelectedPageTwelve(mainPage:MainPage,pageNo:int) {
 			// constructor code
@@ -48,10 +48,14 @@
 			 mm = Math.round(Math.random()*12);
 			 dd = Math.round(Math.random()*31);
 			_mainPage.childPage.txt.addEventListener(Event.CHANGE,txtInputHandler);
+			_friendPanel.checkFriendsSeleced();
 
 			setText();
 			
 			_mainPage.childPage.txt.maxChars = 120;
+			_mainPage.childPage.image.visible = false;
+			
+			
 		}
 		private function txtInputHandler(e:Event):void 
 		{
@@ -110,7 +114,7 @@
 			var obj = new Object  ;
 			
 
-			obj.status  = _mainPage.childPage.txt.text + "http://1.merryaman.sinaapp.com";
+			obj.status  = _mainPage.childPage.txt.text + "  http://1.merryaman.sinaapp.com";
 
 			var coder:JPGEncoder = new JPGEncoder(80);
 
