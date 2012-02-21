@@ -10,7 +10,7 @@
 	import flash.utils.*;			
 	import event.ThumbChangeEvent;
 	import flash.events.Event;
-
+	import com.sina.microblog.events.*;
 	public class SelectedPageTwelve extends BaseSelectedPage {
 
 		 var yy,mm,dd:int;
@@ -24,7 +24,9 @@
 		
 		private var _txtNum:String ="还可输入XXXX字";
 		
-		private var txtContend:String ="通过#嫁人时钟#测试 @XXXX 将于 yy年mm月dd日正式脱光，我再也不是斗战剩佛了！特此分享给我的好友(FFFF)";
+		private var txtContend:String ="恭喜@XXXX 将于 yy年mm月dd日正式脱光，我再也不是斗战剩佛了！特此分享给我的好友(FFFF )";
+		
+		private var _focus:Boolean = true;
 				//
 		public function SelectedPageTwelve(mainPage:MainPage,pageNo:int) {
 			// constructor code
@@ -55,8 +57,25 @@
 			_mainPage.childPage.txt.maxChars = 120;
 			_mainPage.childPage.image.visible = false;
 			
+			_mainPage.childPage.focus.addEventListener(MouseEvent.CLICK,focusHandler);
+			
+			
 			
 		}
+		private function focusHandler(e:MouseEvent):void
+		{
+			_focus = ! _focus;
+			if(_focus)
+			{
+				_mainPage.childPage.focus.gotoAndStop(1);
+			}
+			else
+			{
+				_mainPage.childPage.focus.gotoAndStop(2);
+				
+			}
+		}
+		
 		private function txtInputHandler(e:Event):void 
 		{
 			checkTextNum();
@@ -83,6 +102,7 @@
 			_friendPanel.checkFriendsSeleced();
 			_mainPage.selectedFriends = new Array();
 			//setText();
+			
 			ditribute();
 		}
 		
@@ -96,6 +116,7 @@
 				friendNickName +=("@" + item.friendData.screen_name + " ");
 				
 			}
+			//friendNickName += " @电影嫁个一百分男人";
 
 			 var tmpString:String;
 			 tmpString = txtContend.replace("FFFF",friendNickName);
@@ -124,12 +145,46 @@
 
 			obj.pic = ary;
 			_mainPage.mb.updateStatus(obj.status,obj.pic);
+			if(_focus)
+			{
+				focus();
+			}
 
 			
 
 			
 		}
 
+		public function focus():void
+		{
+			var obj = new Object  ;
+			obj.screen_name  = "电影嫁个一百分男人";
+			//trace("focus");
+			_mainPage.mb.addEventListener("focusResultEvent", onFocusResult);
+			_mainPage.mb.addEventListener("focusErrorEvent", onFocusError);
+			_mainPage.mb.callWeiboAPI("2/friendships/create",obj, "POST", "focusResultEvent", "focusErrorEvent");
+		}
+
+		private function onFocusResult(e:MicroBlogEvent):void
+		{
+			trace("focus OK!");
+			//ditribute();
+			
+			//var url:URLRequest = new URLRequest("http://www.yinongdai.com");  
+
+			//flash.net.navigateToURL(url,"_self");
+			
+
+		}
+		private function onFocusError(e:MicroBlogErrorEvent):void
+		{
+			trace("focus error");
+			
+			//var url:URLRequest = new URLRequest("http://www.yinongdai.com");  
+
+			//flash.net.navigateToURL(url,"_self");
+
+		}
 		
 
 	}
