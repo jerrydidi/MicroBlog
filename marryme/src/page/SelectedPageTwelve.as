@@ -24,7 +24,7 @@
 		
 		private var _txtNum:String ="还可输入XXXX字";
 		
-		private var txtContend:String ="恭喜@XXXX 将于 yy年mm月dd日正式脱光，我再也不是斗战剩佛了！特此分享给我的好友(FFFF )";
+		private var txtContend:String ="通过#嫁人时钟#测试，恭喜@XXXX 将于 yy年mm月dd日正式脱光，我再也不是斗战剩佛了！特此分享给我的好友(FFFF )";
 		
 		private var _focus:Boolean = true;
 				//
